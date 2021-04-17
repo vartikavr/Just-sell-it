@@ -76,6 +76,7 @@
     text-align: center;
     background-color: rgba(255,0,0,0.5);
 }
+/*carousel size check and update*/
 .carousel-inner{
     height: 60vh;
     width: 100vw;
