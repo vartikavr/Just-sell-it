@@ -10,6 +10,7 @@ const NewBook = () => {
     const [edition, setEdition] = useState('');
     const [description, setDescription] = useState('');
     const [productId, setProductId] = useState('');
+    const [imgNum, setImgNum] = useState('');
     //const [file, setFile] = useState('');
     const [image, setImage] = useState('');
     // const fileObj = [];
@@ -126,6 +127,13 @@ const NewBook = () => {
     //     // console.log(file);
     // }
 
+    // const insertImg = imgNum =>{
+    //     for(let i=0;i<imgNum;i++)
+    //     {
+
+    //     }
+    // }
+
     return (
         <div className="newBook">
             <div className="row mt-3">
@@ -181,6 +189,18 @@ const NewBook = () => {
                                 <img src={url} alt="..." />
                             ))}
                         </div> */}
+                        {/* <div className="mb-3">
+                            <label className="form-label"><b>Enter no of images:</b></label>
+                            <input className="form-control" type="text" id="imgNum" name="imgNum" required
+                                value={imgNum}
+                                onChange={(event) => setImgNum(event.target.value)}
+                            />
+                        </div>
+                        {imgNum &&
+                            <ul>
+                                {
+                                    [...Array(imgNum)].map((e, i) => {
+                                        <li key={i}> */}
                         <div className="mb-3">
                             <label className="form-label"><b>Image Url:</b></label>
                             <input className="form-control" type="text" id="image" name="image" required
@@ -188,6 +208,11 @@ const NewBook = () => {
                                 onChange={(event) => setImage(event.target.value)}
                             />
                         </div>
+                        {/* </li>
+                                    })
+                                }
+                            </ul>
+                        } */}
                         <div className="mb-3">
                             <label className="form-label" ><b>Description:</b></label>
                             <textarea className="form-control" type="text" id="description" name="description" required

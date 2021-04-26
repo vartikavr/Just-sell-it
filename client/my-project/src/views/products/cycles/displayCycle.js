@@ -81,7 +81,7 @@ const DisplayCycle = () => {
                         </ul>
                         {sessionStorage.getItem('currentUser') && cycle.userId._id == sessionStorage.getItem('currentUser') && (
                             <div class="card-body">
-                                <a className="card-link btn btn-info" href="/">Edit</a>
+                                <a className="card-link btn btn-info" href={`/categories/cycles/${cycle._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
                                     <button className="btn btn-danger">Delete</button>

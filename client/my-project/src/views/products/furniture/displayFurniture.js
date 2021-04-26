@@ -1,37 +1,33 @@
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-const DisplayBook = () => {
 
-    //     const [book, setBook] = useState('');
-    console.log("book specific page...");
-    //const book = props.book; 
-    //const book = global.selectedProduct;
-    //console.log("book- ", book);
+
+const DisplayFurniture = () => {
+
+    console.log("furniture specific page...");
     const [isPending, setPending] = useState(true);
-    //eventBus.remove("sendSelectedProduct");
-    //window.location.href = `http://localhost:3000/categories/books/${book._id}`;
 
     const { id: productId } = useParams();
-    const [book, setBook] = useState('');
+    const [furniture, setFurniture] = useState('');
 
     useEffect(() => {
-        getBook();
+        getFurniture();
     }, []);
 
-    const getBook = () => {
+    const getFurniture = () => {
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/books/${productId}`, {
+        axios.get(`http://localhost:5000/categories/furniture/${productId}`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {
-                console.log("book data: ", res.data.book);
-                setBook(res.data.book);
-                console.log(book, 'successful seed of our book!');
+                console.log("furniture data: ", res.data.furniture);
+                setFurniture(res.data.furniture);
+                console.log(furniture, 'successful seed of our furniture!');
                 setPending(false);
             })
             .catch((e) => {
@@ -39,19 +35,21 @@ const DisplayBook = () => {
             })
     }
 
-    const imageUrls = book.images;
+    const imageUrls = furniture.images;
 
     const handleBack = () => {
         history.go(-1);
     }
     const history = useHistory();
+
+
     return (
-        <div className="displayBook">
-            {isPending && <div>Seeding book ...</div>}
+        <div className="displayFurniture">
+            {isPending && <div>Seeding cycle ...</div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info" onClick={handleBack}>
-                        Back to all Books
+                        Back to all Furniture
                 </button>
                     <div id="booksCarousel" className="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -74,19 +72,17 @@ const DisplayBook = () => {
                     </div>
                     <div className="card mb-3">
                         <div className="card-body">
-                            <h5 className="card-title">{book.title}</h5>
-                            <p className="card-text">{book.description}</p>
+                            <h5 className="card-title">{furniture.title}</h5>
+                            <p className="card-text">{furniture.description}</p>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item text-muted">Edition: {book.edition}</li>
-                            <li className="list-group-item">Author: {book.author}</li>
-                            <li className="list-group-item">Submitted by: {book.userId.username}</li>
-                            <li className="list-group-item">Price: ₹{book.price}</li>
-                            <li className="list-group-item">Pages: {book.pages}</li>
+                            <li className="list-group-item">Submitted by: {furniture.userId.username}</li>
+                            <li className="list-group-item">Price: ₹{furniture.price}</li>
+                            <li className="list-group-item text-muted">Age: {furniture.age}</li>
                         </ul>
-                        {sessionStorage.getItem('currentUser') && book.userId._id == sessionStorage.getItem('currentUser') && (
+                        {sessionStorage.getItem('currentUser') && furniture.userId._id == sessionStorage.getItem('currentUser') && (
                             <div class="card-body">
-                                <a className="card-link btn btn-info" href="/">Edit</a>
+                                <a className="card-link btn btn-info" href={`/categories/furniture/${furniture._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
                                     <button className="btn btn-danger">Delete</button>
@@ -100,4 +96,4 @@ const DisplayBook = () => {
     );
 }
 
-export default DisplayBook;
+export default DisplayFurniture;

@@ -260,6 +260,32 @@ app.post('/categories/books/new', async (req, res) => {
     }
 })
 
+
+app.post('/categories/books/:id/edit', async (req, res) => {
+    console.log("Editing book ...", req.params);
+    const bookId = req.params.id;
+    const updateBook = await Book.findByIdAndUpdate(bookId,
+        {
+            title: req.body.title,
+            author: req.body.author,
+            pages: req.body.pages,
+            edition: req.body.edition,
+            price: req.body.price,
+            description: req.body.description
+        });
+    updateBook.images[0].url = req.body.image;
+    //const imgs = req.files.map(f => ({ url: f.path}))
+    //campground.images.push(...imgs);
+    await updateBook.save();
+    res.redirect(`/categories/books/${updateBook._id}`);
+    // if (req.body.deleteImages) {
+    //     for (let filename of req.body.deleteImages) {
+    //         await cloudinary.uploader.destroy(filename);
+    //     }
+    //     await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
+    // }
+})
+
 app.get('/categories/cycles', async (req, res) => {
     console.log("in cycles ...");
     const cycles = await Cycle.find({});
@@ -292,6 +318,22 @@ app.post('/categories/cycles/new', async (req, res) => {
     }
 })
 
+app.post('/categories/cycles/:id/edit', async (req, res) => {
+    console.log("Editing cycle ...", req.params);
+    const cycleId = req.params.id;
+    const updateCycle = await Cycle.findByIdAndUpdate(cycleId,
+        {
+            title: req.body.title,
+            color: req.body.color,
+            age: req.body.age,
+            modelNo: req.body.modelNo,
+            price: req.body.price,
+            description: req.body.description
+        });
+    updateCycle.images[0].url = req.body.image;
+    await updateCycle.save();
+    res.redirect(`/categories/cycles/${updateCycle._id}`);
+})
 
 app.get('/categories/furniture', async (req, res) => {
     console.log("in furniture ...");
@@ -323,6 +365,21 @@ app.post('/categories/furniture/new', async (req, res) => {
     catch (e) {
         console.log("error", e);
     }
+})
+
+app.post('/categories/furniture/:id/edit', async (req, res) => {
+    console.log("Editing furniture ...", req.params);
+    const fId = req.params.id;
+    const updateFurniture = await Furniture.findByIdAndUpdate(fId,
+        {
+            title: req.body.title,
+            age: req.body.age,
+            price: req.body.price,
+            description: req.body.description
+        });
+    updateFurniture.images[0].url = req.body.image;
+    await updateFurniture.save();
+    res.redirect(`/categories/furniture/${updateFurniture._id}`);
 })
 
 app.get('/categories/handicrafts', async (req, res) => {
@@ -357,6 +414,21 @@ app.post('/categories/handicrafts/new', async (req, res) => {
     }
 })
 
+app.post('/categories/handicrafts/:id/edit', async (req, res) => {
+    console.log("Editing handicraft ...", req.params);
+    const handicraftId = req.params.id;
+    const updateHandicraft = await Handicraft.findByIdAndUpdate(handicraftId,
+        {
+            title: req.body.title,
+            color: req.body.color,
+            price: req.body.price,
+            description: req.body.description
+        });
+    updateHandicraft.images[0].url = req.body.image;
+    await updateHandicraft.save();
+    res.redirect(`/categories/handicrafts/${updateHandicraft._id}`);
+})
+
 app.get('/categories/others', async (req, res) => {
     console.log("in others ...");
     const others = await Others.find({});
@@ -389,6 +461,20 @@ app.post('/categories/others/new', async (req, res) => {
     }
 })
 
+app.post('/categories/others/:id/edit', async (req, res) => {
+    console.log("Editing item of others Category ...", req.params);
+    const itemId = req.params.id;
+    const updateItem = await Others.findByIdAndUpdate(itemId,
+        {
+            title: req.body.title,
+            price: req.body.price,
+            description: req.body.description
+        });
+    updateItem.images[0].url = req.body.image;
+    await updateItem.save();
+    res.redirect(`/categories/others/${updateItem._id}`);
+})
+
 
 // const removeTmp = (path) => {
 //     console.log("removeTmp ...");
@@ -414,10 +500,6 @@ app.post('/categories/others/new', async (req, res) => {
 //         return res.status(500).json({ msg: err.message })
 //     }
 // })
-
-
-
-
 
 
 app.get('/logout', (req, res) => {

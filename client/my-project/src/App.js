@@ -4,25 +4,30 @@ import Login from './views/users/login';
 import Navbar from './navbar';
 import Register from './views/users/register';
 import Category from './category';
-import Books from './views/products/books';
-import Cycles from './views/products/cycles';
-import Furniture from './views/products/furniture';
-import Handicrafts from './views/products/handicrafts';
-import Others from './views/products/others';
+import Books from './views/products/books/books';
+import Cycles from './views/products/cycles/cycles';
+import Furniture from './views/products/furniture/furniture';
+import Handicrafts from './views/products/handicrafts/handicrafts';
+import Others from './views/products/others/others';
 import Logout from './views/users/logout';
 import ForgotPwd from './views/users/forgotPwd';
 import SecurityPwd from './views/users/securityPwd';
 import ResetPwd from './views/users/resetPwd';
-import BookDisplay from './views/products/displayBook';
-import CycleDisplay from './views/products/displayCycle';
-import FurnitureDisplay from './views/products/displayFurniture';
-import HandicraftDisplay from './views/products/displayHandicraft';
-import OtherDisplay from './views/products/displayOther';
-import NewBook from './views/products/newBook';
-import NewCycle from './views/products/newCycle';
-import NewFurniture from './views/products/newFurniture';
-import NewHandicraft from './views/products/newHandicraft';
-import NewOther from './views/products/newOther';
+import BookDisplay from './views/products/books/displayBook';
+import CycleDisplay from './views/products/cycles/displayCycle';
+import FurnitureDisplay from './views/products/furniture/displayFurniture';
+import HandicraftDisplay from './views/products/handicrafts/displayHandicraft';
+import OtherDisplay from './views/products/others/displayOther';
+import NewBook from './views/products/books/newBook';
+import NewCycle from './views/products/cycles/newCycle';
+import NewFurniture from './views/products/furniture/newFurniture';
+import NewHandicraft from './views/products/handicrafts/newHandicraft';
+import NewOther from './views/products/others/newOther';
+import EditBook from './views/products/books/editBook';
+import EditCycle from './views/products/cycles/editCycle';
+import EditFurniture from './views/products/furniture/editFurniture';
+import EditHandicraft from './views/products/handicrafts/editHandicraft';
+import EditOther from './views/products/others/editOther';
 
 function App() {
   return (
@@ -70,6 +75,10 @@ function App() {
           <Navbar />
           <BookDisplay />
         </Route>
+        <Route exact path="/categories/books/:id/edit">
+          <Navbar />
+          <EditBook />
+        </Route>
         <Route exact path="/categories/cycles/new">
           <Navbar />
           <NewCycle />
@@ -81,6 +90,10 @@ function App() {
         <Route exact path="/categories/cycles/:id">
           <Navbar />
           <CycleDisplay />
+        </Route>
+        <Route exact path="/categories/cycles/:id/edit">
+          <Navbar />
+          <EditCycle />
         </Route>
         <Route exact path="/categories/furniture/new">
           <Navbar />
@@ -94,6 +107,10 @@ function App() {
           <Navbar />
           <FurnitureDisplay />
         </Route>
+        <Route exact path="/categories/furniture/:id/edit">
+          <Navbar />
+          <EditFurniture />
+        </Route>
         <Route exact path="/categories/handicrafts/new">
           <Navbar />
           <NewHandicraft />
@@ -106,6 +123,10 @@ function App() {
           <Navbar />
           <HandicraftDisplay />
         </Route>
+        <Route exact path="/categories/handicrafts/:id/edit">
+          <Navbar />
+          <EditHandicraft />
+        </Route>
         <Route exact path="/categories/others/new">
           <Navbar />
           <NewOther />
@@ -117,6 +138,10 @@ function App() {
         <Route exact path="/categories/others/:id">
           <Navbar />
           <OtherDisplay />
+        </Route>
+        <Route exact path="/categories/others/:id/edit">
+          <Navbar />
+          <EditOther />
         </Route>
       </Switch>
     </Router>

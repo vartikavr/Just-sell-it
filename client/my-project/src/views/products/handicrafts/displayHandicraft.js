@@ -3,31 +3,31 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-const DisplayFurniture = () => {
+const DisplayHandicraft = () => {
 
-    console.log("furniture specific page...");
+    console.log("handicraft specific page...");
     const [isPending, setPending] = useState(true);
 
     const { id: productId } = useParams();
-    const [furniture, setFurniture] = useState('');
+    const [handicraft, setHandicraft] = useState('');
 
     useEffect(() => {
-        getFurniture();
+        getHandicraft();
     }, []);
 
-    const getFurniture = () => {
+    const getHandicraft = () => {
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/furniture/${productId}`, {
+        axios.get(`http://localhost:5000/categories/handicrafts/${productId}`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {
-                console.log("furniture data: ", res.data.furniture);
-                setFurniture(res.data.furniture);
-                console.log(furniture, 'successful seed of our furniture!');
+                console.log("handicraft data: ", res.data.handicraft);
+                setHandicraft(res.data.handicraft);
+                console.log(handicraft, 'successful seed of our handicraft!');
                 setPending(false);
             })
             .catch((e) => {
@@ -35,7 +35,7 @@ const DisplayFurniture = () => {
             })
     }
 
-    const imageUrls = furniture.images;
+    const imageUrls = handicraft.images;
 
     const handleBack = () => {
         history.go(-1);
@@ -44,12 +44,12 @@ const DisplayFurniture = () => {
 
 
     return (
-        <div className="displayFurniture">
+        <div className="displayHandicraft">
             {isPending && <div>Seeding cycle ...</div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info" onClick={handleBack}>
-                        Back to all Furniture
+                        Back to all Handicrafts
                 </button>
                     <div id="booksCarousel" className="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -72,17 +72,16 @@ const DisplayFurniture = () => {
                     </div>
                     <div className="card mb-3">
                         <div className="card-body">
-                            <h5 className="card-title">{furniture.title}</h5>
-                            <p className="card-text">{furniture.description}</p>
+                            <h5 className="card-title">{handicraft.title}</h5>
+                            <p className="card-text">{handicraft.description}</p>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Submitted by: {furniture.userId.username}</li>
-                            <li className="list-group-item">Price: ₹{furniture.price}</li>
-                            <li className="list-group-item text-muted">Age: {furniture.age}</li>
+                            <li className="list-group-item">Submitted by: {handicraft.userId.username}</li>
+                            <li className="list-group-item">Price: ₹{handicraft.price}</li>
                         </ul>
-                        {sessionStorage.getItem('currentUser') && furniture.userId._id == sessionStorage.getItem('currentUser') && (
+                        {sessionStorage.getItem('currentUser') && handicraft.userId._id == sessionStorage.getItem('currentUser') && (
                             <div class="card-body">
-                                <a className="card-link btn btn-info" href="/">Edit</a>
+                                <a className="card-link btn btn-info" href={`/categories/handicrafts/${handicraft._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
                                     <button className="btn btn-danger">Delete</button>
@@ -96,4 +95,4 @@ const DisplayFurniture = () => {
     );
 }
 
-export default DisplayFurniture;
+export default DisplayHandicraft;

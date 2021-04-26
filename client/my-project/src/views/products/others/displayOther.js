@@ -3,31 +3,31 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-const DisplayHandicraft = () => {
+const DisplayOther = () => {
 
-    console.log("handicraft specific page...");
+    console.log("others specific page...");
     const [isPending, setPending] = useState(true);
 
     const { id: productId } = useParams();
-    const [handicraft, setHandicraft] = useState('');
+    const [otherProduct, setOtherProduct] = useState('');
 
     useEffect(() => {
-        getHandicraft();
+        getProduct();
     }, []);
 
-    const getHandicraft = () => {
+    const getProduct = () => {
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/handicrafts/${productId}`, {
+        axios.get(`http://localhost:5000/categories/others/${productId}`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {
-                console.log("handicraft data: ", res.data.handicraft);
-                setHandicraft(res.data.handicraft);
-                console.log(handicraft, 'successful seed of our handicraft!');
+                console.log("other product data: ", res.data.other);
+                setOtherProduct(res.data.other);
+                console.log(otherProduct, 'successful seed of our other product!');
                 setPending(false);
             })
             .catch((e) => {
@@ -35,7 +35,7 @@ const DisplayHandicraft = () => {
             })
     }
 
-    const imageUrls = handicraft.images;
+    const imageUrls = otherProduct.images;
 
     const handleBack = () => {
         history.go(-1);
@@ -43,13 +43,14 @@ const DisplayHandicraft = () => {
     const history = useHistory();
 
 
+
     return (
-        <div className="displayHandicraft">
+        <div className="displayOther">
             {isPending && <div>Seeding cycle ...</div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info" onClick={handleBack}>
-                        Back to all Handicrafts
+                        Back to all Others category products
                 </button>
                     <div id="booksCarousel" className="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -72,16 +73,16 @@ const DisplayHandicraft = () => {
                     </div>
                     <div className="card mb-3">
                         <div className="card-body">
-                            <h5 className="card-title">{handicraft.title}</h5>
-                            <p className="card-text">{handicraft.description}</p>
+                            <h5 className="card-title">{otherProduct.title}</h5>
+                            <p className="card-text">{otherProduct.description}</p>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Submitted by: {handicraft.userId.username}</li>
-                            <li className="list-group-item">Price: ₹{handicraft.price}</li>
+                            <li className="list-group-item">Submitted by: {otherProduct.userId.username}</li>
+                            <li className="list-group-item">Price: ₹{otherProduct.price}</li>
                         </ul>
-                        {sessionStorage.getItem('currentUser') && handicraft.userId._id == sessionStorage.getItem('currentUser') && (
+                        {sessionStorage.getItem('currentUser') && otherProduct.userId._id == sessionStorage.getItem('currentUser') && (
                             <div class="card-body">
-                                <a className="card-link btn btn-info" href="/">Edit</a>
+                                <a className="card-link btn btn-info" href={`/categories/others/${otherProduct._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
                                     <button className="btn btn-danger">Delete</button>
@@ -95,4 +96,4 @@ const DisplayHandicraft = () => {
     );
 }
 
-export default DisplayHandicraft;
+export default DisplayOther;

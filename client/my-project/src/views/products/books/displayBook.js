@@ -1,33 +1,37 @@
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+const DisplayBook = () => {
 
-
-const DisplayOther = () => {
-
-    console.log("others specific page...");
+    //     const [book, setBook] = useState('');
+    console.log("book specific page...");
+    //const book = props.book; 
+    //const book = global.selectedProduct;
+    //console.log("book- ", book);
     const [isPending, setPending] = useState(true);
+    //eventBus.remove("sendSelectedProduct");
+    //window.location.href = `http://localhost:3000/categories/books/${book._id}`;
 
     const { id: productId } = useParams();
-    const [otherProduct, setOtherProduct] = useState('');
+    const [book, setBook] = useState('');
 
     useEffect(() => {
-        getProduct();
+        getBook();
     }, []);
 
-    const getProduct = () => {
+    const getBook = () => {
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/others/${productId}`, {
+        axios.get(`http://localhost:5000/categories/books/${productId}`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {
-                console.log("other product data: ", res.data.other);
-                setOtherProduct(res.data.other);
-                console.log(otherProduct, 'successful seed of our other product!');
+                console.log("book data: ", res.data.book);
+                setBook(res.data.book);
+                console.log(book, 'successful seed of our book!');
                 setPending(false);
             })
             .catch((e) => {
@@ -35,22 +39,19 @@ const DisplayOther = () => {
             })
     }
 
-    const imageUrls = otherProduct.images;
+    const imageUrls = book.images;
 
     const handleBack = () => {
         history.go(-1);
     }
     const history = useHistory();
-
-
-
     return (
-        <div className="displayOther">
-            {isPending && <div>Seeding cycle ...</div>}
+        <div className="displayBook">
+            {isPending && <div>Seeding book ...</div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info" onClick={handleBack}>
-                        Back to all Others category products
+                        Back to all Books
                 </button>
                     <div id="booksCarousel" className="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -73,16 +74,19 @@ const DisplayOther = () => {
                     </div>
                     <div className="card mb-3">
                         <div className="card-body">
-                            <h5 className="card-title">{otherProduct.title}</h5>
-                            <p className="card-text">{otherProduct.description}</p>
+                            <h5 className="card-title">{book.title}</h5>
+                            <p className="card-text">{book.description}</p>
                         </div>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Submitted by: {otherProduct.userId.username}</li>
-                            <li className="list-group-item">Price: ₹{otherProduct.price}</li>
+                            <li className="list-group-item text-muted">Edition: {book.edition}</li>
+                            <li className="list-group-item">Author: {book.author}</li>
+                            <li className="list-group-item">Submitted by: {book.userId.username}</li>
+                            <li className="list-group-item">Price: ₹{book.price}</li>
+                            <li className="list-group-item">Pages: {book.pages}</li>
                         </ul>
-                        {sessionStorage.getItem('currentUser') && otherProduct.userId._id == sessionStorage.getItem('currentUser') && (
+                        {sessionStorage.getItem('currentUser') && book.userId._id == sessionStorage.getItem('currentUser') && (
                             <div class="card-body">
-                                <a className="card-link btn btn-info" href="/">Edit</a>
+                                <a className="card-link btn btn-info" href={`/categories/books/${book._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
                                     <button className="btn btn-danger">Delete</button>
@@ -96,4 +100,4 @@ const DisplayOther = () => {
     );
 }
 
-export default DisplayOther;
+export default DisplayBook;
