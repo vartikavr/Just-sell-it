@@ -196,7 +196,7 @@ app.post('/register', async (req, res) => {
         return res.status(200).send({ sucess: "registered!", currentUser });
     }
     catch (e) {
-        console.log("error", e);
+        return res.status(403).send({ error: "Invalid entry!" });
     }
 })
 
@@ -286,6 +286,19 @@ app.post('/categories/books/:id/edit', async (req, res) => {
     // }
 })
 
+app.post('/categories/books/:id/delete', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Book.findByIdAndDelete(id);
+        console.log('Successfully deleted the book!');
+        //res.redirect('/categories/books');
+        return res.status(200).send({ sucess: "deleted book!" });
+    }
+    catch (e) {
+        return res.status(403).send({ error: "unsuccessful deletion" });
+    }
+})
+
 app.get('/categories/cycles', async (req, res) => {
     console.log("in cycles ...");
     const cycles = await Cycle.find({});
@@ -335,6 +348,18 @@ app.post('/categories/cycles/:id/edit', async (req, res) => {
     res.redirect(`/categories/cycles/${updateCycle._id}`);
 })
 
+app.post('/categories/cycles/:id/delete', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Cycle.findByIdAndDelete(id);
+        console.log('Successfully deleted the cycle!');
+        return res.status(200).send({ sucess: "deleted cycle!" });
+    }
+    catch (e) {
+        return res.status(403).send({ error: "unsuccessful deletion" });
+    }
+})
+
 app.get('/categories/furniture', async (req, res) => {
     console.log("in furniture ...");
     const furniture = await Furniture.find({});
@@ -380,6 +405,18 @@ app.post('/categories/furniture/:id/edit', async (req, res) => {
     updateFurniture.images[0].url = req.body.image;
     await updateFurniture.save();
     res.redirect(`/categories/furniture/${updateFurniture._id}`);
+})
+
+app.post('/categories/furniture/:id/delete', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Furniture.findByIdAndDelete(id);
+        console.log('Successfully deleted the furniture!');
+        return res.status(200).send({ sucess: "deleted furniture!" });
+    }
+    catch (e) {
+        return res.status(403).send({ error: "unsuccessful deletion" });
+    }
 })
 
 app.get('/categories/handicrafts', async (req, res) => {
@@ -429,6 +466,18 @@ app.post('/categories/handicrafts/:id/edit', async (req, res) => {
     res.redirect(`/categories/handicrafts/${updateHandicraft._id}`);
 })
 
+app.post('/categories/handicrafts/:id/delete', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Handicraft.findByIdAndDelete(id);
+        console.log('Successfully deleted the handicraft!');
+        return res.status(200).send({ sucess: "deleted handicraft!" });
+    }
+    catch (e) {
+        return res.status(403).send({ error: "unsuccessful deletion" });
+    }
+})
+
 app.get('/categories/others', async (req, res) => {
     console.log("in others ...");
     const others = await Others.find({});
@@ -475,6 +524,17 @@ app.post('/categories/others/:id/edit', async (req, res) => {
     res.redirect(`/categories/others/${updateItem._id}`);
 })
 
+app.post('/categories/others/:id/delete', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Others.findByIdAndDelete(id);
+        console.log('Successfully deleted the item!');
+        return res.status(200).send({ sucess: "deleted item!" });
+    }
+    catch (e) {
+        return res.status(403).send({ error: "unsuccessful deletion" });
+    }
+})
 
 // const removeTmp = (path) => {
 //     console.log("removeTmp ...");
