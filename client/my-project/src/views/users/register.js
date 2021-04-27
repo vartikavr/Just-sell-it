@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import FlashMessage from 'react-flash-message';
 import axios from 'axios';
 const Register = () => {
 
@@ -13,6 +14,8 @@ const Register = () => {
     const [address, setAddress] = useState('');
     const [securityQ, setSecurityQ] = useState('');
     const [securityA, setSecurityA] = useState('');
+    const [isError, setError] = useState(false);
+    //const [errorMsg, setErrorMsg] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,15 +40,17 @@ const Register = () => {
         }, axiosConfig)
             .then((res) => {
                 //history.go(-1);
-                console.log(res.data.token);
-                sessionStorage.setItem('currentUser', res.data.token);
+                setError(false);
+                console.log(res.data.curretUser);
+                sessionStorage.setItem('currentUser', res.data.currentUser);
                 console.log(sessionStorage.getItem('currentUser'), "registration done");
                 history.push('/categories');
                 //console.log(name, username, email);
                 setIsPending(false);
             })
             .catch((res, e) => {
-                history.push('/register')
+                setError(true);
+                //setErrorMsg(e)
                 console.log("error in client", e)
             })
     }
@@ -146,6 +151,15 @@ const Register = () => {
                                 onChange={(event) => setSecurityA(event.target.value)}
                             ></textarea>
                         </div>
+                        {isError && (
+                            <div className="flash">
+                                <FlashMessage duration={5000}>
+                                    <p>
+                                        Invalid entry. Please try again!
+                                </p>
+                                </FlashMessage>
+                            </div>
+                        )}
                         {!isPending &&
                             <div className="d-grid gap-2 col-6 mx-auto mb-5">
                                 <button className="btn btn-success">Register user</button>

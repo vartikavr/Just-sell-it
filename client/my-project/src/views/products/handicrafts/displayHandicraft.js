@@ -35,6 +35,24 @@ const DisplayHandicraft = () => {
             })
     }
 
+    const handleDelete = () => {
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/categories/handicrafts/${productId}/delete`, {
+
+        }, axiosConfig)
+            .then((res) => {
+                console.log('successfully deleted handicraft!');
+                history.go(-1);
+            })
+            .catch((e) => {
+                console.log("error in client", e)
+            })
+    }
+
     const imageUrls = handicraft.images;
 
     const handleBack = () => {
@@ -84,7 +102,7 @@ const DisplayHandicraft = () => {
                                 <a className="card-link btn btn-info" href={`/categories/handicrafts/${handicraft._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
                                 </form>
                             </div>
                         )}

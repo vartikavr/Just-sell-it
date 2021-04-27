@@ -34,6 +34,24 @@ const DisplayCycle = () => {
             })
     }
 
+    const handleDelete = () => {
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/categories/cycles/${productId}/delete`, {
+
+        }, axiosConfig)
+            .then((res) => {
+                console.log('successfully deleted cycle!');
+                history.go(-1);
+            })
+            .catch((e) => {
+                console.log("error in client", e)
+            })
+    }
+
     const imageUrls = cycle.images;
 
     const handleBack = () => {
@@ -84,7 +102,7 @@ const DisplayCycle = () => {
                                 <a className="card-link btn btn-info" href={`/categories/cycles/${cycle._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
                                 </form>
                             </div>
                         )}

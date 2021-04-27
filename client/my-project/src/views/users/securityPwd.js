@@ -49,7 +49,7 @@ const SecurityPwd = () => {
                                 alt="" class="card-img-top" />
                             <div className="card-body">
                                 <h5 className="card-title">
-                                    Anser Security Question
+                                    Answer Security Question
                                 </h5>
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-3">

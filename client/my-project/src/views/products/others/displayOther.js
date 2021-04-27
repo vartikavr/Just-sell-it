@@ -35,6 +35,24 @@ const DisplayOther = () => {
             })
     }
 
+    const handleDelete = () => {
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/categories/others/${productId}/delete`, {
+
+        }, axiosConfig)
+            .then((res) => {
+                console.log('successfully deleted item!');
+                history.go(-1);
+            })
+            .catch((e) => {
+                console.log("error in client", e)
+            })
+    }
+
     const imageUrls = otherProduct.images;
 
     const handleBack = () => {
@@ -85,7 +103,7 @@ const DisplayOther = () => {
                                 <a className="card-link btn btn-info" href={`/categories/others/${otherProduct._id}/edit`}>Edit</a>
                                 &nbsp;
                             <form className="d-inline" action="/">
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
                                 </form>
                             </div>
                         )}
