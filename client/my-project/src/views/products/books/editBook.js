@@ -159,7 +159,7 @@ const EditBook = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label"><b>Image Url:</b></label>
+                                <label className="form-label"><b>Change image:</b></label>
                                 <input className="form-control" type="text" id="image" name="image" required
                                     defaultValue={book.images[0].url}
                                     onChange={(event) => setImage(event.target.value)}

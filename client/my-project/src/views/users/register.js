@@ -146,10 +146,10 @@ const Register = () => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label" ><b>Security Answer:</b></label>
-                            <textarea className="form-control" type="text" id="securityA" name="securityA" required
+                            <input className="form-control" type="password" id="securityA" name="securityA" required
                                 value={securityA}
                                 onChange={(event) => setSecurityA(event.target.value)}
-                            ></textarea>
+                            />
                         </div>
                         {isError && (
                             <div className="flash">

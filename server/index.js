@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
-
+require('dotenv').config();
 
 const express = require('express');
 const app = express();
@@ -231,7 +231,6 @@ app.post('/categories/books/new', async (req, res) => {
     console.log("adding new book ...");
     console.log(req.body);
     //console.log(req.file);
-    //const images = req.file;
     const userId = currentUser;
     // images.mv(`${__dirname}/client/public/uploads/${images.name}`, err => {
     //     if (err) {
@@ -536,30 +535,32 @@ app.post('/categories/others/:id/delete', async (req, res) => {
     }
 })
 
-// const removeTmp = (path) => {
-//     console.log("removeTmp ...");
-//     fs.unlink(path, err => {
-//         if (err) throw err;
-//     })
-// }
+const removeTmp = (path) => {
+    console.log("removeTmp ...");
+    fs.unlink(path, err => {
+        if (err) throw err;
+    })
+}
 
-// app.post('/upload', async (req, res) => {
-//     try {
-//         //if (!req.files || Object.keys(req.files).length === 0)
-//         //return res.status(400).json({ msg: 'No files were uploaded.' })
-//         console.log("in upload....", req.file, "....", req.files);
-//         const file = req.files.file;
-//         console.log("forward...")
-//         await cloudinary.v2.uploader.upload(file.tempFilePath, { folder: "JustSellIt" }, async (err, result) => {
-//             removeTmp(file.tempFilePath);
-//             console.log(result)
-//             res.status(200).send({ public_id: result.public_id, url: result.secure_url });
-//         })
-//     }
-//     catch (err) {
-//         return res.status(500).json({ msg: err.message })
-//     }
-// })
+app.post('/upload', async (req, res) => {
+    try {
+        //if (!req.files || Object.keys(req.files).length === 0)
+        //return res.status(400).json({ msg: 'No files were uploaded.' })
+        console.log(req);
+        console.log("in upload....", req.files);
+        const file = req.files.files;
+        console.log("forward...")
+        await cloudinary.uploader.upload(file.tempFilePath, { folder: "JustSellIt" }, async (err, result) => {
+            console.log("in cloudinary")
+            removeTmp(file.tempFilePath);
+            console.log(result)
+            res.status(200).send({ public_id: result.public_id, url: result.secure_url });
+        })
+    }
+    catch (err) {
+        return res.status(500).json({ msg: err.message })
+    }
+})
 
 
 app.get('/logout', (req, res) => {
