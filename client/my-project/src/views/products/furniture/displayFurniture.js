@@ -22,7 +22,6 @@ const DisplayFurniture = () => {
             }
         }
         axios.get(`http://localhost:5000/categories/furniture/${productId}`, {
-            //allBooks: books
         }, axiosConfig)
             .then((res) => {
                 console.log("furniture data: ", res.data.furniture);
@@ -35,7 +34,8 @@ const DisplayFurniture = () => {
             })
     }
 
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        e.preventDefault();
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const DisplayFurniture = () => {
         }, axiosConfig)
             .then((res) => {
                 console.log('successfully deleted furniture!');
-                history.go(-1);
+                history.push('/categories/furniture');
             })
             .catch((e) => {
                 console.log("error in client", e)
@@ -56,7 +56,7 @@ const DisplayFurniture = () => {
     const imageUrls = furniture.images;
 
     const handleBack = () => {
-        history.go(-1);
+        history.push('/categories/furniture');
     }
     const history = useHistory();
 
@@ -66,47 +66,50 @@ const DisplayFurniture = () => {
             {isPending && <div>Seeding cycle ...</div>}
             {!isPending &&
                 <div className="dataDisplay">
-                    <button type="button" className="btn btn-info" onClick={handleBack}>
-                        Back to all Furniture
+                    <button type="button" className="btn btn-info ms-4 mt-3" onClick={handleBack}>
+                        All Furniture
                 </button>
-                    <div id="booksCarousel" className="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            {imageUrls.map((img, i) => (
-                                <div className={"carousel-item " + (i == 0 ? 'active' : '')}>
-                                    <img src={img.url} className="d-block w-100" alt="..." />
-                                </div>
-                            ))}
-                        </div>
-                        <div className="group">
-                            <a className="carousel-control-prev" href="#booksCarousel" role="button" data-bs-slide="prev">
-                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Previous</span>
-                            </a>
-                            <a className="carousel-control-next" href="#booksCarousel" role="button" data-bs-slide="next">
-                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="card mb-3">
-                        <div className="card-body">
-                            <h5 className="card-title">{furniture.title}</h5>
-                            <p className="card-text">{furniture.description}</p>
-                        </div>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Submitted by: {furniture.userId.username}</li>
-                            <li className="list-group-item">Price: ₹{furniture.price}</li>
-                            <li className="list-group-item text-muted">Age: {furniture.age}</li>
-                        </ul>
-                        {sessionStorage.getItem('currentUser') && furniture.userId._id == sessionStorage.getItem('currentUser') && (
-                            <div class="card-body">
-                                <a className="card-link btn btn-info" href={`/categories/furniture/${furniture._id}/edit`}>Edit</a>
-                                &nbsp;
-                            <form className="d-inline" action="/">
-                                    <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
-                                </form>
+                    <div className="mt-5"></div>
+                    <div className="row mainContent-item mt-5 d-flex align-items-center ms-auto me-auto">
+                        <div id="furnitureCarousel" className="col-md-6 carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {imageUrls.map((img, i) => (
+                                    <div className={"carousel-item " + (i == 0 ? 'active' : '')}>
+                                        <img src={img.url} className="d-block w-100" alt="..." />
+                                    </div>
+                                ))}
                             </div>
-                        )}
+                            <div className="group">
+                                <a className="carousel-control-prev" href="#furnitureCarousel" role="button" data-bs-slide="prev">
+                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Previous</span>
+                                </a>
+                                <a className="carousel-control-next" href="#furnitureCarousel" role="button" data-bs-slide="next">
+                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="card col-md-6 h-300">
+                            <div className="card-body">
+                                <h5 className="card-title">{furniture.title}</h5>
+                                <p className="card-text">{furniture.description}</p>
+                            </div>
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">Submitted by: {furniture.userId.username}</li>
+                                <li className="list-group-item">Price: ₹{furniture.price}</li>
+                                <li className="list-group-item text-muted">Age: {furniture.age}</li>
+                            </ul>
+                            {sessionStorage.getItem('currentUser') && furniture.userId._id == sessionStorage.getItem('currentUser') && (
+                                <div class="card-body">
+                                    <a className="card-link btn btn-info" href={`/categories/furniture/${furniture._id}/edit`}>Edit</a>
+                                    &nbsp;
+                            <form className="d-inline" onSubmit={handleDelete}>
+                                        <button className="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             }

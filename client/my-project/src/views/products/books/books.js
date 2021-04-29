@@ -40,28 +40,6 @@ const Books = () => {
         console.log(id);
         console.log("event..", event.target)
         history.push(`/categories/books/${id}`);
-        // const axiosConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }
-        // axios.post('http://localhost:5000/categories/books', {
-        //     productId: id
-        // },
-        //     axiosConfig)
-        //     .then((res) => {
-        //         console.log('successfully sent id for the book!');
-        //         console.log("ok", id);
-        //         console.log("book details-", res.data);
-        //         setBook(res.data);
-        //         //global.selectedProduct = res.data;
-        //         //console.log("global-", global.selectedProduct)
-        //         //history.push(`/categories/books/${id}`);
-        //         //console.log(name, username, email);
-        //     })
-        //     .catch((e) => {
-        //         console.log("error in client", e)
-        //     })
 
     }
 
@@ -74,32 +52,34 @@ const Books = () => {
             {isPending && <div><h1>pending ...</h1></div>}
             {!isPending &&
                 <div className="dataDisplay">
-                    <h1>All books - </h1>
-                    <button type="button" className="btn btn-info" onClick={redirectTo}>
-                        Add new book to sell
+                    <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>
+                        Sell Book
                     </button>
-                    {allBooks.map((book) => (
-                        <div className="card mt-3 ms-3 me-3">
-                            <div className="row mb-3">
-                                <div className="col-md-4">
-                                    <img className="img-fluid" alt="" src={book.images[0].url} />
-                                </div>
-                                <div className="col-md-8">
-                                    <div className="card-body">
-                                        <button type="button" id={book._id} className="btn btn-info" onClick={handleSelect}>
-                                            View
+                    <div className="ms-5 d-flex flex-row flex-wrap">
+                        {allBooks.map((book) => (
+                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                                <div className="col">
+                                    <div className="col ps-sm-5 ps-lg-0">
+                                        <img className="img-fluid displayThumbnail" alt="" src={book.images[0].url} />
+                                    </div>
+                                    <div className="col">
+                                        <div className="card-body ps-sm-5 ps-lg-0">
+                                            <h2 className="card-title">{book.title}</h2>
+                                            <h5 className="card-title">Written By- {book.author}</h5>
+                                            <p className="card-text">
+                                                <small>₹{book.price}</small>
+                                            </p>
+                                            <p className="card-text">{book.description}</p>
+                                            <button type="button" id={book._id} className="btn btn-info" onClick={handleSelect}>
+                                                View
                                         </button>
-                                        <h2 className="card-title">{book.title}</h2>
-                                        <h5 className="card-title">Written By- {book.author}</h5>
-                                        <p className="card-text">
-                                            <small>₹{book.price}</small>
-                                        </p>
-                                        <p className="card-text">{book.description}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                    <div className="mb-3"></div>
                 </div>
             }
         </div>

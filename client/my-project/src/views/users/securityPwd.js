@@ -54,12 +54,12 @@ const SecurityPwd = () => {
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-3">
                                         <label className="form-label" for="username">Security Question</label>
-                                        <input className="form-control" type="text" id="username" name="username" placeholder={localStorage.getItem('question')} disabled
-                                        />
+                                        <textarea className="form-control" type="text" id="username" name="username" placeholder={localStorage.getItem('question')} disabled>
+                                        </textarea>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label" for="password">Answer :</label>
-                                        <input className="form-control" type="text" id="securityA" name="securityA" placeholder="enter security answer" required
+                                        <input className="form-control" type="password" id="securityA" name="securityA" placeholder="enter security answer" required autoFocus
                                             value={securityA}
                                             onChange={(event) => setSecurityA(event.target.value)}
                                         />

@@ -10,57 +10,13 @@ const NewBook = () => {
     const [edition, setEdition] = useState('');
     const [description, setDescription] = useState('');
     const [productId, setProductId] = useState('');
-    //const [imgNum, setImgNum] = useState('');
-    //const [file, setFile] = useState('');
     const [image, setImage] = useState('');
-    // const fileObj = [];
-    // const fileArray = [];
-    // const file = [];
 
     const handleSubmit = async e => {
         e.preventDefault();
         setIsPending(true);
 
         console.log(title, author, edition, description, pages, price, image);
-
-        // try {
-        //     // console.log("images...", images)
-        //     // if (!images)
-        //     //     return alert("No images uploaded")
-
-        //     const axiosConfig = {
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         }
-        //     }
-
-        //     await axios.post('http://localhost:5000/categories/books/new', {
-        //         title, edition, pages, description, author, price, image
-        //     },
-        //         axiosConfig
-        //     )
-        //         .then((res) => {
-        //             console.log(res.data);
-        //             setProductId(res.data._id);
-        //             history.push(`/categories/books/${productId}`);
-        //             setIsPending(false);
-        //         })
-        //         .catch((res, e) => {
-        //             console.log("error in client", e)
-        //         })
-        // }
-
-        // catch (err) {
-        //     alert(err.response.data.msg)
-        // }
-        // const formData = new FormData();
-        // formData.append('title', title);
-        // formData.append('author', author);
-        // formData.append('price', price);
-        // formData.append('pages', pages);
-        // formData.append('description', description);
-        // formData.append('edition', edition);
-        // formData.append('file', file);
 
         const axiosConfig = {
             headers: {
@@ -75,7 +31,6 @@ const NewBook = () => {
             description,
             edition,
             image
-            //formData
         }, axiosConfig)
             .then((res) => {
                 console.log(res.data);
@@ -93,7 +48,6 @@ const NewBook = () => {
 
     const handleUpload = async e => {
         e.preventDefault();
-        //fileObj.push(e.target.files);
         try {
             const file = e.target.files[0];
             if (!file)
@@ -104,7 +58,6 @@ const NewBook = () => {
             for (var key of formData.entries()) {
                 console.log(key[0] + ', ' + key[1]);
             }
-            //console.log(formData.entries());
             document.getElementById('formSubmitBtn').disabled = true;
             document.getElementById('formSubmitBtn').innerHTML = 'Uploading ..';
             const axiosConfig = {
@@ -126,23 +79,7 @@ const NewBook = () => {
         catch (err) {
             alert(err, "error occured")
         }
-
-        // for (let i = 0; i < fileObj[0].length; i++) {
-        //     fileArray.push(URL.createObjectURL(fileObj[0][i]));
-        // }
-        // for (let i = 0; i < fileArray.length; i++) {
-        //     file.push({ url: fileArray[i] });
-        // }
-        // console.log(fileArray);
-        // console.log(file);
     }
-
-    // const insertImg = imgNum =>{
-    //     for(let i=0;i<imgNum;i++)
-    //     {
-
-    //     }
-    // }
 
     return (
         <div className="newBook">
@@ -189,40 +126,11 @@ const NewBook = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label for="formFileMultiple" className="form-label">Upload Image(s):</label>
+                            <label for="formFileMultiple" className="form-label"><b>Upload Image:</b></label>
                             <input className="form-control" type="file" id="image" name="image" required
                                 onChange={handleUpload}
                             />
                         </div>
-                        {/* <div className="mb-3 multi-preview">
-                            {fileArray.length > 0 && (fileArray).map(url => (
-                                <img src={url} alt="..." />
-                            ))}
-                        </div> */}
-                        {/* <div className="mb-3">
-                            <label className="form-label"><b>Enter no of images:</b></label>
-                            <input className="form-control" type="text" id="imgNum" name="imgNum" required
-                                value={imgNum}
-                                onChange={(event) => setImgNum(event.target.value)}
-                            />
-                        </div>
-                        {imgNum &&
-                            <ul>
-                                {
-                                    [...Array(imgNum)].map((e, i) => {
-                                        <li key={i}> */}
-                        {/* <div className="mb-3">
-                            <label className="form-label"><b>Image Url:</b></label>
-                            <input className="form-control" type="text" id="image" name="image" required
-                                value={image}
-                                onChange={(event) => setImage(event.target.value)}
-                            />
-                        </div> */}
-                        {/* </li>
-                                    })
-                                }
-                            </ul>
-                        } */}
                         <div className="mb-3">
                             <label className="form-label" ><b>Description:</b></label>
                             <textarea className="form-control" type="text" id="description" name="description" required

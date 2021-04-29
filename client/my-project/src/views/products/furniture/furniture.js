@@ -49,32 +49,34 @@ const Furniture = () => {
             {isPending && <div><h1>pending ...</h1></div>}
             {!isPending &&
                 <div className="dataDisplay">
-                    <h1>All furniture - </h1>
-                    <button type="button" className="btn btn-info" onClick={redirectTo}>
-                        Add new furniture to sell
+                    <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>
+                        Sell furniture
                     </button>
-                    {allFurniture.map((f) => (
-                        <div className="card mt-3 ms-3 me-3">
-                            <div className="row mb-3">
-                                <div className="col-md-4">
-                                    <img className="img-fluid" alt="" src={f.images[0].url} />
-                                </div>
-                                <div className="col-md-8">
-                                    <div className="card-body">
-                                        <button type="button" id={f._id} className="btn btn-info" onClick={handleSelect}>
-                                            View
-                                        </button>
-                                        <h2 className="card-title">{f.title}</h2>
+                    <div className="ms-5 d-flex flex-row flex-wrap">
+                        {allFurniture.map((f) => (
+                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                                <div className="col">
+                                    <div className="col ps-sm-5 ps-lg-0">
+                                        <img className="img-fluid displayThumbnail" alt="" src={f.images[0].url} />
+                                    </div>
+                                    <div className="col">
+                                        <div className="card-body ps-sm-5 ps-lg-0">
+                                            <h2 className="card-title">{f.title}</h2>
 
-                                        <p className="card-text">
-                                            ₹{f.price}
-                                        </p>
-                                        <p className="card-text">{f.description}</p>
+                                            <p className="card-text">
+                                                ₹{f.price}
+                                            </p>
+                                            <p className="card-text">{f.description}</p>
+                                            <button type="button" id={f._id} className="btn btn-info" onClick={handleSelect}>
+                                                View
+                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                    <div className="mb-3"></div>
                 </div>
             }
         </div>

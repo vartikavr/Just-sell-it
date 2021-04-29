@@ -22,11 +22,13 @@ const ResetPwd = () => {
             .then((res) => {
                 console.log(res.data);
                 localStorage.removeItem('question');
-                history.push('/categories');
+                history.push('/login');
             })
             .catch((e) => {
                 console.log("error in client", e)
                 setError(true);
+                setPwd('');
+                setNewPwd('');
             })
     }
 
@@ -54,14 +56,14 @@ const ResetPwd = () => {
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-3">
                                         <label className="form-label" for="username">New Password</label>
-                                        <input className="form-control" type="password" id="username" name="username" placeholder="enter username" required autoFocus
+                                        <input className="form-control" type="password" id="username" name="username" placeholder="enter new pasword" required autoFocus
                                             value={pwd}
                                             onChange={(event) => setPwd(event.target.value)}
                                         />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label" for="password">Confirm Password</label>
-                                        <input className="form-control" type="password" id="password" name="password" placeholder="enter password" required
+                                        <input className="form-control" type="password" id="password" name="password" placeholder="confirm password" required
                                             value={newPwd}
                                             onChange={(event) => setNewPwd(event.target.value)}
                                         />

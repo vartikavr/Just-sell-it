@@ -15,7 +15,6 @@ const Register = () => {
     const [securityQ, setSecurityQ] = useState('');
     const [securityA, setSecurityA] = useState('');
     const [isError, setError] = useState(false);
-    //const [errorMsg, setErrorMsg] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -39,18 +38,15 @@ const Register = () => {
             securityA: securityA
         }, axiosConfig)
             .then((res) => {
-                //history.go(-1);
                 setError(false);
                 console.log(res.data.curretUser);
                 sessionStorage.setItem('currentUser', res.data.currentUser);
                 console.log(sessionStorage.getItem('currentUser'), "registration done");
                 history.push('/categories');
-                //console.log(name, username, email);
                 setIsPending(false);
             })
             .catch((res, e) => {
                 setError(true);
-                //setErrorMsg(e)
                 console.log("error in client", e)
             })
     }
@@ -160,16 +156,9 @@ const Register = () => {
                                 </FlashMessage>
                             </div>
                         )}
-                        {!isPending &&
-                            <div className="d-grid gap-2 col-6 mx-auto mb-5">
-                                <button className="btn btn-success">Register user</button>
-                            </div>
-                        }
-                        {isPending &&
-                            <div className="d-grid gap-2 col-6 mx-auto mb-5">
-                                <button className="btn btn-success mb-3">Registering ..</button>
-                            </div>
-                        }
+                        <div className="d-grid gap-2 col-6 mx-auto mb-5">
+                            <button className="btn btn-success">Register user</button>
+                        </div>
                     </form>
                 </div>
             </div>

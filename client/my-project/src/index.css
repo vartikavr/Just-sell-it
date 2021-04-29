@@ -55,18 +55,17 @@
 }
 .register{
         overflow-x: hidden; /*hide horizontal scrollbar*/
-        /*height: 100vh;*/
         background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
-        url('./images/registerImg.png');
+        url('./images/bgImg.png');
         background-size: cover;
         background-position: center;
 }
 .selectCat{
     width: 15rem;
     margin: 0.5rem auto;
+    background-color: #66FCF1
 }
 .category{
-    /*border:0.25rem solid red;*/
     margin: 7.5rem 0; 
 }
 .flash{
@@ -76,16 +75,45 @@
     text-align: center;
     background-color: rgba(255,0,0,0.5);
 }
-/*carousel size check and update*/
-/* .carousel-inner{
-    height: 60vh;
-    width: 100vw;
-}    */
-.newBook, .newCycle, .newFurniture, .newHandicraft, .newOther{
+
+.newBook, .newCycle, .newFurniture, .newHandicraft, .newOther, .editBook, .editCycle, .editFurniture, .editHandicraft, .editOther{
     overflow-x: hidden; /*hide horizontal scrollbar*/
     /*height: 100vh;*/
     background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
-    url('./images/registerImg.png');
+    url('./images/bgImg.png');
     background-size: cover;
+    background-attachment: fixed;
     background-position: center;
+    height:50rem;
+}
+
+.mainRoot, #root{
+    background-color: #C5C6C7
+}
+
+.sell-item{
+    padding: 10px;
+    display:block;
+    text-align:center;
+    position: relative;
+    top: 0px;
+    right: 0px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: 130px;
+}
+
+.displayThumbnail{
+    width: 21em;
+    height: 22em;
+}
+
+.mainContent-item{
+    width:800px;
+    height: 100px;
+    padding-left: 10px;
+}
+
+.marginTopProduct{
+    padding-top:5em;
 }

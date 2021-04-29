@@ -9,12 +9,6 @@ const Login = () => {
     const [pwd, setPwd] = useState('');
 
 
-    // const refreshPage = () => {
-    //window.location = window.location.reload(true);
-    //   window.location.href = "http://localhost:3000/login";
-    //}
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
         //setIsPending(true);
@@ -30,7 +24,6 @@ const Login = () => {
         }, axiosConfig)
             .then((res) => {
                 setError(false);
-                //currentUser = res.currentUser;
                 console.log(res.data.currentUser);
                 sessionStorage.setItem('currentUser', res.data.currentUser);
                 console.log(sessionStorage.getItem('currentUser'), "login done");
@@ -38,13 +31,11 @@ const Login = () => {
                 //setIsPending(false);
             })
             .catch((res, e) => {
-                //refreshPage();
                 setError(true);
                 setPwd('');
                 console.log(res.error, "error in client ...", e)
             })
     }
-    //const [isPending, setIsPending] = useState(false);
     const [isError, setError] = useState(false);
     const history = useHistory();
 

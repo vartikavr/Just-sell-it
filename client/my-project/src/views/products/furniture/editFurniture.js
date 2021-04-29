@@ -95,6 +95,41 @@ const EditFurniture = () => {
         }
     }
 
+    const handleUpload = async e => {
+        e.preventDefault();
+        try {
+            const file = e.target.files[0];
+            if (!file)
+                return alert("File does not exist!");
+            console.log(file);
+            const formData = new FormData();
+            formData.append('files', file)
+            for (var key of formData.entries()) {
+                console.log(key[0] + ', ' + key[1]);
+            }
+            document.getElementById('formSubmitBtn').disabled = true;
+            document.getElementById('formSubmitBtn').innerHTML = 'Uploading ..';
+            const axiosConfig = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            axios.post('http://localhost:5000/upload', formData, axiosConfig)
+                .then((res) => {
+                    console.log(res, res.data.url);
+                    setImage(res.data.url);
+                    document.getElementById('formSubmitBtn').disabled = false;
+                    document.getElementById('formSubmitBtn').innerHTML = 'Submit';
+                })
+                .catch((e) => {
+                    console.log("error in client", e.response.data)
+                })
+        }
+        catch (err) {
+            alert(err, "error occured")
+        }
+    }
+
 
     return (
         <div className="editFurniture">
@@ -129,10 +164,9 @@ const EditFurniture = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label"><b>Image Url:</b></label>
-                                <input className="form-control" type="text" id="image" name="image" required
-                                    defaultValue={furniture.images[0].url}
-                                    onChange={(event) => setImage(event.target.value)}
+                                <label for="formFileMultiple" className="form-label"><b>Change Image:</b></label>
+                                <input className="form-control" type="file" id="image" name="image" 
+                                    onChange={handleUpload}
                                 />
                             </div>
                             <div className="mb-3">
@@ -144,7 +178,7 @@ const EditFurniture = () => {
                             </div>
                             {!isPending &&
                                 <div className="d-grid gap-2 col-6 mx-auto mb-5">
-                                    <button className="btn btn-success">Submit</button>
+                                    <button className="btn btn-success" id="formSubmitBtn">Submit</button>
                                 </div>
                             }
                             {isPending &&

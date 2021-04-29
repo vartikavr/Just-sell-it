@@ -49,32 +49,34 @@ const Cycles = () => {
             {isPending && <div><h1>pending ...</h1></div>}
             {!isPending &&
                 <div className="dataDisplay">
-                    <h1>All cycles - </h1>
-                    <button type="button" className="btn btn-info" onClick={redirectTo}>
-                        Add new cycle to sell
+                    <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>
+                        Sell cycle
                     </button>
-                    {allCycles.map((cycle) => (
-                        <div className="card mt-3 ms-3 me-3">
-                            <div className="row mb-3">
-                                <div className="col-md-4">
-                                    <img className="img-fluid" alt="" src={cycle.images[0].url} />
-                                </div>
-                                <div className="col-md-8">
-                                    <div className="card-body">
-                                        <button type="button" id={cycle._id} className="btn btn-info" onClick={handleSelect}>
-                                            View
+                    <div className="ms-5 d-flex flex-row flex-wrap">
+                        {allCycles.map((cycle) => (
+                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                                <div className="col">
+                                    <div className="col ps-sm-5 ps-lg-0">
+                                        <img className="img-fluid displayThumbnail" alt="" src={cycle.images[0].url} />
+                                    </div>
+                                    <div className="col">
+                                        <div className="card-body ps-sm-5 ps-lg-0">
+                                            <h2 className="card-title">{cycle.title}</h2>
+                                            <p className="card-text">
+                                                ₹{cycle.price}
+                                            </p>
+                                            <p className="card-text">Model Number- #{cycle.modelNo}</p>
+                                            <p className="card-text">{cycle.description}</p>
+                                            <button type="button" id={cycle._id} className="btn btn-info" onClick={handleSelect}>
+                                                View
                                         </button>
-                                        <h2 className="card-title">{cycle.title}</h2>
-                                        <p className="card-text">
-                                            ₹{cycle.price}
-                                        </p>
-                                        <p className="card-text">Model Number- #{cycle.modelNo}</p>
-                                        <p className="card-text">{cycle.description}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                    <div className="mb-3"></div>
                 </div>
             }
         </div>

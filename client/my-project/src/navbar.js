@@ -10,7 +10,7 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         {sessionStorage.getItem('currentUser') && (
                             <div className="navbar-nav">
-                                <a className="nav-item active" aria-current="page" href="/categories">Select Category</a>
+                                <a className="nav-item active" aria-current="page" href="/categories">Categories</a>
                             </div>
                         )}
                         <div className="navbar-nav ms-auto">

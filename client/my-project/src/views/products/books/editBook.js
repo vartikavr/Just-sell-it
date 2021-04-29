@@ -34,14 +34,6 @@ const EditBook = () => {
             .then(async (res) => {
                 console.log("book data: ", res.data.book);
                 setBook(res.data.book);
-                // console.log(book);
-                //     setTitle(book.title);
-                //     setAuthor(book.author);
-                //     setEdition(book.edition);
-                //     setPrice(book.price);
-                //     setPages(book.pages);
-                //     setDescription(book.description);
-                //     setImage(book.images[0].url);
                 console.log(book, 'successful seed of our book!');
                 setMount(true);
                 setPending(false);
@@ -56,7 +48,6 @@ const EditBook = () => {
     const checkChanges = () => {
         if (isMount) {
             if (title === '') {
-                console.log("yessssss");
                 setTitle(book.title);
             }
             if (description === '') {
@@ -111,9 +102,43 @@ const EditBook = () => {
         }
     }
 
+    const handleUpload = async e => {
+        e.preventDefault();
+        try {
+            const file = e.target.files[0];
+            if (!file)
+                return alert("File does not exist!");
+            console.log(file);
+            const formData = new FormData();
+            formData.append('files', file)
+            for (var key of formData.entries()) {
+                console.log(key[0] + ', ' + key[1]);
+            }
+            document.getElementById('formSubmitBtn').disabled = true;
+            document.getElementById('formSubmitBtn').innerHTML = 'Uploading ..';
+            const axiosConfig = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            axios.post('http://localhost:5000/upload', formData, axiosConfig)
+                .then((res) => {
+                    console.log(res, res.data.url);
+                    setImage(res.data.url);
+                    document.getElementById('formSubmitBtn').disabled = false;
+                    document.getElementById('formSubmitBtn').innerHTML = 'Submit';
+                })
+                .catch((e) => {
+                    console.log("error in client", e.response.data)
+                })
+        }
+        catch (err) {
+            alert(err, "error occured")
+        }
+    }
 
     return (
-        <div className="EditBook">
+        <div className="editBook">
             <div className="row mt-3">
                 <h1 className="text-center">Edit Book</h1>
                 {isPending && <div>Seeding book ...</div>}
@@ -159,10 +184,9 @@ const EditBook = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label"><b>Change image:</b></label>
-                                <input className="form-control" type="text" id="image" name="image" required
-                                    defaultValue={book.images[0].url}
-                                    onChange={(event) => setImage(event.target.value)}
+                                <label for="formFileMultiple" className="form-label"><b>Change Image:</b></label>
+                                <input className="form-control" type="file" id="image" name="image"
+                                    onChange={handleUpload}
                                 />
                             </div>
                             <div className="mb-3">
@@ -174,7 +198,7 @@ const EditBook = () => {
                             </div>
                             {!isPending &&
                                 <div className="d-grid gap-2 col-6 mx-auto mb-5">
-                                    <button className="btn btn-success">Submit</button>
+                                    <button className="btn btn-success" id="formSubmitBtn">Submit</button>
                                 </div>
                             }
                             {isPending &&

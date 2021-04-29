@@ -7,13 +7,10 @@ module.exports = [
                 "url": "https://images.unsplash.com/photo-1610399809302-f1dd7ec33187?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=671&q=80"
             },
             {
-                "url": "https://images.unsplash.com/photo-1605539585404-a846f1193d19?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            },
-            {
-                "url": "https://images.unsplash.com/photo-1605539586248-f8daad5320e6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
+                "url": "https://images.unsplash.com/photo-1605790923754-d544358c3583?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
             }
         ],
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit itaque voluptatum numquam cumque modi odio, reiciendis adipisci quos magni repudiandae maiores obcaecati, molestiae ea perferendis expedita suscipit explicabo dicta cupiditate? Obcaecati ipsa facilis aspernatur dolorem voluptas nemo eligendi itaque explicabo hic? Explicabo dolore ex odit unde sequi quia est nobis veniam, quae sed, animi maiores eveniet, eaque quibusdam obcaecati. Animi. Illo rerum similique quia eius, temporibus suscipit modi non fuga corporis, pariatur dolorem voluptatum dolore voluptatem sapiente. Recusandae asperiores quasi nesciunt temporibus cum expedita, illum blanditiis enim necessitatibus, repudiandae obcaecati."
+        "description": "A must have for every student in Banasthali. They're cool looking as well as keep hot water hot and cold water cold for long durations. It can help to beat the heat of Rajasthan."
 
     },
     {
@@ -24,7 +21,18 @@ module.exports = [
                 "url": "https://images.unsplash.com/photo-1559761340-1e6a341f0b51?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
             }
         ],
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit itaque voluptatum numquam cumque modi odio, reiciendis adipisci quos magni repudiandae maiores obcaecati, molestiae ea perferendis expedita suscipit explicabo dicta cupiditate? Obcaecati ipsa facilis aspernatur dolorem voluptas nemo eligendi itaque explicabo hic? Explicabo dolore ex odit unde sequi quia est nobis veniam, quae sed, animi maiores eveniet, eaque quibusdam obcaecati. Animi. Illo rerum similique quia eius, temporibus suscipit modi non fuga corporis, pariatur dolorem voluptatum dolore voluptatem sapiente. Recusandae asperiores quasi nesciunt temporibus cum expedita, illum blanditiis enim necessitatibus, repudiandae obcaecati."
+        "description": "We all know the importance of having a handy well-built kettle in our student life. This is the one worth spending money for! It's compact, stylish and easy to use."
+
+    },
+    {
+        "title": "Table Lamp",
+        "price": "800",
+        "images": [
+            {
+                "url": "https://images.unsplash.com/photo-1551380701-5dd33d5b5d06?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"
+            }
+        ],
+        "description": "Each student must have a table lamp with them to ensure proper lighting during study hours. This one is not only provides perfect lighting but also is cool looking. It is flexible too and one can adjust it as per their liking."
 
     }
 ]
