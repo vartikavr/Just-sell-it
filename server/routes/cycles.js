@@ -3,14 +3,16 @@ const router = express.Router();
 const Cycle = require('../schemas/cycles');
 const cycles = require('../controllers/cycles');
 
-router.get('/', cycles.getCycles)
+const { isLoggedIn, isCycleOwner } = require('../middleware');
 
-router.get('/:id', cycles.specificCycle)
+router.get('/', isLoggedIn, cycles.getCycles)
 
-router.post('/new', cycles.newCycle)
+router.get('/:id', isLoggedIn, cycles.specificCycle)
 
-router.post('/:id/edit', cycles.editCycle)
+router.post('/new', isLoggedIn, cycles.newCycle)
 
-router.post('/:id/delete', cycles.deleteCycle)
+router.post('/:id/edit', isLoggedIn, isCycleOwner, cycles.editCycle)
+
+router.post('/:id/delete', isLoggedIn, isCycleOwner, cycles.deleteCycle)
 
 module.exports = router;

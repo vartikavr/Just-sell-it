@@ -3,14 +3,16 @@ const router = express.Router();
 const Furniture = require('../schemas/furniture');
 const furniture = require('../controllers/furniture');
 
-router.get('/', furniture.getFurniture)
+const { isLoggedIn, isFurnitureOwner } = require('../middleware');
 
-router.get('/:id', furniture.specificFurniture)
+router.get('/', isLoggedIn, furniture.getFurniture)
 
-router.post('/new', furniture.newFurniture)
+router.get('/:id', isLoggedIn, furniture.specificFurniture)
 
-router.post('/:id/edit', furniture.editFurniture)
+router.post('/new', isLoggedIn, furniture.newFurniture)
 
-router.post('/:id/delete', furniture.deleteFurniture)
+router.post('/:id/edit', isLoggedIn, isFurnitureOwner, furniture.editFurniture)
+
+router.post('/:id/delete', isLoggedIn, isFurnitureOwner, furniture.deleteFurniture)
 
 module.exports = router;

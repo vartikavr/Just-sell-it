@@ -24,9 +24,8 @@ const Login = () => {
         }, axiosConfig)
             .then((res) => {
                 setError(false);
-                console.log(res.data.currentUser);
-                sessionStorage.setItem('currentUser', res.data.currentUser);
-                console.log(sessionStorage.getItem('currentUser'), "login done");
+                sessionStorage.setItem('isLoggedIn', true);
+                console.log(sessionStorage.getItem('isLoggedIn'), "login done");
                 history.push('/categories');
                 //setIsPending(false);
             })
@@ -36,6 +35,7 @@ const Login = () => {
                 console.log(res.error, "error in client ...", e)
             })
     }
+
     const [isError, setError] = useState(false);
     const history = useHistory();
 

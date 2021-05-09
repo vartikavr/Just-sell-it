@@ -39,6 +39,10 @@ const NewFurniture = () => {
         }
 
         catch (err) {
+            console.log("client errror data:", e.response);
+            if (e.response.data.isLoggedIn == false) {
+                history.push('/login')
+            }
             alert(err.response.data.msg)
         }
     }

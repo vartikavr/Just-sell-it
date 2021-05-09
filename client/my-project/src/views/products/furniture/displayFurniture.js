@@ -10,6 +10,7 @@ const DisplayFurniture = () => {
 
     const { id: productId } = useParams();
     const [furniture, setFurniture] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
         getFurniture();
@@ -26,10 +27,15 @@ const DisplayFurniture = () => {
             .then((res) => {
                 console.log("furniture data: ", res.data.furniture);
                 setFurniture(res.data.furniture);
+                setCurrentUser(res.data.currentUser);
                 console.log(furniture, 'successful seed of our furniture!');
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -63,7 +69,7 @@ const DisplayFurniture = () => {
 
     return (
         <div className="displayFurniture">
-            {isPending && <div>Seeding cycle ...</div>}
+            {isPending && <div><h4>Seeding cycle ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info ms-4 mt-3" onClick={handleBack}>
@@ -100,7 +106,7 @@ const DisplayFurniture = () => {
                                 <li className="list-group-item">Price: ₹{furniture.price}</li>
                                 <li className="list-group-item text-muted">Age: {furniture.age}</li>
                             </ul>
-                            {sessionStorage.getItem('currentUser') && furniture.userId._id == sessionStorage.getItem('currentUser') && (
+                            {currentUser !== '' && furniture.userId._id == currentUser && (
                                 <div class="card-body">
                                     <a className="card-link btn btn-info" href={`/categories/furniture/${furniture._id}/edit`}>Edit</a>
                                     &nbsp;

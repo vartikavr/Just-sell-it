@@ -38,6 +38,10 @@ const EditFurniture = () => {
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -85,7 +89,11 @@ const EditFurniture = () => {
                     history.push(`/categories/furniture/${productId}`);
                     setPending(false);
                 })
-                .catch((res, e) => {
+                .catch((e) => {
+
+                    if (e.response.data.isOwner == false) {
+                        history.push('/categories/furniture')
+                    }
                     console.log("error in client", e)
                 })
         }
@@ -135,7 +143,7 @@ const EditFurniture = () => {
         <div className="editFurniture">
             <div className="row mt-3">
                 <h1 className="text-center">Edit Furniture</h1>
-                {isPending && <div>Seeding furniture ...</div>}
+                {isPending && <div><h4>Seeding furniture ...</h4></div>}
                 {!isPending &&
                     <div className="col-md-6 offset-md-3">
                         <form onSubmit={handleSubmit}>
@@ -165,7 +173,7 @@ const EditFurniture = () => {
                             </div>
                             <div className="mb-3">
                                 <label for="formFileMultiple" className="form-label"><b>Change Image:</b></label>
-                                <input className="form-control" type="file" id="image" name="image" 
+                                <input className="form-control" type="file" id="image" name="image"
                                     onChange={handleUpload}
                                 />
                             </div>

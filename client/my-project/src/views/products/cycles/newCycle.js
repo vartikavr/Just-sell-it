@@ -36,6 +36,10 @@ const NewCycle = () => {
                     setIsPending(false);
                 })
                 .catch((res, e) => {
+                    console.log("client errror data:", e.response);
+                    if (e.response.data.isLoggedIn == false) {
+                        history.push('/login')
+                    }
                     console.log("error in client", e)
                 })
         }

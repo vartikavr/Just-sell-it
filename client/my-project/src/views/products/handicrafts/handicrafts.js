@@ -28,6 +28,10 @@ const Handicrafts = () => {
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -46,7 +50,7 @@ const Handicrafts = () => {
 
     return (
         <div className="handicrafts">
-            {isPending && <div><h1>pending ...</h1></div>}
+            {isPending && <div><h4>pending ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>

@@ -13,7 +13,7 @@ module.exports.specificItem = async (req, res) => {
     const othersId = req.params.id;
     const other = await Others.findById(othersId).populate('userId');
     console.log(other);
-    res.status(200).send({ success: 'other seeded!', other });
+    res.status(200).send({ success: 'other seeded!', other, currentUser });
 }
 
 module.exports.newItem = async (req, res) => {

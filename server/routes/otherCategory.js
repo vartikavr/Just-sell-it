@@ -3,14 +3,16 @@ const router = express.Router();
 const Others = require('../schemas/othersCat');
 const other = require('../controllers/others');
 
-router.get('/', other.getItems)
+const { isLoggedIn, isProductOwner } = require('../middleware');
 
-router.get('/:id', other.specificItem)
+router.get('/', isLoggedIn, other.getItems)
 
-router.post('/new', other.newItem)
+router.get('/:id', isLoggedIn, other.specificItem)
 
-router.post('/:id/edit', other.editItem)
+router.post('/new', isLoggedIn, other.newItem)
 
-router.post('/:id/delete', other.deleteItem)
+router.post('/:id/edit', isLoggedIn, isProductOwner, other.editItem)
+
+router.post('/:id/delete', isLoggedIn, isProductOwner, other.deleteItem)
 
 module.exports = router;

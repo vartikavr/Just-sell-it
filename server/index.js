@@ -38,7 +38,7 @@ const otherRoutes = require('./routes/otherCategory');
 app.use('/', userRoutes); // for user routes
 app.use('/categories', categoryRoutes);
 app.use('/categories/books', bookRoutes) //for book routes
-app.use('/categories/cycles', cycleRoutes) // for cycle routes
+app.use('/categories/cycles', cycleRoutes)
 app.use('/categories/furniture', furnitureRoutes)
 app.use('/categories/handicrafts', handicraftRoutes)
 app.use('/categories/others', otherRoutes)

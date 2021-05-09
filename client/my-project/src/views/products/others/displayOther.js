@@ -10,6 +10,7 @@ const DisplayOther = () => {
 
     const { id: productId } = useParams();
     const [otherProduct, setOtherProduct] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
         getProduct();
@@ -27,16 +28,21 @@ const DisplayOther = () => {
             .then((res) => {
                 console.log("other product data: ", res.data.other);
                 setOtherProduct(res.data.other);
+                setCurrentUser(res.data.currentUser);
                 console.log(otherProduct, 'successful seed of our other product!');
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
 
-    const handleDelete = (e) => {
-        e.preventDefault();
+    const handleDelete = (event) => {
+        event.preventDefault();
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
@@ -65,7 +71,7 @@ const DisplayOther = () => {
 
     return (
         <div className="displayOther">
-            {isPending && <div>Seeding cycle ...</div>}
+            {isPending && <div><h4>Seeding cycle ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info  ms-4 mt-3" onClick={handleBack}>
@@ -101,7 +107,7 @@ const DisplayOther = () => {
                                 <li className="list-group-item">Submitted by: {otherProduct.userId.username}</li>
                                 <li className="list-group-item">Price: ₹{otherProduct.price}</li>
                             </ul>
-                            {sessionStorage.getItem('currentUser') && otherProduct.userId._id == sessionStorage.getItem('currentUser') && (
+                            {currentUser != '' && otherProduct.userId._id == currentUser && (
                                 <div class="card-body">
                                     <a className="card-link btn btn-info" href={`/categories/others/${otherProduct._id}/edit`}>Edit</a>
                                     &nbsp;

@@ -40,6 +40,10 @@ const EditCycle = () => {
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -93,7 +97,11 @@ const EditCycle = () => {
                     history.push(`/categories/cycles/${productId}`);
                     setPending(false);
                 })
-                .catch((res, e) => {
+                .catch((e) => {
+
+                    if (e.response.data.isOwner == false) {
+                        history.push('/categories/cycles')
+                    }
                     console.log("error in client", e)
                 })
         }
@@ -142,7 +150,7 @@ const EditCycle = () => {
         <div className="editCycle">
             <div className="row mt-3">
                 <h1 className="text-center">Edit Cycle</h1>
-                {isPending && <div>Seeding cycle ...</div>}
+                {isPending && <div><h4>Seeding cycle ...</h4></div>}
                 {!isPending &&
                     <div className="col-md-6 offset-md-3">
                         <form onSubmit={handleSubmit}>

@@ -117,3 +117,11 @@
 .marginTopProduct{
     padding-top:5em;
 }
+
+::placeholder{
+    color: black;
+}
+
+.userProfile{
+    overflow-x: hidden; /*hide horizontal scrollbar*/
+}

@@ -9,6 +9,7 @@ const DisplayCycle = () => {
 
     const { id: productId } = useParams();
     const [cycle, setCycle] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
         getCycle();
@@ -25,10 +26,15 @@ const DisplayCycle = () => {
             .then((res) => {
                 console.log("cycle data: ", res.data.cycle);
                 setCycle(res.data.cycle);
+                setCurrentUser(res.data.currentUser);
                 console.log(cycle, 'successful seed of our cycle!');
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -48,6 +54,13 @@ const DisplayCycle = () => {
                 history.push('/categories/cycles');
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                if (e.response.data.isOwner == false) {
+                    history.push('/categories/cycles')
+                }
                 console.log("error in client", e)
             })
     }
@@ -61,7 +74,7 @@ const DisplayCycle = () => {
 
     return (
         <div className="displayCycle">
-            {isPending && <div>Seeding cycle ...</div>}
+            {isPending && <div><h4>Seeding cycle ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info ms-4 mt-3 " onClick={handleBack}>
@@ -99,7 +112,7 @@ const DisplayCycle = () => {
                                 <li className="list-group-item">Model No: {cycle.modelNo}</li>
                                 <li className="list-group-item text-muted">Age: {cycle.age}</li>
                             </ul>
-                            {sessionStorage.getItem('currentUser') && cycle.userId._id == sessionStorage.getItem('currentUser') && (
+                            {currentUser !== '' && cycle.userId._id == currentUser && (
                                 <div class="card-body">
                                     <a className="card-link btn btn-info" href={`/categories/cycles/${cycle._id}/edit`}>Edit</a>
                                     &nbsp;

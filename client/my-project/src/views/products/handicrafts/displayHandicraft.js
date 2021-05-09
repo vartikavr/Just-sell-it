@@ -10,6 +10,7 @@ const DisplayHandicraft = () => {
 
     const { id: productId } = useParams();
     const [handicraft, setHandicraft] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
         getHandicraft();
@@ -27,10 +28,15 @@ const DisplayHandicraft = () => {
             .then((res) => {
                 console.log("handicraft data: ", res.data.handicraft);
                 setHandicraft(res.data.handicraft);
+                setCurrentUser(res.data.currentUser);
                 console.log(handicraft, 'successful seed of our handicraft!');
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -64,7 +70,7 @@ const DisplayHandicraft = () => {
 
     return (
         <div className="displayHandicraft">
-            {isPending && <div>Seeding cycle ...</div>}
+            {isPending && <div><h4>Seeding cycle ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info ms-4 mt-3" onClick={handleBack}>
@@ -100,7 +106,7 @@ const DisplayHandicraft = () => {
                                 <li className="list-group-item">Submitted by: {handicraft.userId.username}</li>
                                 <li className="list-group-item">Price: ₹{handicraft.price}</li>
                             </ul>
-                            {sessionStorage.getItem('currentUser') && handicraft.userId._id == sessionStorage.getItem('currentUser') && (
+                            {currentUser !== '' && handicraft.userId._id == currentUser && (
                                 <div class="card-body">
                                     <a className="card-link btn btn-info" href={`/categories/handicrafts/${handicraft._id}/edit`}>Edit</a>
                                     &nbsp;

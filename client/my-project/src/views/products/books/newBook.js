@@ -38,7 +38,11 @@ const NewBook = () => {
                 history.push(`/categories/books/${productId}`);
                 setIsPending(false);
             })
-            .catch((res, err) => {
+            .catch((err) => {
+                console.log("client errror data:", err.response);
+                if (err.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", err);
             })
     }

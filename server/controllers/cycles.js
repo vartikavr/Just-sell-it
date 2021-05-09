@@ -13,7 +13,7 @@ module.exports.specificCycle = async (req, res) => {
     const cycleId = req.params.id;
     const cycle = await Cycle.findById(cycleId).populate('userId');
     console.log(cycle);
-    res.status(200).send({ success: 'cycle seeded!', cycle });
+    res.status(200).send({ success: 'cycle seeded!', cycle, currentUser });
 }
 
 module.exports.newCycle = async (req, res) => {

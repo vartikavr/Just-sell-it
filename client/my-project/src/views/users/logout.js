@@ -13,7 +13,7 @@ const Logout = () => {
     axios.get('http://localhost:5000/logout', {
     }, axiosConfig)
         .then((res) => {
-            sessionStorage.removeItem('currentUser');
+            sessionStorage.removeItem('isLoggedIn');
             console.log("log out")
             setPending(false);
             history.push('/');

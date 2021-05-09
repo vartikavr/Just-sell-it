@@ -8,6 +8,7 @@ const DisplayBook = () => {
 
     const { id: productId } = useParams();
     const [book, setBook] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
 
     useEffect(() => {
         getBook();
@@ -25,10 +26,15 @@ const DisplayBook = () => {
             .then((res) => {
                 console.log("book data: ", res.data.book);
                 setBook(res.data.book);
+                setCurrentUser(res.data.currentUser);
                 console.log(book, 'successful seed of our book!');
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -48,6 +54,13 @@ const DisplayBook = () => {
                 history.push('/categories/books');
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                if (e.response.data.isOwner == false) {
+                    history.push('/categories/books')
+                }
                 console.log("error in client", e)
             })
     }
@@ -60,7 +73,7 @@ const DisplayBook = () => {
     const history = useHistory();
     return (
         <div className="displayBook">
-            {isPending && <div>Seeding book ...</div>}
+            {isPending && <div><h4>Seeding book ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
                     <button type="button" className="btn btn-info ms-4 mt-3 " onClick={handleBack}>
@@ -98,7 +111,7 @@ const DisplayBook = () => {
                                 <li className="list-group-item">Price: ₹{book.price}</li>
                                 <li className="list-group-item">Pages: {book.pages}</li>
                             </ul>
-                            {sessionStorage.getItem('currentUser') && book.userId._id == sessionStorage.getItem('currentUser') && (
+                            {currentUser !== '' && book.userId._id == currentUser && (
                                 <div class="card-body">
                                     <a className="card-link btn btn-info" href={`/categories/books/${book._id}/edit`}>Edit</a>
                                     &nbsp;

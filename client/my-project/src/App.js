@@ -28,6 +28,10 @@ import EditCycle from './views/products/cycles/editCycle';
 import EditFurniture from './views/products/furniture/editFurniture';
 import EditHandicraft from './views/products/handicrafts/editHandicraft';
 import EditOther from './views/products/others/editOther';
+import UserProfile from './views/users/userProfile';
+import UpdateQA from './views/users/updateQA';
+import EditProfile from './views/users/editProfile';
+import UserProducts from './views/users/userProducts';
 
 function App() {
   return (
@@ -58,6 +62,22 @@ function App() {
         </Route>
         <Route exact path="/logout">
           <Logout />
+        </Route>
+        <Route exact path="/user">
+          <Navbar />
+          <UserProfile />
+        </Route>
+        <Route exact path="/user/edit">
+          <Navbar />
+          <EditProfile />
+        </Route>
+        <Route exact path="/user/products">
+          <Navbar />
+          <UserProducts />
+        </Route>
+        <Route exact path="/updateQA">
+          <Navbar />
+          <UpdateQA />
         </Route>
         <Route exact path="/categories">
           <Navbar />

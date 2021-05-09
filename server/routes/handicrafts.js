@@ -3,14 +3,16 @@ const router = express.Router();
 const Handicraft = require('../schemas/handicrafts');
 const handicrafts = require('../controllers/handicrafts');
 
-router.get('/', handicrafts.getHandicrafts)
+const { isLoggedIn, isHandicraftOwner } = require('../middleware');
 
-router.get('/:id', handicrafts.specificHandicraft)
+router.get('/', isLoggedIn, handicrafts.getHandicrafts)
 
-router.post('/new', handicrafts.newHandicraft)
+router.get('/:id', isLoggedIn, handicrafts.specificHandicraft)
 
-router.post('/:id/edit', handicrafts.editHandicraft)
+router.post('/new', isLoggedIn, handicrafts.newHandicraft)
 
-router.post('/:id/delete', handicrafts.deleteHandicraft)
+router.post('/:id/edit', isLoggedIn, isHandicraftOwner, handicrafts.editHandicraft)
+
+router.post('/:id/delete', isLoggedIn, isHandicraftOwner, handicrafts.deleteHandicraft)
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const Navbar = () => {
+
     return (
         <div className="header">
             <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
@@ -8,19 +9,22 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        {sessionStorage.getItem('currentUser') && (
+                        {sessionStorage.getItem('isLoggedIn') && (
                             <div className="navbar-nav">
                                 <a className="nav-item active" aria-current="page" href="/categories">Categories</a>
                             </div>
                         )}
                         <div className="navbar-nav ms-auto">
-                            {!sessionStorage.getItem('currentUser') && (
+                            {!sessionStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item d-block" href="/login">Login</a>
                             )}
-                            {!sessionStorage.getItem('currentUser') && (
+                            {!sessionStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/register">Register</a>
                             )}
-                            {sessionStorage.getItem('currentUser') && (
+                            {sessionStorage.getItem('isLoggedIn') && (
+                                <a className="nav-item" href="/user">My Profile</a>
+                            )}
+                            {sessionStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/logout">Logout</a>
                             )}
                         </div>

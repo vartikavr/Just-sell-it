@@ -39,6 +39,10 @@ const EditBook = () => {
                 setPending(false);
             })
             .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
@@ -92,7 +96,11 @@ const EditBook = () => {
                     history.push(`/categories/books/${productId}`);
                     setPending(false);
                 })
-                .catch((res, e) => {
+                .catch((e) => {
+                    console.log("client errror data:", e.response);
+                    if (e.response.data.isOwner == false) {
+                        history.push('/categories/books')
+                    }
                     console.log("error in client", e)
                 })
         }
@@ -141,7 +149,7 @@ const EditBook = () => {
         <div className="editBook">
             <div className="row mt-3">
                 <h1 className="text-center">Edit Book</h1>
-                {isPending && <div>Seeding book ...</div>}
+                {isPending && <div><h4>Seeding book ...</h4></div>}
                 {!isPending &&
                     <div className="col-md-6 offset-md-3">
                         <form onSubmit={handleSubmit}>

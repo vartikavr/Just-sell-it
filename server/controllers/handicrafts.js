@@ -13,7 +13,7 @@ module.exports.specificHandicraft = async (req, res) => {
     const handicraftId = req.params.id;
     const handicraft = await Handicraft.findById(handicraftId).populate('userId');
     console.log(handicraft);
-    res.status(200).send({ success: 'handicraft seeded!', handicraft });
+    res.status(200).send({ success: 'handicraft seeded!', handicraft, currentUser });
 }
 
 module.exports.newHandicraft = async (req, res) => {

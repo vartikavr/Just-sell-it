@@ -3,14 +3,16 @@ const router = express.Router();
 const Book = require('../schemas/books');
 const books = require('../controllers/books');
 
-router.get('/', books.getBooks)
+const { isLoggedIn, isBookOwner } = require('../middleware');
 
-router.get('/:id', books.specificBook)
+router.get('/', isLoggedIn, books.getBooks)
 
-router.post('/new', books.newBook)
+router.get('/:id', isLoggedIn, books.specificBook)
 
-router.post('/:id/edit', books.editBook)
+router.post('/new', isLoggedIn, books.newBook)
 
-router.post('/:id/delete', books.deleteBook)
+router.post('/:id/edit', isLoggedIn, isBookOwner, books.editBook)
+
+router.post('/:id/delete', isLoggedIn, isBookOwner, books.deleteBook)
 
 module.exports = router;

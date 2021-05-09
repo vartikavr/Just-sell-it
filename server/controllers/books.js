@@ -13,7 +13,7 @@ module.exports.specificBook = async (req, res) => {
     const bookId = req.params.id;
     const book = await Book.findById(bookId).populate('userId');
     console.log(book);
-    res.status(200).send({ success: 'book seeded!', book });
+    res.status(200).send({ success: 'book seeded!', book, currentUser });
 }
 
 module.exports.newBook = async (req, res) => {

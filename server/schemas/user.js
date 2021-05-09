@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        match: /@banasthali.in\s*$/
+        match: /@banasthali.in\s*$/,
+        unique: false
     },
     phone: {
         type: Number,
@@ -44,6 +45,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+    }
+});
+
+userSchema.pre('save', function (next) {
+    this.role = "user";
+    next();
 });
 
 // userSchema.pre("save", function (next) {

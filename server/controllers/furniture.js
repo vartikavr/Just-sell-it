@@ -13,7 +13,7 @@ module.exports.specificFurniture = async (req, res) => {
     const furnitureId = req.params.id;
     const furniture = await Furniture.findById(furnitureId).populate('userId');
     console.log(furniture);
-    res.status(200).send({ success: 'furniture seeded!', furniture });
+    res.status(200).send({ success: 'furniture seeded!', furniture, currentUser });
 }
 
 module.exports.newFurniture = async (req, res) => {

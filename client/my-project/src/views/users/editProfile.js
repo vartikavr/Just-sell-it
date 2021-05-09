@@ -1,84 +1,134 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import FlashMessage from 'react-flash-message';
 import axios from 'axios';
-const Register = () => {
+import FlashMessage from 'react-flash-message';
 
+const EditProfile = () => {
+
+    const [user, setUser] = useState({});
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [course, setCourse] = useState('');
     const [year, setYear] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
-    const [securityQ, setSecurityQ] = useState('');
-    const [securityA, setSecurityA] = useState('');
+    const [isMount, setMount] = useState(false);
     const [isError, setError] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setIsPending(true);
+    useEffect(() => {
+        userInfo();
+    }, []);
 
+    useEffect(() => {
+        checkChanges();
+    }, [isMount]);
+
+    const history = useHistory();
+
+    const userInfo = () => {
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/register', {
-            name: name,
-            email: email,
-            username: username,
-            password: password,
-            course: course,
-            year: year,
-            phone: phone,
-            address: address,
-            securityQ: securityQ,
-            securityA: securityA
+        axios.get('http://localhost:5000/user', {
         }, axiosConfig)
-            .then((res) => {
-                setError(false);
-                sessionStorage.setItem('isLoggedIn', true);
-                console.log(sessionStorage.getItem('isLoggedIn'), "login done");
-                console.log("registration done");
-                history.push('/categories');
-                setIsPending(false);
+            .then(async (res) => {
+                console.log("user data: ", res.data.user);
+                setUser(res.data.user);
+                console.log(user, 'successful seed of our user!');
+                setMount(true);
             })
-            .catch((res, e) => {
-                setError(true);
+            .catch((e) => {
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
                 console.log("error in client", e)
             })
     }
 
-    const [isPending, setIsPending] = useState(false);
-    const history = useHistory();
+    const checkChanges = () => {
+        if (isMount) {
+            if (name === '') {
+                setName(user.name);
+            }
+            if (username === '') {
+                setUsername(user.username);
+            }
+            if (course === '') {
+                setCourse(user.course);
+            }
+            if (year === '') {
+                setYear(user.year);
+            }
+            if (phone === '') {
+                setPhone(user.phone);
+            }
+            if (email === '') {
+                setEmail(user.email);
+            }
+            if (address === '') {
+                setAddress(user.address);
+            }
+        }
+    }
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        try {
+            const axiosConfig = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            await axios.post(`http://localhost:5000/user/edit`, {
+                name, username, course, year, phone, email, address
+            },
+                axiosConfig
+            )
+                .then((res) => {
+                    setError(false);
+                    console.log(res.data);
+                    history.push('/user');
+                })
+                .catch((e) => {
+                    if (e.response.data.isLoggedIn == false) {
+                        history.push('/login')
+                    }
+                    setError(true);
+                    console.log("error in client", e)
+                })
+        }
+
+        catch (err) {
+            alert(err.response.data.msg)
+        }
+    }
+
     return (
-        <div className="register">
+        <div className="editProfile">
             <div className="row mt-3">
-                <h1 className="text-center">Register</h1>
+                <h1 className="text-center">Edit User Info</h1>
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}>
-                        <div className="registerForm mb-3">
+                        <div className="userInfoForm mb-3">
                             <label className="form-label"><b>Name:</b></label>
-                            <input className="form-control" type="text" id="name" name="name" required
-                                value={name}
+                            <input className="form-control" type="text" id="name" name="name"
+                                defaultValue={name}
                                 onChange={(event) => setName(event.target.value)}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label"><b>Username:</b></label>
-                            <input className="form-control" type="text" id="username" name="username" required
-                                value={username}
-                                onChange={(event) => setUsername(event.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label"><b>Password:</b></label>
-                            <input className="form-control" type="password" id="password" name="password" required
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
-                            />
+                            <div className="input-group">
+                                <input className="form-control" type="text" id="username" name="username"
+                                    defaultValue={username}
+                                    onChange={(event) => setUsername(event.target.value)}
+                                />
+                            </div>
                         </div>
                         <div className="mb-3">
                             <label className="form-label"><b>Course:</b></label>
@@ -87,7 +137,6 @@ const Register = () => {
                                 value={course}
                                 onChange={(event) => setCourse(event.target.value)}
                             >
-                                <option value="" selected hidden>Select an option</option>
                                 <option value="BTech BT">BTech BioTechnology</option>
                                 <option value="BTech CE">BTech Chemical</option>
                                 <option value="BTech CS">BTech Computer Science</option>
@@ -105,7 +154,6 @@ const Register = () => {
                                 value={year}
                                 onChange={(event) => setYear(event.target.value)}
                             >
-                                <option value="" selected hidden>Select an option</option>
                                 <option value="First">First</option>
                                 <option value="Second">Second</option>
                                 <option value="Third">Third</option>
@@ -114,38 +162,24 @@ const Register = () => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label"><b>College Email id:</b></label>
-                            <input className="form-control" type="email" id="email" name="email" required
-                                value={email}
+                            <input className="form-control" type="text" id="email" name="email"
+                                defaultValue={email}
                                 onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label" ><b>Phone Number:</b></label>
-                            <input className="form-control" type="number" id="phone" name="phone" required
-                                value={phone}
+                            <label className="form-label"><b>Phone No:</b></label>
+                            <input className="form-control" type="number" id="phone" name="phone"
+                                defaultValue={phone}
                                 onChange={(event) => setPhone(event.target.value)}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label" ><b>Hostel Address:</b></label>
-                            <textarea className="form-control" type="text" id="address" name="address" required
-                                value={address}
+                            <textarea className="form-control" type="text" id="address" name="address"
+                                defaultValue={address}
                                 onChange={(event) => setAddress(event.target.value)}
                             ></textarea>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label"><b>Security Question:</b></label>
-                            <textarea className="form-control" type="text" id="securityQ" name="securityQ" required
-                                value={securityQ}
-                                onChange={(event) => setSecurityQ(event.target.value)}
-                            ></textarea>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label" ><b>Security Answer:</b></label>
-                            <input className="form-control" type="password" id="securityA" name="securityA" required
-                                value={securityA}
-                                onChange={(event) => setSecurityA(event.target.value)}
-                            />
                         </div>
                         {isError && (
                             <div className="flash">
@@ -157,13 +191,14 @@ const Register = () => {
                             </div>
                         )}
                         <div className="d-grid gap-2 col-6 mx-auto mb-5">
-                            <button className="btn btn-success">Register user</button>
+                            <button className="btn btn-success">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 }
 
-export default Register;
+export default EditProfile;
