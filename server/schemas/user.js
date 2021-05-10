@@ -47,13 +47,10 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
+        enum: ['admin', 'user']
     }
 });
 
-userSchema.pre('save', function (next) {
-    this.role = "user";
-    next();
-});
 
 // userSchema.pre("save", function (next) {
 //     if (!this.isModified("password")) {

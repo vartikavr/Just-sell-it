@@ -1,9 +1,10 @@
 const User = require('../schemas/user');
+const Book = require('../schemas/books');
+const Cycle = require('../schemas/cycles');
+const Furniture = require('../schemas/furniture');
+const Handicraft = require('../schemas/handicrafts');
+const Others = require('../schemas/othersCat');
 const bcrypt = require('bcrypt');
-
-module.exports.homepage = (req, res) => {
-    console.log("homepage ..");
-}
 
 module.exports.registerUser = async (req, res) => {
     console.log(req.body);
@@ -23,6 +24,7 @@ module.exports.registerUser = async (req, res) => {
     });
 
     try {
+        newUser.role = "user";
         await newUser.save();
         console.log(newUser);
         currentUser = newUser._id;
@@ -48,7 +50,8 @@ module.exports.loginUser = async (req, res) => {
         console.log("Successfully logged in!");
         currentUser = check._id;
         console.log(currentUser);
-        return res.status(200).send({ sucess: "logged in!" });
+        const role = check.role;
+        return res.status(200).send({ sucess: "logged in!", role });
     }
     else {
         console.log("username not found")
@@ -146,14 +149,21 @@ module.exports.editUserInfo = async (req, res) => {
 
 module.exports.deleteUserInfo = async (req, res) => {
     console.log("inside delete user info...", currentUser);
-    const id = currentUser;
     try {
-        await User.findByIdAndDelete(id);
+        const userToBeDeleted = await User.findById(currentUser);
+        await Book.deleteMany({ userId: userToBeDeleted._id });
+        await Cycle.deleteMany({ userId: userToBeDeleted._id });
+        await Furniture.deleteMany({ userId: userToBeDeleted._id });
+        await Handicraft.deleteMany({ userId: userToBeDeleted._id });
+        await Others.deleteMany({ userId: userToBeDeleted._id });
+        console.log("Successfully deleted the user's products!");
+        await User.findByIdAndDelete(currentUser);
         currentUser = null;
         console.log("Successfully deleted the user's account!");
         res.status(200).send({ success: "deleted user" });
     }
     catch (e) {
+        console.log("error in server delete user account and products..", e);
         return res.status(403).send({ error: "unsuccessful deletion" });
     }
 }

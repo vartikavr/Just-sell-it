@@ -33,9 +33,11 @@ const cycleRoutes = require('./routes/cycles');
 const furnitureRoutes = require('./routes/furniture');
 const handicraftRoutes = require('./routes/handicrafts');
 const otherRoutes = require('./routes/otherCategory');
+const adminRoutes = require('./routes/admin');
 
 
 app.use('/', userRoutes); // for user routes
+app.use('/admin', adminRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/categories/books', bookRoutes) //for book routes
 app.use('/categories/cycles', cycleRoutes)

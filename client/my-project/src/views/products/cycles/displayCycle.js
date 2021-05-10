@@ -10,6 +10,7 @@ const DisplayCycle = () => {
     const { id: productId } = useParams();
     const [cycle, setCycle] = useState('');
     const [currentUser, setCurrentUser] = useState('');
+    const [role, setRole] = useState('');
 
     useEffect(() => {
         getCycle();
@@ -27,6 +28,7 @@ const DisplayCycle = () => {
                 console.log("cycle data: ", res.data.cycle);
                 setCycle(res.data.cycle);
                 setCurrentUser(res.data.currentUser);
+                setRole(res.data.role);
                 console.log(cycle, 'successful seed of our cycle!');
                 setPending(false);
             })
@@ -112,15 +114,16 @@ const DisplayCycle = () => {
                                 <li className="list-group-item">Model No: {cycle.modelNo}</li>
                                 <li className="list-group-item text-muted">Age: {cycle.age}</li>
                             </ul>
-                            {currentUser !== '' && cycle.userId._id == currentUser && (
-                                <div class="card-body">
-                                    <a className="card-link btn btn-info" href={`/categories/cycles/${cycle._id}/edit`}>Edit</a>
-                                    &nbsp;
-                            <form className="d-inline" onSubmit={handleDelete}>
+                            <div class="card-body">
+                                {currentUser !== '' && cycle.userId._id == currentUser && (
+                                    <a className="card-link btn btn-info me-2" href={`/categories/cycles/${cycle._id}/edit`}>Edit</a>
+                                )}
+                                {currentUser !== '' && (cycle.userId._id == currentUser || role == "admin") && (
+                                    <form className="d-inline" onSubmit={handleDelete}>
                                         <button className="btn btn-danger">Delete</button>
                                     </form>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

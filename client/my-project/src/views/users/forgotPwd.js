@@ -8,6 +8,8 @@ const ForgotPwd = () => {
     const [username, setUsername] = useState('');
     const [isError, setError] = useState(false);
     const [moveToNext, setNext] = useState(false);
+    const [question, setQuestion] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -21,11 +23,12 @@ const ForgotPwd = () => {
         }, axiosConfig)
             .then((res) => {
                 console.log(res.data);
+                setQuestion(res.data.question);
+                //localStorage.setItem('question', res.data.question);
                 setNext(true);
-                localStorage.setItem('question', res.data.question);
-                history.push('/security');
             })
             .catch((e) => {
+                setNext(false);
                 console.log("error in client", e)
                 setError(true);
             })
@@ -68,7 +71,7 @@ const ForgotPwd = () => {
                 </div>
             )}
             {moveToNext && (
-                <SecurityPwd />
+                <SecurityPwd question={question} />
             )}
         </div>
     );

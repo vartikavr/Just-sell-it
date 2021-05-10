@@ -1,4 +1,5 @@
 const Handicraft = require('../schemas/handicrafts');
+const User = require('../schemas/user');
 
 module.exports.getHandicrafts = async (req, res) => {
     console.log("in handicrafts ...");
@@ -13,7 +14,8 @@ module.exports.specificHandicraft = async (req, res) => {
     const handicraftId = req.params.id;
     const handicraft = await Handicraft.findById(handicraftId).populate('userId');
     console.log(handicraft);
-    res.status(200).send({ success: 'handicraft seeded!', handicraft, currentUser });
+    const user = await User.findById(currentUser);
+    res.status(200).send({ success: 'handicraft seeded!', handicraft, currentUser, role: user.role });
 }
 
 module.exports.newHandicraft = async (req, res) => {

@@ -14,12 +14,20 @@ const Navbar = () => {
                                 <a className="nav-item active" aria-current="page" href="/categories">Categories</a>
                             </div>
                         )}
+                        {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isAuthorized') && (
+                            <div className="navbar-nav">
+                                <a className="nav-item active" aria-current="page" href="/admin/users">All Users</a>
+                            </div>
+                        )}
                         <div className="navbar-nav ms-auto">
                             {!sessionStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item d-block" href="/login">Login</a>
                             )}
                             {!sessionStorage.getItem('isLoggedIn') && (
-                                <a className="nav-item" href="/register">Register</a>
+                                <a className="nav-item d-block" href="/admin/register">Register as Admin</a>
+                            )}
+                            {!sessionStorage.getItem('isLoggedIn') && (
+                                <a className="nav-item" href="/register">Register as User</a>
                             )}
                             {sessionStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/user">My Profile</a>

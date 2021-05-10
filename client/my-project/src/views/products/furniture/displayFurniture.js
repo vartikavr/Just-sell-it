@@ -11,6 +11,7 @@ const DisplayFurniture = () => {
     const { id: productId } = useParams();
     const [furniture, setFurniture] = useState('');
     const [currentUser, setCurrentUser] = useState('');
+    const [role, setRole] = useState('');
 
     useEffect(() => {
         getFurniture();
@@ -28,6 +29,7 @@ const DisplayFurniture = () => {
                 console.log("furniture data: ", res.data.furniture);
                 setFurniture(res.data.furniture);
                 setCurrentUser(res.data.currentUser);
+                setRole(res.data.role);
                 console.log(furniture, 'successful seed of our furniture!');
                 setPending(false);
             })
@@ -106,15 +108,16 @@ const DisplayFurniture = () => {
                                 <li className="list-group-item">Price: ₹{furniture.price}</li>
                                 <li className="list-group-item text-muted">Age: {furniture.age}</li>
                             </ul>
-                            {currentUser !== '' && furniture.userId._id == currentUser && (
-                                <div class="card-body">
-                                    <a className="card-link btn btn-info" href={`/categories/furniture/${furniture._id}/edit`}>Edit</a>
-                                    &nbsp;
-                            <form className="d-inline" onSubmit={handleDelete}>
+                            <div class="card-body">
+                                {currentUser !== '' && furniture.userId._id == currentUser && (
+                                    <a className="card-link btn btn-info me-2" href={`/categories/furniture/${furniture._id}/edit`}>Edit</a>
+                                )}
+                                {currentUser !== '' && (furniture.userId._id == currentUser || role == "admin") && (
+                                    <form className="d-inline" onSubmit={handleDelete}>
                                         <button className="btn btn-danger">Delete</button>
                                     </form>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

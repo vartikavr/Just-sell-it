@@ -14,6 +14,7 @@ const Logout = () => {
     }, axiosConfig)
         .then((res) => {
             sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isAuthorized');
             console.log("log out")
             setPending(false);
             history.push('/');
@@ -28,7 +29,7 @@ const Logout = () => {
     return (
         <div className="logout">
             {isPending && (
-                <div>Logging out ...</div>)
+                <div><h4>Logging out ...</h4></div>)
             }
             {!isPending && (
                 <div className="main-logout">

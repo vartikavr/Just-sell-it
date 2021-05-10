@@ -1,4 +1,5 @@
 const Book = require('../schemas/books');
+const User = require('../schemas/user');
 
 module.exports.getBooks = async (req, res) => {
     console.log("in books ..");
@@ -13,7 +14,8 @@ module.exports.specificBook = async (req, res) => {
     const bookId = req.params.id;
     const book = await Book.findById(bookId).populate('userId');
     console.log(book);
-    res.status(200).send({ success: 'book seeded!', book, currentUser });
+    const user = await User.findById(currentUser);
+    res.status(200).send({ success: 'book seeded!', book, currentUser, role: user.role });
 }
 
 module.exports.newBook = async (req, res) => {

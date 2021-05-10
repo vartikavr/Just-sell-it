@@ -53,7 +53,7 @@
     width: 100%;
     padding: 0.25rem 0;
 }
-.register{
+.register, .adminRegister{
         overflow-x: hidden; /*hide horizontal scrollbar*/
         background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
         url('./images/bgImg.png');
@@ -122,6 +122,11 @@
     color: black;
 }
 
-.userProfile{
+.userProfile, .getUserProfile{
     overflow-x: hidden; /*hide horizontal scrollbar*/
+}
+
+.float-child{
+    width:33%;
+    float:left;
 }

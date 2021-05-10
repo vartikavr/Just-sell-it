@@ -1,4 +1,5 @@
 const Cycle = require('../schemas/cycles');
+const User = require('../schemas/user');
 
 module.exports.getCycles = async (req, res) => {
     console.log("in cycles ...");
@@ -13,7 +14,8 @@ module.exports.specificCycle = async (req, res) => {
     const cycleId = req.params.id;
     const cycle = await Cycle.findById(cycleId).populate('userId');
     console.log(cycle);
-    res.status(200).send({ success: 'cycle seeded!', cycle, currentUser });
+    const user = await User.findById(currentUser);
+    res.status(200).send({ success: 'cycle seeded!', cycle, currentUser, role: user.role });
 }
 
 module.exports.newCycle = async (req, res) => {

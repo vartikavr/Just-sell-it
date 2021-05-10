@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
-const Register = () => {
+const AdminRegister = () => {
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -25,7 +25,7 @@ const Register = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/register', {
+        axios.post('http://localhost:5000/admin/register', {
             name: name,
             email: email,
             username: username,
@@ -40,6 +40,7 @@ const Register = () => {
             .then((res) => {
                 setError(false);
                 sessionStorage.setItem('isLoggedIn', true);
+                sessionStorage.setItem('isAuthorized', true);
                 console.log(sessionStorage.getItem('isLoggedIn'), "login done");
                 console.log("registration done");
                 history.push('/categories');
@@ -54,9 +55,9 @@ const Register = () => {
     const [isPending, setIsPending] = useState(false);
     const history = useHistory();
     return (
-        <div className="register">
+        <div className="adminRegister">
             <div className="row mt-3">
-                <h1 className="text-center">Register as User</h1>
+                <h1 className="text-center">Register as Admin</h1>
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}>
                         <div className="registerForm mb-3">
@@ -157,7 +158,7 @@ const Register = () => {
                             </div>
                         )}
                         <div className="d-grid gap-2 col-6 mx-auto mb-5">
-                            <button className="btn btn-success">Register user</button>
+                            <button className="btn btn-success">Register admin</button>
                         </div>
                     </form>
                 </div>
@@ -166,4 +167,4 @@ const Register = () => {
     );
 }
 
-export default Register;
+export default AdminRegister;

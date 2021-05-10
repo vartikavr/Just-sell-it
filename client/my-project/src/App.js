@@ -11,8 +11,6 @@ import Handicrafts from './views/products/handicrafts/handicrafts';
 import Others from './views/products/others/others';
 import Logout from './views/users/logout';
 import ForgotPwd from './views/users/forgotPwd';
-import SecurityPwd from './views/users/securityPwd';
-import ResetPwd from './views/users/resetPwd';
 import BookDisplay from './views/products/books/displayBook';
 import CycleDisplay from './views/products/cycles/displayCycle';
 import FurnitureDisplay from './views/products/furniture/displayFurniture';
@@ -32,6 +30,10 @@ import UserProfile from './views/users/userProfile';
 import UpdateQA from './views/users/updateQA';
 import EditProfile from './views/users/editProfile';
 import UserProducts from './views/users/userProducts';
+import AdminRegister from './views/admin/register';
+import AllUsers from './views/admin/allUsers';
+import GetUserProfile from './views/admin/getUserProfile';
+import GetUserProducts from './views/admin/getUserProducts';
 
 function App() {
   return (
@@ -40,6 +42,22 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
+        <Route exact path="/admin/register">
+          <Navbar />
+          <AdminRegister />
+        </Route>
+        <Route exact path="/admin/users">
+          <Navbar />
+          <AllUsers />
+        </Route>
+        <Route exact path="/admin/:id/products">
+          <Navbar />
+          <GetUserProducts />
+        </Route>
+        <Route exact path="/admin/user-profile/:id">
+          <Navbar />
+          <GetUserProfile />
+        </Route>
         <Route exact path="/login">
           <Navbar />
           <Login />
@@ -47,14 +65,6 @@ function App() {
         <Route exact path='/forgotPwd'>
           <Navbar />
           <ForgotPwd />
-        </Route>
-        <Route exact path='/security'>
-          <Navbar />
-          <SecurityPwd />
-        </Route>
-        <Route exact path="/resetPwd">
-          <Navbar />
-          <ResetPwd />
         </Route>
         <Route exact path="/register">
           <Navbar />

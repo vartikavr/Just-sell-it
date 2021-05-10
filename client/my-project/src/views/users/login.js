@@ -25,6 +25,9 @@ const Login = () => {
             .then((res) => {
                 setError(false);
                 sessionStorage.setItem('isLoggedIn', true);
+                if (res.data.role === "admin") {
+                    sessionStorage.setItem('isAuthorized', true);
+                }
                 console.log(sessionStorage.getItem('isLoggedIn'), "login done");
                 history.push('/categories');
                 //setIsPending(false);

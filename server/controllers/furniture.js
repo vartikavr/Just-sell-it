@@ -1,4 +1,5 @@
 const Furniture = require('../schemas/furniture');
+const User = require('../schemas/user');
 
 module.exports.getFurniture = async (req, res) => {
     console.log("in furniture ...");
@@ -13,7 +14,8 @@ module.exports.specificFurniture = async (req, res) => {
     const furnitureId = req.params.id;
     const furniture = await Furniture.findById(furnitureId).populate('userId');
     console.log(furniture);
-    res.status(200).send({ success: 'furniture seeded!', furniture, currentUser });
+    const user = await User.findById(currentUser);
+    res.status(200).send({ success: 'furniture seeded!', furniture, currentUser, role: user.role });
 }
 
 module.exports.newFurniture = async (req, res) => {

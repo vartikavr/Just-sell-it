@@ -21,9 +21,19 @@ const Home = () => {
                                     <a className="nav-link" href="/categories">Browse</a>
                                 </li>
                             )}
+                            {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isAuthorized') && (
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/admin/users">Users</a>
+                                </li>
+                            )}
                             {sessionStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/user">Profile</a>
+                                </li>
+                            )}
+                            {!sessionStorage.getItem('isLoggedIn') && (
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/admin/register">Admin</a>
                                 </li>
                             )}
                             {!sessionStorage.getItem('isLoggedIn') && (

@@ -11,6 +11,7 @@ const DisplayHandicraft = () => {
     const { id: productId } = useParams();
     const [handicraft, setHandicraft] = useState('');
     const [currentUser, setCurrentUser] = useState('');
+    const [role, setRole] = useState('');
 
     useEffect(() => {
         getHandicraft();
@@ -29,6 +30,7 @@ const DisplayHandicraft = () => {
                 console.log("handicraft data: ", res.data.handicraft);
                 setHandicraft(res.data.handicraft);
                 setCurrentUser(res.data.currentUser);
+                setRole(res.data.role);
                 console.log(handicraft, 'successful seed of our handicraft!');
                 setPending(false);
             })
@@ -106,15 +108,16 @@ const DisplayHandicraft = () => {
                                 <li className="list-group-item">Submitted by: {handicraft.userId.username}</li>
                                 <li className="list-group-item">Price: ₹{handicraft.price}</li>
                             </ul>
-                            {currentUser !== '' && handicraft.userId._id == currentUser && (
-                                <div class="card-body">
-                                    <a className="card-link btn btn-info" href={`/categories/handicrafts/${handicraft._id}/edit`}>Edit</a>
-                                    &nbsp;
-                            <form className="d-inline" onSubmit={handleDelete}>
+                            <div class="card-body">
+                                {currentUser !== '' && handicraft.userId._id == currentUser && (
+                                    <a className="card-link btn btn-info me-2" href={`/categories/handicrafts/${handicraft._id}/edit`}>Edit</a>
+                                )}
+                                {currentUser !== '' && (handicraft.userId._id == currentUser || role == "admin") && (
+                                    <form className="d-inline" onSubmit={handleDelete}>
                                         <button className="btn btn-danger">Delete</button>
                                     </form>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,6 @@ const users = require('../controllers/users');
 
 const { isLoggedIn } = require('../middleware');
 
-router.get('/', users.homepage)
-
 router.post('/register', users.registerUser)
 
 router.post('/login', users.loginUser)
@@ -27,6 +25,6 @@ router.post('/resetPwd', users.resetPassword)
 
 router.post('/security', users.securityQA)
 
-router.get('/logout', users.logoutUser)
+router.get('/logout', isLoggedIn, users.logoutUser)
 
 module.exports = router;

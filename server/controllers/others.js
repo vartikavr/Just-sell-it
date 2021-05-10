@@ -1,4 +1,5 @@
 const Others = require('../schemas/othersCat');
+const User = require('../schemas/user');
 
 module.exports.getItems = async (req, res) => {
     console.log("in others ...");
@@ -13,7 +14,8 @@ module.exports.specificItem = async (req, res) => {
     const othersId = req.params.id;
     const other = await Others.findById(othersId).populate('userId');
     console.log(other);
-    res.status(200).send({ success: 'other seeded!', other, currentUser });
+    const user = await User.findById(currentUser);
+    res.status(200).send({ success: 'other seeded!', other, currentUser, role: user.role });
 }
 
 module.exports.newItem = async (req, res) => {
