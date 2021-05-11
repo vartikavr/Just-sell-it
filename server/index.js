@@ -27,6 +27,7 @@ cloudinary.config({
 });
 
 const userRoutes = require('./routes/users');
+const wishlistRoutes = require('./routes/user-wishlist');
 const categoryRoutes = require('./routes/categories');
 const bookRoutes = require('./routes/books');
 const cycleRoutes = require('./routes/cycles');
@@ -37,6 +38,7 @@ const adminRoutes = require('./routes/admin');
 
 
 app.use('/', userRoutes); // for user routes
+app.use('/user/wishlist', wishlistRoutes);
 app.use('/admin', adminRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/categories/books', bookRoutes) //for book routes
