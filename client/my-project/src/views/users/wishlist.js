@@ -1,162 +1,88 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const UserProducts = () => {
+const Wishlist = () => {
 
-    const [allBooks, setAllBooks] = useState([]);
-    const [allCycles, setAllCycles] = useState([]);
-    const [allFurniture, setAllFurniture] = useState([]);
-    const [allHandicrafts, setAllHandicrafts] = useState([]);
-    const [allOthers, setAllOthers] = useState([]);
-    const [isPending, setPending] = useState(false);
+    const [books, setBooks] = useState([]);
+    const [cycles, setCycles] = useState([]);
+    const [furniture, setFurniture] = useState([]);
+    const [handicrafts, setHandicrafts] = useState([]);
+    const [items, setItems] = useState([]);
+    const [price, setPrice] = useState(0);
+    const [isPending, setIsPending] = useState(true);
     const [isEmpty, setIsEmpty] = useState(true);
+    const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
-        getAllBooks();
-        getAllCycles();
-        getAllFurniture();
-        getAllHandicrafts();
-        getAllOthers();
-    }, []);
+        productInfo();
+    }, [isDeleted]);
 
+    useEffect(() => {
+        totalPrice();
+    }, [isPending]);
 
-    const getAllBooks = () => {
-        setPending(true);
+    const productInfo = () => {
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/user/books', {
-            //allBooks: books
+        axios.get('http://localhost:5000/user/wishlist', {
         }, axiosConfig)
-            .then((res) => {
-                console.log(res.data);
-                const books = res.data;
-                setAllBooks(books);
-                if (books.length != 0) {
+            .then(async (res) => {
+                setIsPending(true);
+                console.log("wishlist data seeded", res.data);
+                setBooks(res.data.books);
+                if (res.data.books.length != 0) {
                     setIsEmpty(false);
                 }
-                console.log(allBooks, 'successful seed!');
+                setCycles(res.data.cycles);
+                if (res.data.cycles.length != 0) {
+                    setIsEmpty(false);
+                }
+                setFurniture(res.data.furniture);
+                if (res.data.furniture.length != 0) {
+                    setIsEmpty(false);
+                }
+                setHandicrafts(res.data.handicrafts);
+                if (res.data.handicrafts.length != 0) {
+                    setIsEmpty(false);
+                }
+                setItems(res.data.others);
+                if (res.data.others.length != 0) {
+                    setIsEmpty(false);
+                }
+                console.log('successful completion of seed of wishlist!');
+                setIsPending(false);
             })
             .catch((e) => {
-                console.log("client errror data:", e.response);
+                setIsPending(true);
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
                 console.log("error in client", e)
             })
     }
-    const getAllCycles = () => {
-        setPending(true);
-        const axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        axios.get('http://localhost:5000/categories/user/cycles', {
 
-        }, axiosConfig)
-            .then((res) => {
-                console.log(res.data);
-                const cycles = res.data;
-                setAllCycles(cycles);
-                if (cycles.length != 0) {
-                    setIsEmpty(false);
-                }
-                console.log(allCycles, 'successful seed!');
-            })
-            .catch((e) => {
-                console.log("client errror data:", e.response);
-                if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
-                }
-                console.log("error in client", e)
-            })
-    }
-    const getAllFurniture = () => {
-        setPending(true);
-        const axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+    const totalPrice = () => {
+        var sum = 0;
+        for (const index in books) {
+            sum += books[index].price;
         }
-        axios.get('http://localhost:5000/categories/user/furniture', {
-
-        }, axiosConfig)
-            .then((res) => {
-                console.log(res.data);
-                const furniture = res.data;
-                setAllFurniture(furniture);
-                if (furniture.length != 0) {
-                    setIsEmpty(false);
-                }
-                console.log(allFurniture, 'successful seed!');
-            })
-            .catch((e) => {
-                console.log("client errror data:", e.response);
-                if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
-                }
-                console.log("error in client", e)
-            })
-    }
-    const getAllHandicrafts = () => {
-        setPending(true);
-        const axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        for (const index in cycles) {
+            sum += cycles[index].price;
         }
-        axios.get('http://localhost:5000/categories/user/handicrafts', {
-
-        }, axiosConfig)
-            .then((res) => {
-                console.log(res.data);
-                const handicrafts = res.data;
-                setAllHandicrafts(handicrafts);
-                console.log(handicrafts)
-                if (handicrafts.length != 0) {
-                    setIsEmpty(false);
-                }
-                console.log(allHandicrafts, 'successful seed!');
-            })
-            .catch((e) => {
-                console.log("client errror data:", e.response);
-                if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
-                }
-                console.log("error in client", e)
-            })
-    }
-    const getAllOthers = () => {
-        setPending(true);
-        const axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        for (const index in furniture) {
+            sum += furniture[index].price;
         }
-        axios.get('http://localhost:5000/categories/user/others', {
-
-        }, axiosConfig)
-            .then((res) => {
-                console.log(res.data);
-                const others = res.data;
-                setAllOthers(others);
-                if (others.length != 0) {
-                    setIsEmpty(false);
-                }
-                console.log(allOthers, 'successful seed!');
-                setPending(false);
-            })
-            .catch((e) => {
-                console.log("client errror data:", e.response);
-                if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
-                }
-                console.log("error in client", e)
-            })
+        for (const index in handicrafts) {
+            sum += handicrafts[index].price;
+        }
+        for (const index in items) {
+            sum += items[index].price;
+        }
+        setPrice(sum);
     }
 
     const handleBookSelect = (event) => {
@@ -189,26 +115,139 @@ const UserProducts = () => {
         console.log("event..", event.target)
         history.push(`/categories/others/${id}`);
     }
+
+    const handleBookRemove = (event) => {
+        setIsDeleted(false);
+        const id = event.target.id;
+        console.log(id);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/user/wishlist/books/${id}/delete`, {
+        }, axiosConfig)
+            .then(async (res) => {
+                console.log("removed from wishlist");
+                setIsDeleted(true);
+            })
+            .catch((e) => {
+                setIsDeleted(false);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
+    const handleCycleRemove = (event) => {
+        setIsDeleted(false);
+        const id = event.target.id;
+        console.log(id);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/user/wishlist/cycles/${id}/delete`, {
+        }, axiosConfig)
+            .then(async (res) => {
+                console.log("removed from wishlist");
+                setIsDeleted(true);
+            })
+            .catch((e) => {
+                setIsDeleted(false);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
+    const handleFurnitureRemove = (event) => {
+        setIsDeleted(false);
+        const id = event.target.id;
+        console.log(id);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/user/wishlist/furniture/${id}/delete`, {
+        }, axiosConfig)
+            .then(async (res) => {
+                console.log("removed from wishlist");
+                setIsDeleted(true);
+            })
+            .catch((e) => {
+                setIsDeleted(false);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
+    const handleHandicraftRemove = (event) => {
+        setIsDeleted(false);
+        const id = event.target.id;
+        console.log(id);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/user/wishlist/handicrafts/${id}/delete`, {
+        }, axiosConfig)
+            .then(async (res) => {
+                console.log("removed from wishlist");
+                setIsDeleted(true);
+            })
+            .catch((e) => {
+                setIsDeleted(false);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
+    const handleOtherRemove = (event) => {
+        setIsDeleted(false);
+        const id = event.target.id;
+        console.log(id);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/user/wishlist/others/${id}/delete`, {
+        }, axiosConfig)
+            .then(async (res) => {
+                console.log("removed from wishlist");
+                setIsDeleted(true);
+            })
+            .catch((e) => {
+                setIsDeleted(false);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
     const history = useHistory();
 
+
     return (
-        <div className="UserProducts">
-            <button className="btn btn-secondary col-md-6 rounded-0"
-                onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = '/user';
-                }}>
-                My Profile
-            </button>
-            <button className="btn btn-info col-md-6 rounded-0">
-                My Products
-            </button>
+        <div className="wishlist">
             {isPending && isEmpty && <div><h4>loading ...</h4></div>}
-            {!isPending && isEmpty && <div className="noProductsFound"><h4 className="text-center mt-3">No products found.</h4></div>}
+            {!isPending && isEmpty && <div className="noProductsFound"><h4 className="text-center mt-3">No products in wishlist.</h4></div>}
+            {!isPending && (price !== 0) && <div className="wishlistPrice"><h4 className="text-center mt-3">Total price of items in wishlist: ₹{price}</h4></div>}
             {!isPending && !isEmpty &&
                 <div className="dataDisplay mt-3">
                     <div className="grid-display-products d-flex flex-row flex-wrap">
-                        {allBooks.map((book) => (
+                        {books.map((book) => (
                             <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
                                     <div className="col">
@@ -218,17 +257,22 @@ const UserProducts = () => {
                                         />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body data-display-grid-small">
+                                        <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{book.title}</h2>
                                             <p className="card-text data-display-subheading">
                                                 ₹{book.price}
                                             </p>
+                                            <button className="btn btn-danger"
+                                                id={book._id}
+                                                onClick={handleBookRemove}>
+                                                Remove
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-                        {allCycles.map((cycle) => (
+                        {cycles.map((cycle) => (
                             <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
                                     <div className="col">
@@ -238,17 +282,21 @@ const UserProducts = () => {
                                         />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body data-display-grid-small">
+                                        <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{cycle.title}</h2>
                                             <p className="card-text data-display-subheading">
                                                 ₹{cycle.price}
                                             </p>
+                                            <button className="btn btn-danger"
+                                                id={cycle._id}
+                                                onClick={handleCycleRemove}>
+                                                Remove</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-                        {allFurniture.map((f) => (
+                        {furniture.map((f) => (
                             <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
                                     <div className="col">
@@ -258,17 +306,21 @@ const UserProducts = () => {
                                         />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body data-display-grid-small">
+                                        <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{f.title}</h2>
                                             <p className="card-text data-display-subheading">
                                                 ₹{f.price}
                                             </p>
+                                            <button className="btn btn-danger"
+                                                id={f._id}
+                                                onClick={handleFurnitureRemove}>
+                                                Remove</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-                        {allHandicrafts.map((h) => (
+                        {handicrafts.map((h) => (
                             <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
                                     <div className="col">
@@ -278,17 +330,21 @@ const UserProducts = () => {
                                         />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body data-display-grid-small">
+                                        <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{h.title}</h2>
                                             <p className="card-text data-display-subheading">
                                                 ₹{h.price}
                                             </p>
+                                            <button className="btn btn-danger"
+                                                id={h._id}
+                                                onClick={handleHandicraftRemove}>
+                                                Remove</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-                        {allOthers.map((item) => (
+                        {items.map((item) => (
                             <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
                                     <div className="col">
@@ -298,11 +354,15 @@ const UserProducts = () => {
                                         />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body data-display-grid-small">
+                                        <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{item.title}</h2>
                                             <p className="card-text data-display-subheading">
                                                 ₹{item.price}
                                             </p>
+                                            <button className="btn btn-danger"
+                                                id={item._id}
+                                                onClick={handleOtherRemove}>
+                                                Remove</button>
                                         </div>
                                     </div>
                                 </div>
@@ -316,4 +376,4 @@ const UserProducts = () => {
     );
 }
 
-export default UserProducts;
+export default Wishlist;

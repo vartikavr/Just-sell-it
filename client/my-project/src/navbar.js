@@ -33,6 +33,9 @@ const Navbar = () => {
                                 <a className="nav-item" href="/user">My Profile</a>
                             )}
                             {sessionStorage.getItem('isLoggedIn') && (
+                                <a className="nav-item" href="/user/wishlist">My Wishlist</a>
+                            )}
+                            {sessionStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/logout">Logout</a>
                             )}
                         </div>

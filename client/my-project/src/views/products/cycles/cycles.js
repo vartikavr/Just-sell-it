@@ -56,24 +56,23 @@ const Cycles = () => {
                     <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>
                         Sell cycle
                     </button>
-                    <div className="ms-5 d-flex flex-row flex-wrap">
+                    <div className="grid-display-products d-flex flex-row flex-wrap">
                         {allCycles.map((cycle) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={cycle.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={cycle.images[0].url}
+                                            id={cycle._id}
+                                            onClick={handleSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{cycle.title}</h2>
-                                            <p className="card-text">
+                                        <div className="card-body data-display-grid">
+                                            <h2 className="card-title data-display-heading">{cycle.title}</h2>
+                                            <p className="card-text data-display-subheading">Model Number- #{cycle.modelNo}</p>
+                                            <p className="card-text data-display-price">
                                                 ₹{cycle.price}
                                             </p>
-                                            <p className="card-text">Model Number- #{cycle.modelNo}</p>
-                                            <p className="card-text">{cycle.description}</p>
-                                            <button type="button" id={cycle._id} className="btn btn-info" onClick={handleSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>

@@ -31,6 +31,11 @@ const Home = () => {
                                     <a className="nav-link" href="/user">Profile</a>
                                 </li>
                             )}
+                            {sessionStorage.getItem('isLoggedIn') && (
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/user/wishlist">Wishlist</a>
+                                </li>
+                            )}
                             {!sessionStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/admin/register">Admin</a>

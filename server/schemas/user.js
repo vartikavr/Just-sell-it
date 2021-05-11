@@ -48,6 +48,38 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['admin', 'user']
+    },
+    wishlist: {
+        books: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book'
+            }
+        ],
+        cycles: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Cycle'
+            }
+        ],
+        furniture: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Furniture'
+            }
+        ],
+        handicrafts: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Handicraft'
+            }
+        ],
+        others: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'OtherCat'
+            }
+        ],
     }
 });
 

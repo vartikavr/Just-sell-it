@@ -15,7 +15,7 @@ module.exports.specificFurniture = async (req, res) => {
     const furniture = await Furniture.findById(furnitureId).populate('userId');
     console.log(furniture);
     const user = await User.findById(currentUser);
-    res.status(200).send({ success: 'furniture seeded!', furniture, currentUser, role: user.role });
+    res.status(200).send({ success: 'furniture seeded!', furniture, currentUser, role: user.role, wishlistFurniture: user.wishlist.furniture });
 }
 
 module.exports.newFurniture = async (req, res) => {
@@ -58,6 +58,10 @@ module.exports.editFurniture = async (req, res) => {
 module.exports.deleteFurniture = async (req, res) => {
     const { id } = req.params;
     try {
+        const users = await User.find({ 'wishlist.furniture': { '$in': id } });
+        for (const index in users) {
+            await User.findByIdAndUpdate(users[index]._id, { $pull: { 'wishlist.furniture': id } });
+        }
         await Furniture.findByIdAndDelete(id);
         console.log('Successfully deleted the furniture!');
         res.redirect('/categories/furniture');

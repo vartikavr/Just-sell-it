@@ -1,21 +1,23 @@
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-
+import FlashMessage from 'react-flash-message';
 
 const DisplayHandicraft = () => {
 
     console.log("handicraft specific page...");
     const [isPending, setPending] = useState(true);
+    const [addToWishlist, setAddToWishlist] = useState(false);
 
     const { id: productId } = useParams();
     const [handicraft, setHandicraft] = useState('');
     const [currentUser, setCurrentUser] = useState('');
     const [role, setRole] = useState('');
+    const [wishlistHandicrafts, setWishlistHandicrafts] = useState([]);
 
     useEffect(() => {
         getHandicraft();
-    }, []);
+    }, [addToWishlist]);
 
     const getHandicraft = () => {
         const axiosConfig = {
@@ -31,6 +33,7 @@ const DisplayHandicraft = () => {
                 setHandicraft(res.data.handicraft);
                 setCurrentUser(res.data.currentUser);
                 setRole(res.data.role);
+                setWishlistHandicrafts(res.data.wishlistHandicrafts);
                 console.log(handicraft, 'successful seed of our handicraft!');
                 setPending(false);
             })
@@ -69,6 +72,29 @@ const DisplayHandicraft = () => {
     }
     const history = useHistory();
 
+    const handleWishlist = (e) => {
+        e.preventDefault();
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.get(`http://localhost:5000/user/wishlist/handicrafts/${productId}/add`, {
+
+        }, axiosConfig)
+            .then(() => {
+                console.log('successfully added handicraft in wishlist!');
+                setAddToWishlist(true);
+            })
+            .catch((e) => {
+                setAddToWishlist(false);
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
 
     return (
         <div className="displayHandicraft">
@@ -80,7 +106,14 @@ const DisplayHandicraft = () => {
                 </button>
                     <div className="marginTopProduct"></div>
                     <div className="row mainContent-item mt-5 d-flex align-items-center ms-auto me-auto">
-                        <div id="booksCarousel" className="col-md-6 carousel slide" data-bs-ride="carousel">
+                        {addToWishlist && (
+                            <FlashMessage duration={5000}>
+                                <div className="flash-success">
+                                    <p>Product added to your wishlist!</p>
+                                </div>
+                            </FlashMessage>
+                        )}
+                        <div id="handicraftsCarousel" className="col-md-6 carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 {imageUrls.map((img, i) => (
                                     <div className={"carousel-item " + (i == 0 ? 'active' : '')}>
@@ -88,16 +121,18 @@ const DisplayHandicraft = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="group">
-                                <a className="carousel-control-prev" href="#booksCarousel" role="button" data-bs-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Previous</span>
-                                </a>
-                                <a className="carousel-control-next" href="#booksCarousel" role="button" data-bs-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Next</span>
-                                </a>
-                            </div>
+                            {imageUrls.length > 1 &&
+                                <div className="group">
+                                    <a className="carousel-control-prev" href="#booksCarousel" role="button" data-bs-slide="prev">
+                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Previous</span>
+                                    </a>
+                                    <a className="carousel-control-next" href="#booksCarousel" role="button" data-bs-slide="next">
+                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Next</span>
+                                    </a>
+                                </div>
+                            }
                         </div>
                         <div className="card col-md-6 h-300">
                             <div className="card-body">
@@ -114,7 +149,17 @@ const DisplayHandicraft = () => {
                                 )}
                                 {currentUser !== '' && (handicraft.userId._id == currentUser || role == "admin") && (
                                     <form className="d-inline" onSubmit={handleDelete}>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <button className="btn btn-danger me-2">Delete</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && handicraft.userId._id !== currentUser && !(wishlistHandicrafts.includes(productId)) && (
+                                    <form className="d-inline" onSubmit={handleWishlist}>
+                                        <button className="btn btn-info">Add to Wishlist</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && handicraft.userId._id !== currentUser && (wishlistHandicrafts.includes(productId)) && (
+                                    <form className="d-inline">
+                                        <button className="btn btn-info disabled">Added in Wishlist</button>
                                     </form>
                                 )}
                             </div>

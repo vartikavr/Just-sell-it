@@ -15,7 +15,7 @@ module.exports.specificHandicraft = async (req, res) => {
     const handicraft = await Handicraft.findById(handicraftId).populate('userId');
     console.log(handicraft);
     const user = await User.findById(currentUser);
-    res.status(200).send({ success: 'handicraft seeded!', handicraft, currentUser, role: user.role });
+    res.status(200).send({ success: 'handicraft seeded!', handicraft, currentUser, role: user.role, wishlistHandicrafts: user.wishlist.handicrafts });
 }
 
 module.exports.newHandicraft = async (req, res) => {
@@ -58,6 +58,10 @@ module.exports.editHandicraft = async (req, res) => {
 module.exports.deleteHandicraft = async (req, res) => {
     const { id } = req.params;
     try {
+        const users = await User.find({ 'wishlist.handicrafts': { '$in': id } });
+        for (const index in users) {
+            await User.findByIdAndUpdate(users[index]._id, { $pull: { 'wishlist.handicrafts': id } });
+        }
         await Handicraft.findByIdAndDelete(id);
         console.log('Successfully deleted the handicraft!');
         res.redirect('/categories/handicrafts');

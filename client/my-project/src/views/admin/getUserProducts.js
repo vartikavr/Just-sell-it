@@ -119,102 +119,102 @@ const GetUserProducts = () => {
             {!isPending && isEmpty && <div className="noProductsFound"><h4 className="text-center mt-3">No products found.</h4></div>}
             {!isPending && !isEmpty &&
                 <div className="dataDisplay mt-3">
-                    <div className="ms-5 d-flex flex-row flex-wrap">
+                    <div className="grid-display-products d-flex flex-row flex-wrap">
                         {allBooks.map((book) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={book.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={book.images[0].url}
+                                            id={book._id}
+                                            onClick={handleBookSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{book.title}</h2>
-                                            <p className="card-text">
-                                                <small>₹{book.price}</small>
+                                        <div className="card-body data-display-grid-small">
+                                            <h2 className="card-title data-display-heading">{book.title}</h2>
+                                            <p className="card-text data-display-subheading">
+                                                ₹{book.price}
                                             </p>
-                                            <button type="button" id={book._id} className="btn btn-info" onClick={handleBookSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         {allCycles.map((cycle) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={cycle.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={cycle.images[0].url}
+                                            id={cycle._id}
+                                            onClick={handleCycleSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{cycle.title}</h2>
-                                            <p className="card-text">
-                                                <small>₹{cycle.price}</small>
+                                        <div className="card-body data-display-grid-small">
+                                            <h2 className="card-title data-display-heading">{cycle.title}</h2>
+                                            <p className="card-text data-display-subheading">
+                                                ₹{cycle.price}
                                             </p>
-                                            <button type="button" id={cycle._id} className="btn btn-info" onClick={handleCycleSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         {allFurniture.map((f) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={f.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={f.images[0].url}
+                                            id={f._id}
+                                            onClick={handleFurnitureSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{f.title}</h2>
-                                            <p className="card-text">
-                                                <small>₹{f.price}</small>
+                                        <div className="card-body data-display-grid-small">
+                                            <h2 className="card-title data-display-heading">{f.title}</h2>
+                                            <p className="card-text data-display-subheading">
+                                                ₹{f.price}
                                             </p>
-                                            <button type="button" id={f._id} className="btn btn-info" onClick={handleFurnitureSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         {allHandicrafts.map((h) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={h.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={h.images[0].url}
+                                            id={h._id}
+                                            onClick={handleHandicraftSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{h.title}</h2>
-                                            <p className="card-text">
-                                                <small>₹{h.price}</small>
+                                        <div className="card-body data-display-grid-small">
+                                            <h2 className="card-title data-display-heading">{h.title}</h2>
+                                            <p className="card-text data-display-subheading">
+                                                ₹{h.price}
                                             </p>
-                                            <button type="button" id={h._id} className="btn btn-info" onClick={handleHandicraftSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         {allOthers.map((item) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={item.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={item.images[0].url}
+                                            id={item._id}
+                                            onClick={handleOtherSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{item.title}</h2>
-                                            <p className="card-text">
-                                                <small>₹{item.price}</small>
+                                        <div className="card-body data-display-grid-small">
+                                            <h2 className="card-title data-display-heading">{item.title}</h2>
+                                            <p className="card-text data-display-subheading">
+                                                ₹{item.price}
                                             </p>
-                                            <button type="button" id={item._id} className="btn btn-info" onClick={handleOtherSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>

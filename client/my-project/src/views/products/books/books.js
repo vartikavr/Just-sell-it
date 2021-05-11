@@ -59,24 +59,23 @@ const Books = () => {
                     <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>
                         Sell Book
                     </button>
-                    <div className="ms-5 d-flex flex-row flex-wrap">
+                    <div className="grid-display-products d-flex flex-row flex-wrap">
                         {allBooks.map((book) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={book.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={book.images[0].url}
+                                            id={book._id}
+                                            onClick={handleSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{book.title}</h2>
-                                            <h5 className="card-title">Written By- {book.author}</h5>
-                                            <p className="card-text">
-                                                <small>₹{book.price}</small>
+                                        <div className="card-body data-display-grid">
+                                            <h2 className="card-title data-display-heading">{book.title}</h2>
+                                            <h5 className="card-title data-display-subheading">Written By- {book.author}</h5>
+                                            <p className="card-text data-display-price">
+                                                ₹{book.price}
                                             </p>
-                                            <p className="card-text">{book.description}</p>
-                                            <button type="button" id={book._id} className="btn btn-info" onClick={handleSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>

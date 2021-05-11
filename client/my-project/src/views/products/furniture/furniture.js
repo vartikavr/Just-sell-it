@@ -56,24 +56,22 @@ const Furniture = () => {
                     <button type="button" className="btn btn-info sell-item" onClick={redirectTo}>
                         Sell furniture
                     </button>
-                    <div className="ms-5 d-flex flex-row flex-wrap">
+                    <div className="grid-display-products d-flex flex-row flex-wrap">
                         {allFurniture.map((f) => (
-                            <div className="card col-lg-3 pt-3 mt-3 ms-5 me-5 ps-lg-3">
+                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
-                                    <div className="col ps-sm-5 ps-lg-0">
-                                        <img className="img-fluid displayThumbnail" alt="" src={f.images[0].url} />
+                                    <div className="col">
+                                        <img className="img-fluid displayThumbnail" alt="" src={f.images[0].url}
+                                            id={f._id}
+                                            onClick={handleSelect}
+                                        />
                                     </div>
                                     <div className="col">
-                                        <div className="card-body ps-sm-5 ps-lg-0">
-                                            <h2 className="card-title">{f.title}</h2>
-
-                                            <p className="card-text">
+                                        <div className="card-body data-display-grid-small">
+                                            <h2 className="card-title data-display-heading">{f.title}</h2>
+                                            <p className="card-text data-display-subheading">
                                                 ₹{f.price}
                                             </p>
-                                            <p className="card-text">{f.description}</p>
-                                            <button type="button" id={f._id} className="btn btn-info" onClick={handleSelect}>
-                                                View
-                                        </button>
                                         </div>
                                     </div>
                                 </div>

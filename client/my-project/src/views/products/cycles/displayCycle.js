@@ -1,20 +1,23 @@
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+import FlashMessage from 'react-flash-message';
 import { useState, useEffect } from 'react';
 
 const DisplayCycle = () => {
 
     console.log("cycle specific page...");
     const [isPending, setPending] = useState(true);
+    const [addToWishlist, setAddToWishlist] = useState(false);
 
     const { id: productId } = useParams();
     const [cycle, setCycle] = useState('');
     const [currentUser, setCurrentUser] = useState('');
     const [role, setRole] = useState('');
+    const [wishlistCycles, setWishlistCycles] = useState([]);
 
     useEffect(() => {
         getCycle();
-    }, []);
+    }, [addToWishlist]);
 
     const getCycle = () => {
         const axiosConfig = {
@@ -29,6 +32,7 @@ const DisplayCycle = () => {
                 setCycle(res.data.cycle);
                 setCurrentUser(res.data.currentUser);
                 setRole(res.data.role);
+                setWishlistCycles(res.data.wishlistCycles);
                 console.log(cycle, 'successful seed of our cycle!');
                 setPending(false);
             })
@@ -72,6 +76,31 @@ const DisplayCycle = () => {
     const handleBack = () => {
         history.push('/categories/cycles');
     }
+
+    const handleWishlist = (e) => {
+        e.preventDefault();
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.get(`http://localhost:5000/user/wishlist/cycles/${productId}/add`, {
+
+        }, axiosConfig)
+            .then(() => {
+                console.log('successfully added cycle in wishlist!');
+                setAddToWishlist(true);
+            })
+            .catch((e) => {
+                setAddToWishlist(false);
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
     const history = useHistory();
 
     return (
@@ -84,6 +113,13 @@ const DisplayCycle = () => {
                 </button>
                     <div className="mt-5"></div>
                     <div className="row mainContent-item mt-5 d-flex align-items-center ms-auto me-auto">
+                        {addToWishlist && (
+                            <FlashMessage duration={5000}>
+                                <div className="flash-success">
+                                    <p>Product added to your wishlist!</p>
+                                </div>
+                            </FlashMessage>
+                        )}
                         <div id="cyclesCarousel" className="col-md-6 carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 {imageUrls.map((img, i) => (
@@ -92,16 +128,18 @@ const DisplayCycle = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="group">
-                                <a className="carousel-control-prev" href="#cyclesCarousel" role="button" data-bs-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Previous</span>
-                                </a>
-                                <a className="carousel-control-next" href="#cyclesCarousel" role="button" data-bs-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Next</span>
-                                </a>
-                            </div>
+                            {imageUrls.length > 1 &&
+                                <div className="group">
+                                    <a className="carousel-control-prev" href="#cyclesCarousel" role="button" data-bs-slide="prev">
+                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Previous</span>
+                                    </a>
+                                    <a className="carousel-control-next" href="#cyclesCarousel" role="button" data-bs-slide="next">
+                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Next</span>
+                                    </a>
+                                </div>
+                            }
                         </div>
                         <div className="card col-md-6 h-300">
                             <div className="card-body">
@@ -120,7 +158,17 @@ const DisplayCycle = () => {
                                 )}
                                 {currentUser !== '' && (cycle.userId._id == currentUser || role == "admin") && (
                                     <form className="d-inline" onSubmit={handleDelete}>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <button className="btn btn-danger me-2">Delete</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && cycle.userId._id !== currentUser && !(wishlistCycles.includes(productId)) && (
+                                    <form className="d-inline" onSubmit={handleWishlist}>
+                                        <button className="btn btn-info">Add to Wishlist</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && cycle.userId._id !== currentUser && (wishlistCycles.includes(productId)) && (
+                                    <form className="d-inline">
+                                        <button className="btn btn-info disabled">Added in Wishlist</button>
                                     </form>
                                 )}
                             </div>

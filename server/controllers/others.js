@@ -15,7 +15,7 @@ module.exports.specificItem = async (req, res) => {
     const other = await Others.findById(othersId).populate('userId');
     console.log(other);
     const user = await User.findById(currentUser);
-    res.status(200).send({ success: 'other seeded!', other, currentUser, role: user.role });
+    res.status(200).send({ success: 'other seeded!', other, currentUser, role: user.role, wishlistOthers: user.wishlist.others });
 }
 
 module.exports.newItem = async (req, res) => {
@@ -56,6 +56,10 @@ module.exports.editItem = async (req, res) => {
 module.exports.deleteItem = async (req, res) => {
     const { id } = req.params;
     try {
+        const users = await User.find({ 'wishlist.others': { '$in': id } });
+        for (const index in users) {
+            await User.findByIdAndUpdate(users[index]._id, { $pull: { 'wishlist.others': id } });
+        }
         await Others.findByIdAndDelete(id);
         console.log('Successfully deleted the item!');
         res.redirect('/categories/others');

@@ -34,6 +34,7 @@ import AdminRegister from './views/admin/register';
 import AllUsers from './views/admin/allUsers';
 import GetUserProfile from './views/admin/getUserProfile';
 import GetUserProducts from './views/admin/getUserProducts';
+import Wishlist from './views/users/wishlist';
 
 function App() {
   return (
@@ -84,6 +85,10 @@ function App() {
         <Route exact path="/user/products">
           <Navbar />
           <UserProducts />
+        </Route>
+        <Route exact path="/user/wishlist">
+          <Navbar />
+          <Wishlist />
         </Route>
         <Route exact path="/updateQA">
           <Navbar />

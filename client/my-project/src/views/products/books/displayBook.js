@@ -1,19 +1,22 @@
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import FlashMessage from 'react-flash-message';
 const DisplayBook = () => {
 
     console.log("book specific page...");
     const [isPending, setPending] = useState(true);
+    const [addToWishlist, setAddToWishlist] = useState(false);
 
     const { id: productId } = useParams();
     const [book, setBook] = useState('');
     const [currentUser, setCurrentUser] = useState('');
     const [role, setRole] = useState('');
+    const [wishlistBooks, setWishlistBooks] = useState([]);
 
     useEffect(() => {
         getBook();
-    }, []);
+    }, [addToWishlist]);
 
     const getBook = () => {
         const axiosConfig = {
@@ -29,6 +32,7 @@ const DisplayBook = () => {
                 setBook(res.data.book);
                 setCurrentUser(res.data.currentUser);
                 setRole(res.data.role);
+                setWishlistBooks(res.data.wishlistBooks);
                 console.log(book, 'successful seed of our book!');
                 setPending(false);
             })
@@ -72,7 +76,33 @@ const DisplayBook = () => {
     const handleBack = () => {
         history.push('/categories/books');
     }
+
+    const handleWishlist = (e) => {
+        e.preventDefault();
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.get(`http://localhost:5000/user/wishlist/books/${productId}/add`, {
+
+        }, axiosConfig)
+            .then(() => {
+                console.log('successfully added book in wishlist!');
+                setAddToWishlist(true);
+            })
+            .catch((e) => {
+                setAddToWishlist(false);
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
     const history = useHistory();
+
     return (
         <div className="displayBook">
             {isPending && <div><h4>Seeding book ...</h4></div>}
@@ -82,6 +112,13 @@ const DisplayBook = () => {
                         All Books
                     </button>
                     <div className="row mainContent-item mt-5 d-flex align-items-center ms-auto me-auto">
+                        {addToWishlist && (
+                                <FlashMessage duration={5000}>
+                                    <div className="flash-success">
+                                        <p>Product added to your wishlist!</p>
+                                    </div>
+                                </FlashMessage>
+                        )}
                         <div id="booksCarousel" className="col-md-6 carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 {imageUrls.map((img, i) => (
@@ -90,16 +127,18 @@ const DisplayBook = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="group">
-                                <a className="carousel-control-prev" href="#booksCarousel" role="button" data-bs-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Previous</span>
-                                </a>
-                                <a className="carousel-control-next" href="#booksCarousel" role="button" data-bs-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Next</span>
-                                </a>
-                            </div>
+                            {imageUrls.length > 1 &&
+                                <div className="group">
+                                    <a className="carousel-control-prev" href="#booksCarousel" role="button" data-bs-slide="prev">
+                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Previous</span>
+                                    </a>
+                                    <a className="carousel-control-next" href="#booksCarousel" role="button" data-bs-slide="next">
+                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Next</span>
+                                    </a>
+                                </div>
+                            }
                         </div>
                         <div className="card col-md-6 h-300">
                             <div className="card-body">
@@ -119,7 +158,17 @@ const DisplayBook = () => {
                                 )}
                                 {currentUser !== '' && (book.userId._id == currentUser || role == "admin") && (
                                     <form className="d-inline" onSubmit={handleDelete}>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <button className="btn btn-danger me-2">Delete</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && book.userId._id !== currentUser && !(wishlistBooks.includes(productId)) && (
+                                    <form className="d-inline" onSubmit={handleWishlist}>
+                                        <button className="btn btn-info">Add to Wishlist</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && book.userId._id !== currentUser && (wishlistBooks.includes(productId)) && (
+                                    <form className="d-inline">
+                                        <button className="btn btn-info disabled">Added in Wishlist</button>
                                     </form>
                                 )}
                             </div>

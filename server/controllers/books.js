@@ -15,7 +15,7 @@ module.exports.specificBook = async (req, res) => {
     const book = await Book.findById(bookId).populate('userId');
     console.log(book);
     const user = await User.findById(currentUser);
-    res.status(200).send({ success: 'book seeded!', book, currentUser, role: user.role });
+    res.status(200).send({ success: 'book seeded!', book, currentUser, role: user.role, wishlistBooks: user.wishlist.books });
 }
 
 module.exports.newBook = async (req, res) => {
@@ -62,6 +62,10 @@ module.exports.editBook = async (req, res) => {
 module.exports.deleteBook = async (req, res) => {
     const { id } = req.params;
     try {
+        const users = await User.find({ 'wishlist.books': { '$in': id } });
+        for (const index in users) {
+            await User.findByIdAndUpdate(users[index]._id, { $pull: { 'wishlist.books': id } });
+        }
         await Book.findByIdAndDelete(id);
         console.log('Successfully deleted the book!');
         res.redirect('/categories/books');

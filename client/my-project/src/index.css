@@ -76,6 +76,13 @@
     background-color: rgba(255,0,0,0.5);
 }
 
+.flash-success{
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: rgba(0, 255, 76, 0.603);
+}
+
 .newBook, .newCycle, .newFurniture, .newHandicraft, .newOther, .editBook, .editCycle, .editFurniture, .editHandicraft, .editOther{
     overflow-x: hidden; /*hide horizontal scrollbar*/
     /*height: 100vh;*/
@@ -100,12 +107,37 @@
     right: 0px;
     margin-left: auto;
     margin-top: 10px;
-    margin-right: 130px;
+    margin-right: 8.7em;
 }
 
 .displayThumbnail{
     width: 21em;
-    height: 22em;
+    height: 18em;
+    cursor: pointer;
+}
+
+.data-display-grid{
+    height: 9.2em;
+}
+
+.data-display-grid-wishlist{
+    height: 9.6em;
+}
+
+.data-display-grid-small{  /*for handicrafts, furniture, others*/
+    height: 7em;
+}
+
+.data-display-heading{
+    font-size: 1.2rem;
+}
+
+.data-display-subheading, .data-display-price{
+    font-size: 1rem;
+}
+
+.grid-display-products{
+    margin-left: 6em;
 }
 
 .mainContent-item{
@@ -116,10 +148,6 @@
 
 .marginTopProduct{
     padding-top:5em;
-}
-
-::placeholder{
-    color: black;
 }
 
 .userProfile, .getUserProfile{

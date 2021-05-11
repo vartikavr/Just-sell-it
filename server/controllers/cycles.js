@@ -15,7 +15,7 @@ module.exports.specificCycle = async (req, res) => {
     const cycle = await Cycle.findById(cycleId).populate('userId');
     console.log(cycle);
     const user = await User.findById(currentUser);
-    res.status(200).send({ success: 'cycle seeded!', cycle, currentUser, role: user.role });
+    res.status(200).send({ success: 'cycle seeded!', cycle, currentUser, role: user.role, wishlistCycles: user.wishlist.cycles });
 }
 
 module.exports.newCycle = async (req, res) => {
@@ -62,6 +62,10 @@ module.exports.editCycle = async (req, res) => {
 module.exports.deleteCycle = async (req, res) => {
     const { id } = req.params;
     try {
+        const users = await User.find({ 'wishlist.cycles': { '$in': id } });
+        for (const index in users) {
+            await User.findByIdAndUpdate(users[index]._id, { $pull: { 'wishlist.cycles': id } });
+        }
         await Cycle.findByIdAndDelete(id);
         console.log('Successfully deleted the cycle!');
         res.redirect('/categories/cycles');
