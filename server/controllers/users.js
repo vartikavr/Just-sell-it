@@ -5,6 +5,8 @@ const Furniture = require('../schemas/furniture');
 const Handicraft = require('../schemas/handicrafts');
 const Others = require('../schemas/othersCat');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 module.exports.registerUser = async (req, res) => {
     console.log(req.body);
@@ -242,6 +244,75 @@ module.exports.viewWishlist = async (req, res) => {
         return res.status(200).send({ success: "wishlist seeded", books, cycles, furniture, handicrafts, others })
     }
     return res.status(403).send({ error: "wishlist not seeded." })
+}
+
+module.exports.contactSeller = async (req, res) => {
+    console.log(req.params);
+    const productId = req.params.id;
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.ADMIN_EMAIL,
+                pass: process.env.ADMIN_PWD
+            }
+        });
+        const user = await User.findById(currentUser);
+        var product = {};
+        var seller = {};
+        console.log(req.body);
+        if (req.body.category == "books") {
+            product = await Book.findById(productId);
+            seller = await User.findById(product.userId);
+        }
+        else if (req.body.category === "cycles") {
+            product = await Cycle.findById(productId);
+            seller = await User.findById(product.userId);
+        }
+        else if (req.body.category === "furniture") {
+            product = await Furniture.findById(productId);
+            seller = await User.findById(product.userId);
+        }
+        else if (req.body.category === "handicrafts") {
+            product = await Handicraft.findById(productId);
+            seller = await User.findById(product.userId);
+        }
+        else if (req.body.category === "others") {
+            product = await Others.findById(productId);
+            seller = await User.findById(product.userId);
+        }
+        const mailOptions = {
+            from: process.env.ADMIN_EMAIL,
+            to: user.email,
+            subject: 'Just Sell It - Contact the seller',
+            html: `<h4>Hello ${user.name}!</h4>
+            <h4>Thanks for showing your interest in our product!<b> Your selected product -<b></h4>
+            <p><b>${product.title}<b></p>
+            <img src=${product.images[0].url} width="400" height="400">
+            <p><b>Description: </b>${product.description}</p>
+            <p><b>Price: </b>₹${product.price}</p>
+            <p><b>The seller info of your selected product is: </b>
+            <br><b>Seller Name: </b>${seller.name}
+            <br>Contact info -<br>
+            <b>Email:</b> ${seller.email}<br>
+            <b>Phone No:</b> ${seller.phone}
+            <h4>Happy shopping!</h4> 
+            `
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log("error in sending mail..", error);
+                return res.status(403).send({ error: "error in sending mail" });
+            }
+            else {
+                console.log("Email sent: ", info.response);
+                return res.status(200).send({ success: "Email sent" });
+            }
+        });
+    }
+    catch (e) {
+        console.log("error in chat", e);
+    }
 }
 
 module.exports.checkPwd = async (req, res) => {

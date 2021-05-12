@@ -8,6 +8,7 @@ const DisplayCycle = () => {
     console.log("cycle specific page...");
     const [isPending, setPending] = useState(true);
     const [addToWishlist, setAddToWishlist] = useState(false);
+    const [message, setMessage] = useState(false);
 
     const { id: productId } = useParams();
     const [cycle, setCycle] = useState('');
@@ -101,6 +102,30 @@ const DisplayCycle = () => {
             })
     }
 
+    const handleChat = (e) => {
+        e.preventDefault();
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:5000/chat/${productId}`, {
+            category: "cycles"
+        }, axiosConfig)
+            .then(() => {
+                console.log('successfully message sent!');
+                setMessage(true);
+            })
+            .catch((e) => {
+                setMessage(false);
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
     const history = useHistory();
 
     return (
@@ -117,6 +142,13 @@ const DisplayCycle = () => {
                             <FlashMessage duration={5000}>
                                 <div className="flash-success">
                                     <p>Product added to your wishlist!</p>
+                                </div>
+                            </FlashMessage>
+                        )}
+                        {message && (
+                            <FlashMessage duration={5000}>
+                                <div className="flash-success">
+                                    <p>An email has been sent to you. Check inbox!</p>
                                 </div>
                             </FlashMessage>
                         )}
@@ -163,12 +195,22 @@ const DisplayCycle = () => {
                                 )}
                                 {currentUser !== '' && cycle.userId._id !== currentUser && !(wishlistCycles.includes(productId)) && (
                                     <form className="d-inline" onSubmit={handleWishlist}>
-                                        <button className="btn btn-info">Add to Wishlist</button>
+                                        <button className="btn btn-info me-2">Add to Wishlist</button>
                                     </form>
                                 )}
                                 {currentUser !== '' && cycle.userId._id !== currentUser && (wishlistCycles.includes(productId)) && (
                                     <form className="d-inline">
-                                        <button className="btn btn-info disabled">Added in Wishlist</button>
+                                        <button className="btn btn-info me-2 disabled">Added in Wishlist</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && (cycle.userId._id !== currentUser) && !message && (
+                                    <form className="d-inline" onSubmit={handleChat}>
+                                        <button className={"btn btn-info me-2 " + ((role == "admin") ? 'mt-2' : '')}>Contact Seller</button>
+                                    </form>
+                                )}
+                                {currentUser !== '' && (cycle.userId._id !== currentUser) && message && (
+                                    <form className="d-inline" onSubmit={handleChat}>
+                                        <button className="btn btn-info me-2 disabled">Email sent</button>
                                     </form>
                                 )}
                             </div>
