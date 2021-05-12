@@ -10,7 +10,7 @@ module.exports.displayCategories = async (req, res) => {
     const id = req.body.id;
     console.log("categories...", id)
     const user = await User.findById(currentUser);
-    return res.status(200).send({success: "categoires loaded", isVerified: user.isVerified});
+    return res.status(200).send({ success: "categoires loaded", isVerified: user.isVerified });
 }
 
 module.exports.getUserBooks = async (req, res) => {

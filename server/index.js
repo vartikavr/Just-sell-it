@@ -19,6 +19,7 @@ app.use(fileUpload({
 global.currentUser = null; //contains info of user, if logged in
 //const currentPath = req.path;
 global.resetUserId = '';
+global.emailConfirmationToken = null;
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

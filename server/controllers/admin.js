@@ -5,9 +5,13 @@ const Furniture = require('../schemas/furniture');
 const Handicraft = require('../schemas/handicrafts');
 const Others = require('../schemas/othersCat');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
 module.exports.registerAdmin = async (req, res) => {
     console.log(req.body);
+    emailConfirmationToken = null;
     const passwordHash = await bcrypt.hash(req.body.password, 10);
     const securityAnsHash = await bcrypt.hash(req.body.securityA, 10);
     const newAdmin = new User({
@@ -25,9 +29,47 @@ module.exports.registerAdmin = async (req, res) => {
 
     try {
         newAdmin.role = "admin";
+        newAdmin.isVerified = false;
         await newAdmin.save();
         console.log(newAdmin);
         currentUser = newAdmin._id;
+        jwt.sign(
+            {
+                userId: newAdmin._id,
+            },
+            process.env.EMAIL_SECRET,
+            {
+                expiresIn: '1d',
+            },
+            (err, emailToken) => {
+                const url = `http://localhost:3000/confirmation/${emailToken}`;
+                console.log(emailToken);
+                emailConfirmationToken = emailToken;
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.ADMIN_EMAIL,
+                        pass: process.env.ADMIN_PWD
+                    }
+                });
+                const mailOptions = {
+                    from: process.env.ADMIN_EMAIL,
+                    to: newAdmin.email,
+                    subject: 'Confirm Email for Just Sell It',
+                    html: `<h4>Hey ${newAdmin.name}! Please click the following link to confirm your email:</h4> 
+                    <a href="${url}">${url}</a> 
+                    `
+                };
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log("error in sending mail..", error);
+                    }
+                    else {
+                        console.log("Email sent: ", info.response);
+                    }
+                });
+            }
+        )
         return res.status(200).send({ sucess: "registered!" });
     }
     catch (e) {

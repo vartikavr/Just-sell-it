@@ -9,10 +9,9 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-var emailConfirmationToken = null;
-
 module.exports.registerUser = async (req, res) => {
     console.log(req.body);
+    emailConfirmationToken = null;
     const passwordHash = await bcrypt.hash(req.body.password, 10);
     const securityAnsHash = await bcrypt.hash(req.body.securityA, 10);
     const newUser = new User({
@@ -203,8 +202,45 @@ module.exports.editUserInfo = async (req, res) => {
         );
         if (oldUser.email != req.body.email) {
             updateUser.isVerified = false;
+            await updateUser.save();
+            jwt.sign(
+                {
+                    userId: updateUser._id,
+                },
+                process.env.EMAIL_SECRET,
+                {
+                    expiresIn: '1d',
+                },
+                (err, emailToken) => {
+                    const url = `http://localhost:3000/confirmation/${emailToken}`;
+                    console.log(emailToken);
+                    emailConfirmationToken = emailToken;
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: process.env.ADMIN_EMAIL,
+                            pass: process.env.ADMIN_PWD
+                        }
+                    });
+                    const mailOptions = {
+                        from: process.env.ADMIN_EMAIL,
+                        to: updateUser.email,
+                        subject: 'Confirm Email for Just Sell It',
+                        html: `<h4>Hey ${updateUser.name}! Please click the following link to confirm your email:</h4> 
+                        <a href="${url}">${url}</a> 
+                        `
+                    };
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log("error in sending mail..", error);
+                        }
+                        else {
+                            console.log("Email sent: ", info.response);
+                        }
+                    });
+                }
+            )
         }
-        await updateUser.save();
         res.status(200).send({ success: "Details updated." })
     }
     catch (e) {

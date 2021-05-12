@@ -117,7 +117,7 @@
     margin-right: 8.7em;
 }
 
-.displayBook{
+.displayBook, .displayCycle, .displayFurniture, .displayHandicraft, .displayOther{
     margin-bottom: 550px;
 }
 

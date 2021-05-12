@@ -30,7 +30,7 @@ const seedDb = async () => {
     await Book.deleteMany({});
     for (let i = 0; i < books.length; i++) {
         const newBook = new Book({
-            userId: '608b91828a59ed3f74dc0b12',
+            userId: '609c2d1544a6b60858a0469a',
             title: `${books[i].title}`,
             price: `${books[i].price}`,
             description: `${books[i].description}`,
@@ -46,7 +46,7 @@ const seedDb = async () => {
     await Cycle.deleteMany({});
     for (let i = 0; i < cycles.length; i++) {
         const newCycle = new Cycle({
-            userId: '608b91828a59ed3f74dc0b12',
+            userId: '609c2d1544a6b60858a0469a',
             title: `${cycles[i].title}`,
             price: `${cycles[i].price}`,
             description: `${cycles[i].description}`,
@@ -62,7 +62,7 @@ const seedDb = async () => {
     await Furniture.deleteMany({});
     for (let i = 0; i < furniture.length; i++) {
         const newFurniture = new Furniture({
-            userId: '608b91828a59ed3f74dc0b12',
+            userId: '609c2d1544a6b60858a0469a',
             title: `${furniture[i].title}`,
             price: `${furniture[i].price}`,
             description: `${furniture[i].description}`,
@@ -76,7 +76,7 @@ const seedDb = async () => {
     await Handicraft.deleteMany({});
     for (let i = 0; i < handicrafts.length; i++) {
         const newHandicraft = new Handicraft({
-            userId: '608b91828a59ed3f74dc0b12',
+            userId: '609c2d1544a6b60858a0469a',
             title: `${handicrafts[i].title}`,
             price: `${handicrafts[i].price}`,
             description: `${handicrafts[i].description}`,
@@ -90,7 +90,7 @@ const seedDb = async () => {
     await Others.deleteMany({});
     for (let i = 0; i < others.length; i++) {
         const newOther = new Others({
-            userId: '608b91828a59ed3f74dc0b12',
+            userId: '609c2d1544a6b60858a0469a',
             title: `${others[i].title}`,
             price: `${others[i].price}`,
             description: `${others[i].description}`,
