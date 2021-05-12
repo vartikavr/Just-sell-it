@@ -42,6 +42,9 @@ const EditHandicraft = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -90,9 +93,14 @@ const EditHandicraft = () => {
                     setPending(false);
                 })
                 .catch((e) => {
-
+                    if (e.response.data.isLoggedIn == false) {
+                        history.push('/login')
+                    }
                     if (e.response.data.isOwner == false) {
                         history.push('/categories/handicrafts')
+                    }
+                    if (e.response.data.isVerified == false) {
+                        history.push('/categories')
                     }
                     console.log("error in client", e)
                 })

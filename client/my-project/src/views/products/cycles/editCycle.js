@@ -44,6 +44,9 @@ const EditCycle = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -98,9 +101,14 @@ const EditCycle = () => {
                     setPending(false);
                 })
                 .catch((e) => {
-
+                    if (e.response.data.isLoggedIn == false) {
+                        history.push('/login')
+                    }
                     if (e.response.data.isOwner == false) {
                         history.push('/categories/cycles')
+                    }
+                    if (e.response.data.isVerified == false) {
+                        history.push('/categories')
                     }
                     console.log("error in client", e)
                 })

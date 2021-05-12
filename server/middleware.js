@@ -22,6 +22,15 @@ module.exports.isAdmin = async (req, res, next) => {
     next();
 }
 
+module.exports.isVerified = async (req, res, next) =>{
+    const user = await User.findById(currentUser);
+    if(!(user.isVerified)){
+        console.log("not confirmed email");
+        return res.status(403).send({ isVerified: false});
+    }
+    next();
+}
+
 module.exports.isBookOwner = async (req, res, next) => {
     const { id } = req.params;
     const book = await Book.findById(id);

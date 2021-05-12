@@ -34,6 +34,9 @@ const GetUserProfile = () => {
                 if (e.response.data.isAdmin == false) {
                     history.push('/categories')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e.response)
             })
     }

@@ -34,6 +34,9 @@ const Books = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }

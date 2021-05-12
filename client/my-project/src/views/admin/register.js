@@ -39,9 +39,9 @@ const AdminRegister = () => {
         }, axiosConfig)
             .then((res) => {
                 setError(false);
-                sessionStorage.setItem('isLoggedIn', true);
-                sessionStorage.setItem('isAuthorized', true);
-                console.log(sessionStorage.getItem('isLoggedIn'), "login done");
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('isAuthorized', true);
+                console.log(localStorage.getItem('isLoggedIn'), "login done");
                 console.log("registration done");
                 history.push('/categories');
                 setIsPending(false);

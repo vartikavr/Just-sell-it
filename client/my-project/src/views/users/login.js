@@ -23,11 +23,11 @@ const Login = () => {
         }, axiosConfig)
             .then((res) => {
                 setError(false);
-                sessionStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('isLoggedIn', true);
                 if (res.data.role === "admin") {
-                    sessionStorage.setItem('isAuthorized', true);
+                    localStorage.setItem('isAuthorized', true);
                 }
-                console.log(sessionStorage.getItem('isLoggedIn'), "login done");
+                console.log(localStorage.getItem('isLoggedIn'), "login done");
                 history.push('/categories');
                 //setIsPending(false);
             })

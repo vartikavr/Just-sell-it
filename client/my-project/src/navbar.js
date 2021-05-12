@@ -9,33 +9,33 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        {sessionStorage.getItem('isLoggedIn') && (
+                        {localStorage.getItem('isLoggedIn') && (
                             <div className="navbar-nav">
                                 <a className="nav-item active" aria-current="page" href="/categories">Categories</a>
                             </div>
                         )}
-                        {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isAuthorized') && (
+                        {localStorage.getItem('isLoggedIn') && localStorage.getItem('isAuthorized') && (
                             <div className="navbar-nav">
                                 <a className="nav-item active" aria-current="page" href="/admin/users">All Users</a>
                             </div>
                         )}
                         <div className="navbar-nav ms-auto">
-                            {!sessionStorage.getItem('isLoggedIn') && (
+                            {!localStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item d-block" href="/login">Login</a>
                             )}
-                            {!sessionStorage.getItem('isLoggedIn') && (
+                            {!localStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item d-block" href="/admin/register">Register as Admin</a>
                             )}
-                            {!sessionStorage.getItem('isLoggedIn') && (
+                            {!localStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/register">Register as User</a>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/user">My Profile</a>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/user/wishlist">My Wishlist</a>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <a className="nav-item" href="/logout">Logout</a>
                             )}
                         </div>

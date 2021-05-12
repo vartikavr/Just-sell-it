@@ -14,8 +14,6 @@ const NewFurniture = () => {
         e.preventDefault();
         setIsPending(true);
 
-        try {
-
             const axiosConfig = {
                 headers: {
                     'Content-Type': 'application/json'
@@ -34,17 +32,14 @@ const NewFurniture = () => {
                     setIsPending(false);
                 })
                 .catch((res, e) => {
+                    if (e.response.data.isLoggedIn == false) {
+                        history.push('/login')
+                    }
+                    if (e.response.data.isVerified == false) {
+                        history.push('/categories')
+                    }
                     console.log("error in client", e)
                 })
-        }
-
-        catch (err) {
-            console.log("client errror data:", e.response);
-            if (e.response.data.isLoggedIn == false) {
-                history.push('/login')
-            }
-            alert(err.response.data.msg)
-        }
     }
 
     const [isPending, setIsPending] = useState(false);

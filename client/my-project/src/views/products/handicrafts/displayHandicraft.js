@@ -43,6 +43,9 @@ const DisplayHandicraft = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -62,6 +65,12 @@ const DisplayHandicraft = () => {
                 history.push('/categories/handicrafts');
             })
             .catch((e) => {
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -93,6 +102,9 @@ const DisplayHandicraft = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -116,6 +128,9 @@ const DisplayHandicraft = () => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
+                }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
                 }
                 console.log("error in client", e)
             })

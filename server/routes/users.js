@@ -2,21 +2,25 @@ const express = require('express');
 const router = express.Router();
 const users = require('../controllers/users');
 
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn, isVerified } = require('../middleware');
 
 router.post('/register', users.registerUser)
 
 router.post('/login', users.loginUser)
 
-router.post('/chat/:id', isLoggedIn, users.contactSeller)
+router.post('/chat/:id', isLoggedIn, isVerified, users.contactSeller)
+
+router.get('/confirmation/:token', isLoggedIn, users.confirmEmail)
+
+router.get('/confirmation', isLoggedIn, users.sendToken)
 
 router.get('/user', isLoggedIn, users.userInfo)
 
 router.post('/user/edit', isLoggedIn, users.editUserInfo)
 
-router.get('/user/wishlist', isLoggedIn, users.viewWishlist)
+router.get('/user/wishlist', isLoggedIn, isVerified, users.viewWishlist)
 
-router.post('/user/delete', isLoggedIn, users.deleteUserInfo)
+router.post('/user/delete', isLoggedIn, isVerified, users.deleteUserInfo)
 
 router.post('/checkPwd', isLoggedIn, users.checkPwd) //change security Q/A
 

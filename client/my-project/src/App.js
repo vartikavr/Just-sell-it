@@ -35,6 +35,7 @@ import AllUsers from './views/admin/allUsers';
 import GetUserProfile from './views/admin/getUserProfile';
 import GetUserProducts from './views/admin/getUserProducts';
 import Wishlist from './views/users/wishlist';
+import ConfirmEmail from './confirmEmail';
 
 function App() {
   return (
@@ -46,6 +47,10 @@ function App() {
         <Route exact path="/admin/register">
           <Navbar />
           <AdminRegister />
+        </Route>
+        <Route exact path="/confirmation/:token">
+          <Navbar />
+          <ConfirmEmail />
         </Route>
         <Route exact path="/admin/users">
           <Navbar />

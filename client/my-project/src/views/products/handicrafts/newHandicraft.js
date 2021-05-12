@@ -14,37 +14,33 @@ const NewHandicraft = () => {
         e.preventDefault();
         setIsPending(true);
 
-        try {
-
-            const axiosConfig = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
             }
-
-            await axios.post('http://localhost:5000/categories/handicrafts/new', {
-                title, price, description, color, image
-            },
-                axiosConfig
-            )
-                .then((res) => {
-                    console.log(res.data);
-                    setProductId(res.data._id);
-                    history.push(`/categories/handicrafts/${productId}`);
-                    setIsPending(false);
-                })
-                .catch((res, e) => {
-                    console.log("client errror data:", e.response);
-                    if (e.response.data.isLoggedIn == false) {
-                        history.push('/login')
-                    }
-                    console.log("error in client", e)
-                })
         }
 
-        catch (err) {
-            alert(err.response.data.msg)
-        }
+        await axios.post('http://localhost:5000/categories/handicrafts/new', {
+            title, price, description, color, image
+        },
+            axiosConfig
+        )
+            .then((res) => {
+                console.log(res.data);
+                setProductId(res.data._id);
+                history.push(`/categories/handicrafts/${productId}`);
+                setIsPending(false);
+            })
+            .catch((res, e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
+                console.log("error in client", e)
+            })
     }
 
     const [isPending, setIsPending] = useState(false);

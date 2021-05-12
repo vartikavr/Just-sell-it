@@ -42,6 +42,9 @@ const DisplayCycle = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -67,6 +70,9 @@ const DisplayCycle = () => {
                 }
                 if (e.response.data.isOwner == false) {
                     history.push('/categories/cycles')
+                }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
                 }
                 console.log("error in client", e)
             })
@@ -98,6 +104,9 @@ const DisplayCycle = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -121,6 +130,9 @@ const DisplayCycle = () => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
+                }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
                 }
                 console.log("error in client", e)
             })

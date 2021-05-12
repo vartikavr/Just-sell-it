@@ -7,6 +7,9 @@ const Others = require('../schemas/othersCat');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
+var emailConfirmationToken = null;
 
 module.exports.registerUser = async (req, res) => {
     console.log(req.body);
@@ -27,14 +30,71 @@ module.exports.registerUser = async (req, res) => {
 
     try {
         newUser.role = "user";
+        newUser.isVerified = false;
         await newUser.save();
         console.log(newUser);
         currentUser = newUser._id;
+        jwt.sign(
+            {
+                userId: newUser._id,
+            },
+            process.env.EMAIL_SECRET,
+            {
+                expiresIn: '1d',
+            },
+            (err, emailToken) => {
+                const url = `http://localhost:3000/confirmation/${emailToken}`;
+                console.log(emailToken);
+                emailConfirmationToken = emailToken;
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.ADMIN_EMAIL,
+                        pass: process.env.ADMIN_PWD
+                    }
+                });
+                const mailOptions = {
+                    from: process.env.ADMIN_EMAIL,
+                    to: newUser.email,
+                    subject: 'Confirm Email for Just Sell It',
+                    html: `<h4>Hey ${newUser.name}! Please click the following link to confirm your email:</h4> 
+                    <a href="${url}">${url}</a> 
+                    `
+                };
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log("error in sending mail..", error);
+                    }
+                    else {
+                        console.log("Email sent: ", info.response);
+                    }
+                });
+            }
+        )
         return res.status(200).send({ sucess: "registered!" });
     }
     catch (e) {
         console.log(e);
         return res.status(403).send({ error: "Invalid entry!" });
+    }
+}
+
+module.exports.sendToken = (req, res) => {
+    console.log("confirmation..", emailConfirmationToken);
+    return res.status(200).send({ token: emailConfirmationToken });
+}
+
+module.exports.confirmEmail = async (req, res) => {
+    try {
+        console.log(req.params);
+        const result = jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+        console.log("result.....", result);
+        await User.findByIdAndUpdate(result.userId, { isVerified: true });
+        return res.status(200).send({ success: "confirmed email" })
+    }
+    catch (e) {
+        console.log("error", e);
+        return res.status(400).send({ error: "not confirmed." })
     }
 }
 
@@ -126,6 +186,7 @@ module.exports.editUserInfo = async (req, res) => {
     console.log("Editing user info ...", req.body);
     try {
         const userId = currentUser;
+        const oldUser = await User.findById(userId);
         const updateUser = await User.findOneAndUpdate({ _id: userId },
             {
                 name: req.body.name,
@@ -140,6 +201,9 @@ module.exports.editUserInfo = async (req, res) => {
                 runValidators: true
             }
         );
+        if (oldUser.email != req.body.email) {
+            updateUser.isVerified = false;
+        }
         await updateUser.save();
         res.status(200).send({ success: "Details updated." })
     }

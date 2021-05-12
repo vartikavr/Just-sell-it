@@ -53,6 +53,13 @@
     width: 100%;
     padding: 0.25rem 0;
 }
+
+/* .carousel-item {
+    width: 100%;
+    height: 25vw;
+    object-fit: cover;
+} */
+
 .register, .adminRegister{
         overflow-x: hidden; /*hide horizontal scrollbar*/
         background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
@@ -108,6 +115,10 @@
     margin-left: auto;
     margin-top: 10px;
     margin-right: 8.7em;
+}
+
+.displayBook{
+    margin-bottom: 550px;
 }
 
 .displayThumbnail{

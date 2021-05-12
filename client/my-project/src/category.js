@@ -1,8 +1,46 @@
 import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import FlashMessage from 'react-flash-message';
+
 const Category = () => {
 
     const history = useHistory();
+    const [isVerified, setIsVerified] = useState(false);
+    const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        checkVerification();
+    }, [isVerified]);
+
+    const checkVerification = () => {
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        axios.get('http://localhost:5000/user', {
+        },
+            axiosConfig)
+            .then((res) => {
+                console.log(res.data)
+                setIsVerified(res.data.user.isVerified);
+                if (res.data.user.isVerified == false) {
+                    setIsError(true);
+                }
+                else {
+                    setIsError(false);
+                }
+            })
+            .catch((e) => {
+                console.log("client errror data:", e.response);
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                console.log("error in client", e)
+            })
+    }
+
     const handleSelect = (event) => {
         const id = event.target.id;
 
@@ -13,8 +51,8 @@ const Category = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/categories', {
-            id: id
+        axios.get('http://localhost:5000/categories', {
+
         },
             axiosConfig)
             .then((res) => {
@@ -35,6 +73,13 @@ const Category = () => {
     }
     return (
         <div className="category d-flex flex-column">
+            {isError && (
+                <FlashMessage duration={5000}>
+                    <div className="flash col-md-6 offset-md-3">
+                        <p>Email not confirmed yet. Check inbox!</p>
+                    </div>
+                </FlashMessage>
+            )}
             <div className="heading">
                 <h1 style={{ textAlign: "center" }}>Select a Category :</h1>
             </div>

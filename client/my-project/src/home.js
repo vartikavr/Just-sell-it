@@ -16,42 +16,42 @@ const Home = () => {
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/categories">Browse</a>
                                 </li>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isAuthorized') && (
+                            {localStorage.getItem('isLoggedIn') && localStorage.getItem('isAuthorized') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/admin/users">Users</a>
                                 </li>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/user">Profile</a>
                                 </li>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/user/wishlist">Wishlist</a>
                                 </li>
                             )}
-                            {!sessionStorage.getItem('isLoggedIn') && (
+                            {!localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/admin/register">Admin</a>
                                 </li>
                             )}
-                            {!sessionStorage.getItem('isLoggedIn') && (
+                            {!localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/login">Login</a>
                                 </li>
                             )}
-                            {!sessionStorage.getItem('isLoggedIn') && (
+                            {!localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/register">Register</a>
                                 </li>
                             )}
-                            {sessionStorage.getItem('isLoggedIn') && (
+                            {localStorage.getItem('isLoggedIn') && (
                                 <li className="nav-item">
                                     <a className="nav-link" href="/logout">Logout</a>
                                 </li>

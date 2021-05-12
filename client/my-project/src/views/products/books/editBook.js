@@ -43,6 +43,9 @@ const EditBook = () => {
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
                 }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
                 console.log("error in client", e)
             })
     }
@@ -98,8 +101,14 @@ const EditBook = () => {
                 })
                 .catch((e) => {
                     console.log("client errror data:", e.response);
+                    if (e.response.data.isLoggedIn == false) {
+                        history.push('/login')
+                    }
                     if (e.response.data.isOwner == false) {
                         history.push('/categories/books')
+                    }
+                    if (e.response.data.isVerified == false) {
+                        history.push('/categories')
                     }
                     console.log("error in client", e)
                 })
