@@ -14,32 +14,32 @@ const NewFurniture = () => {
         e.preventDefault();
         setIsPending(true);
 
-            const axiosConfig = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
             }
+        }
 
-            await axios.post('http://localhost:5000/categories/furniture/new', {
-                title, price, description, age, image
-            },
-                axiosConfig
-            )
-                .then((res) => {
-                    console.log(res.data);
-                    setProductId(res.data._id);
-                    history.push(`/categories/furniture/${productId}`);
-                    setIsPending(false);
-                })
-                .catch((res, e) => {
-                    if (e.response.data.isLoggedIn == false) {
-                        history.push('/login')
-                    }
-                    if (e.response.data.isVerified == false) {
-                        history.push('/categories')
-                    }
-                    console.log("error in client", e)
-                })
+        await axios.post('http://localhost:5000/categories/furniture/new', {
+            title, price, description, age, image
+        },
+            axiosConfig
+        )
+            .then((res) => {
+                console.log(res.data);
+                setProductId(res.data._id);
+                history.push(`/categories/furniture/${productId}`);
+                setIsPending(false);
+            })
+            .catch((res, e) => {
+                if (e.response.data.isLoggedIn == false) {
+                    history.push('/login')
+                }
+                if (e.response.data.isVerified == false) {
+                    history.push('/categories')
+                }
+                console.log("error in client", e)
+            })
     }
 
     const [isPending, setIsPending] = useState(false);
@@ -83,7 +83,7 @@ const NewFurniture = () => {
     return (
         <div className="newFurniture">
             <div className="row mt-3">
-                <h1 className="text-center">New Furniture</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>New Furniture</h1>
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}>
                         <div className="registerForm mb-3">

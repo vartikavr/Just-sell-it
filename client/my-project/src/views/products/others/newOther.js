@@ -83,7 +83,7 @@ const NewOther = () => {
     return (
         <div className="newOther">
             <div className="row mt-3">
-                <h1 className="text-center">New Other</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>New Other</h1>
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}>
                         <div className="registerForm mb-3">

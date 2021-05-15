@@ -52,7 +52,7 @@ const Furniture = () => {
     }
 
     return (
-        <div className="furniture">
+        <div className="furniture" id="allFurniture">
             {isPending && <div><h4>pending ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
@@ -73,7 +73,7 @@ const Furniture = () => {
                                         <div className="card-body data-display-grid-small">
                                             <h2 className="card-title data-display-heading">{f.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{f.price}
+                                                <b>₹{f.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@ const Furniture = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="mb-3"></div>
+                    <div className="mb-5"></div>
                 </div>
             }
         </div>

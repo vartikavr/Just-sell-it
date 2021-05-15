@@ -150,7 +150,7 @@ const EditFurniture = () => {
     return (
         <div className="editFurniture">
             <div className="row mt-3">
-                <h1 className="text-center">Edit Furniture</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>Edit Furniture</h1>
                 {isPending && <div><h4>Seeding furniture ...</h4></div>}
                 {!isPending &&
                     <div className="col-md-6 offset-md-3">

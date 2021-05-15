@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
+//const loginImg = require('../../images/login.jpg')
 
 const Login = () => {
 
@@ -43,51 +44,55 @@ const Login = () => {
 
     return (
         <div className="login">
-            <div className="container d-flex justify-content-center align-items-center mb-5 mt-5">
-                <div className="row">
-                    <div className="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-                        {isError && (
-                            <div className="flash">
+            <div className="container mb-5 mt-5">
+                <div className="col-md-8 offset-md-2">
+                    <div className="card shadow">
+                        <div className="row g-0">
+                            {isError && (
                                 <FlashMessage duration={5000}>
-                                    <p>Invalid username or password. Please try again!</p>
+                                    <div className="flash">
+                                        <p>Invalid username or password. Please try again!</p>
+                                    </div>
                                 </FlashMessage>
+                            )}
+                            <div className="card-image col-md-7">
+                                <img src={`${process.env.PUBLIC_URL}/login.png`}
+                                    alt="" className="card-img-top" />
                             </div>
-                        )}
-                        <div className="card shadow">
-                            <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
-                                alt="" class="card-img-top" />
-                            <div className="card-body">
-                                <h5 className="card-title">
-                                    Login
+                            <div className="card-body-cover col-md-4 me-2">
+                                <div className="card-body">
+                                    <h5 className="card-title text-center mt-4" style={{ fontSize: 40, color: "#94618E" }}>
+                                        Login
                                 </h5>
-                                <form onSubmit={handleSubmit}>
-                                    <div className="mb-3">
-                                        <label className="form-label" for="username">Username</label>
-                                        <input className="form-control" type="text" id="username" name="username" placeholder="enter username" required autoFocus
-                                            value={username}
-                                            onChange={(event) => setUsername(event.target.value)}
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label" for="password">Password</label>
-                                        <input className="form-control" type="password" id="password" name="password" placeholder="enter password" required
-                                            value={pwd}
-                                            onChange={(event) => setPwd(event.target.value)}
-                                        />
-                                    </div>
-                                    <div className="d-grid ">
-                                        <button className="btn btn-success btn-block">Login</button>
-                                        <a className="text-center" href="/forgotPwd">
-                                            Forgot Password?
+                                    <form onSubmit={handleSubmit} className="mt-4">
+                                        <div className="mb-3">
+                                            <label className="form-label" for="username">Username</label>
+                                            <input className="form-control" type="text" id="username" name="username" placeholder="enter username" required autoFocus
+                                                value={username}
+                                                onChange={(event) => setUsername(event.target.value)}
+                                            />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label" for="password">Password</label>
+                                            <input className="form-control" type="password" id="password" name="password" placeholder="enter password" required
+                                                value={pwd}
+                                                onChange={(event) => setPwd(event.target.value)}
+                                            />
+                                        </div>
+                                        <div className="d-grid">
+                                            <button className="btn btn-success btn-block mt-4">Login</button>
+                                            <a className="text-center mt-3" href="/forgotPwd">
+                                                Forgot Password?
                                         </a>
-                                    </div>
-                                </form>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

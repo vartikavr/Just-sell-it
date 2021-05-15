@@ -2,7 +2,7 @@ const Navbar = () => {
 
     return (
         <div className="header">
-            <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar sticky-top navbar-expand-lg navbar-dark navbar-bg">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">Just Sell It</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

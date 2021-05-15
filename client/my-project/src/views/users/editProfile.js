@@ -111,7 +111,7 @@ const EditProfile = () => {
     return (
         <div className="editProfile">
             <div className="row mt-3">
-                <h1 className="text-center">Edit User Info</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>Edit User Info</h1>
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}>
                         <div className="userInfoForm mb-3">

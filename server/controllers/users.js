@@ -197,12 +197,14 @@ module.exports.editUserInfo = async (req, res) => {
                 address: req.body.address
             },
             {
-                runValidators: true
+                runValidators: true,
+                new:true
             }
         );
         if (oldUser.email != req.body.email) {
             updateUser.isVerified = false;
             await updateUser.save();
+            console.log("updated..", updateUser)
             jwt.sign(
                 {
                     userId: updateUser._id,

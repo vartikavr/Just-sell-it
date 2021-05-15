@@ -260,8 +260,8 @@ const Wishlist = () => {
     return (
         <div className="wishlist">
             {isPending && isEmpty && <div><h4>loading ...</h4></div>}
-            {!isPending && isEmpty && <div className="noProductsFound"><h4 className="text-center mt-3">No products in wishlist.</h4></div>}
-            {!isPending && (price !== 0) && <div className="wishlistPrice"><h4 className="text-center mt-3">Total price of items in wishlist: ₹{price}</h4></div>}
+            {!isPending && isEmpty && <div className="noProductsFound"><h4 className="text-center mt-3" style={{ fontSize: 30, color: "#94618E" }}>No products in wishlist.</h4></div>}
+            {!isPending && (price !== 0) && <div className="wishlistPrice"><h4 className="text-center mt-3" style={{ fontSize: 30, color: "#94618E" }}>Total price of items in wishlist: ₹{price}</h4></div>}
             {!isPending && !isEmpty &&
                 <div className="dataDisplay mt-3">
                     <div className="grid-display-products d-flex flex-row flex-wrap">
@@ -278,7 +278,7 @@ const Wishlist = () => {
                                         <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{book.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{book.price}
+                                                <b> ₹{book.price}</b>
                                             </p>
                                             <button className="btn btn-danger"
                                                 id={book._id}
@@ -303,7 +303,7 @@ const Wishlist = () => {
                                         <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{cycle.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{cycle.price}
+                                                <b>₹{cycle.price}</b>
                                             </p>
                                             <button className="btn btn-danger"
                                                 id={cycle._id}
@@ -327,7 +327,7 @@ const Wishlist = () => {
                                         <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{f.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{f.price}
+                                                <b>₹{f.price}</b>
                                             </p>
                                             <button className="btn btn-danger"
                                                 id={f._id}
@@ -351,7 +351,7 @@ const Wishlist = () => {
                                         <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{h.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{h.price}
+                                                <b>₹{h.price}</b>
                                             </p>
                                             <button className="btn btn-danger"
                                                 id={h._id}
@@ -375,7 +375,7 @@ const Wishlist = () => {
                                         <div className="card-body data-display-grid-wishlist">
                                             <h2 className="card-title data-display-heading">{item.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{item.price}
+                                                <b>₹{item.price}</b>
                                             </p>
                                             <button className="btn btn-danger"
                                                 id={item._id}

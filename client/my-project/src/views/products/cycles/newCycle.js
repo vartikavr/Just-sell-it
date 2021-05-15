@@ -87,7 +87,7 @@ const NewCycle = () => {
     return (
         <div className="newCycle">
             <div className="row mt-3">
-                <h1 className="text-center">New Cycle</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>New Cycle</h1>
                 <div className="col-md-6 offset-md-3">
                     <form onSubmit={handleSubmit}>
                         <div className="registerForm mb-3">

@@ -157,7 +157,7 @@ const EditCycle = () => {
     return (
         <div className="editCycle">
             <div className="row mt-3">
-                <h1 className="text-center">Edit Cycle</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>Edit Cycle</h1>
                 {isPending && <div><h4>Seeding cycle ...</h4></div>}
                 {!isPending &&
                     <div className="col-md-6 offset-md-3">

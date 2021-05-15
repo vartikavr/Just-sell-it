@@ -55,7 +55,7 @@ const UserProfile = () => {
 
     return (
         <div className="userProfile">
-            <button className="btn btn-info col-md-6 rounded-0">
+            <button className="btn btn-info myProfileBtn col-md-6 rounded-0">
                 My Profile
             </button>
             <button className="btn btn-secondary col-md-6 rounded-0"
@@ -66,7 +66,7 @@ const UserProfile = () => {
                 My Products
             </button>
             <div className="row mt-3">
-                <h1 className="text-center">User Info</h1>
+                <h1 className="text-center" style={{ fontSize: 40, color: "#94618E" }}>User Info</h1>
                 <div className="col-md-6 offset-md-3">
                     <form>
                         <div className="userInfoForm mb-3">

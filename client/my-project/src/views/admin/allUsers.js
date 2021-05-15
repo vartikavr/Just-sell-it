@@ -77,7 +77,7 @@ const AllUsers = () => {
     return (
         <div className="allUsers">
             <div className="mb-3">
-                <h1 className="mt-4 text-center mb-5">All Users</h1>
+                <h1 className="mt-4 text-center mb-5" style={{ fontSize: 40, color: "#94618E" }}>All Users</h1>
             </div>
             {isPending && <div><h4>loading ...</h4></div>}
             {!isPending &&

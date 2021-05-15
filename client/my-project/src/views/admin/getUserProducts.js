@@ -136,7 +136,7 @@ const GetUserProducts = () => {
                                         <div className="card-body data-display-grid-small">
                                             <h2 className="card-title data-display-heading">{book.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{book.price}
+                                                <b>₹{book.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@ const GetUserProducts = () => {
                                         <div className="card-body data-display-grid-small">
                                             <h2 className="card-title data-display-heading">{cycle.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{cycle.price}
+                                                <b>₹{cycle.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@ const GetUserProducts = () => {
                                         <div className="card-body data-display-grid-small">
                                             <h2 className="card-title data-display-heading">{f.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{f.price}
+                                                <b>₹{f.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@ const GetUserProducts = () => {
                                         <div className="card-body data-display-grid-small">
                                             <h2 className="card-title data-display-heading">{h.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{h.price}
+                                                <b>₹{h.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@ const GetUserProducts = () => {
                                         <div className="card-body data-display-grid-small">
                                             <h2 className="card-title data-display-heading">{item.title}</h2>
                                             <p className="card-text data-display-subheading">
-                                                ₹{item.price}
+                                                <b>₹{item.price}</b>
                                             </p>
                                         </div>
                                     </div>

@@ -55,7 +55,7 @@ const Books = () => {
     }
 
     return (
-        <div className="books">
+        <div className="books" id="allBooks">
             {isPending && <div><h4>pending ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
@@ -64,7 +64,7 @@ const Books = () => {
                     </button>
                     <div className="grid-display-products d-flex flex-row flex-wrap">
                         {allBooks.map((book) => (
-                            <div className="card col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
+                            <div className="card cardDisplay col-lg-2 pt-3 mt-3 ms-5 me-5 ps-3 pe-3">
                                 <div className="col">
                                     <div className="col">
                                         <img className="img-fluid displayThumbnail" alt="" src={book.images[0].url}
@@ -75,9 +75,9 @@ const Books = () => {
                                     <div className="col">
                                         <div className="card-body data-display-grid">
                                             <h2 className="card-title data-display-heading">{book.title}</h2>
-                                            <h5 className="card-title data-display-subheading">Written By- {book.author}</h5>
+                                            <h5 className="card-title data-display-subheading">Written By: {book.author}</h5>
                                             <p className="card-text data-display-price">
-                                                ₹{book.price}
+                                                <b>₹{book.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@ const Books = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="mb-3"></div>
+                    <div className="mb-5"></div>
                 </div>
             }
         </div>

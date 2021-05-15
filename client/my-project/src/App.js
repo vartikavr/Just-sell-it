@@ -3,7 +3,6 @@ import Home from './home';
 import Login from './views/users/login';
 import Navbar from './navbar';
 import Register from './views/users/register';
-import Category from './category';
 import Books from './views/products/books/books';
 import Cycles from './views/products/cycles/cycles';
 import Furniture from './views/products/furniture/furniture';
@@ -37,7 +36,26 @@ import GetUserProducts from './views/admin/getUserProducts';
 import Wishlist from './views/users/wishlist';
 import ConfirmEmail from './confirmEmail';
 
+import { makeStyles } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
+import Header from './views/category/Header';
+import Categories from './views/category/Categories';
+import AllBooksHeader from './views/products/books/allBooksHeader';
+import AllCyclesHeader from './views/products/cycles/allCyclesHeader';
+import AllFurnitureHeader from './views/products/furniture/allFurnitureHeader';
+import AllHandicraftsHeader from './views/products/handicrafts/allHandicraftsHeader';
+import AllOthersHeader from './views/products/others/allOthersHeader';
+
+const useStyles = makeStyles({
+  root: {
+    minHeight: '100%',
+    backgroundColor: '#F4DECB',
+  },
+});
+
+
 function App() {
+  const classes = useStyles();
   return (
     <Router>
       <Switch>
@@ -101,7 +119,13 @@ function App() {
         </Route>
         <Route exact path="/categories">
           <Navbar />
-          <Category />
+          <div className={classes.root}>
+            <CssBaseline />
+            <Header />
+            <CssBaseline />
+            <Categories />
+            {/* <Category /> */}
+          </div>
         </Route>
         <Route exact path="/categories/books/new">
           <Navbar />
@@ -109,7 +133,13 @@ function App() {
         </Route>
         <Route exact path="/categories/books">
           <Navbar />
-          <Books />
+          <div className={classes.root}>
+            <CssBaseline />
+            <AllBooksHeader />
+            <CssBaseline />
+            {/* <allBooks /> */}
+            <Books />
+          </div>
         </Route>
         <Route exact path="/categories/books/:id">
           <Navbar />
@@ -125,7 +155,12 @@ function App() {
         </Route>
         <Route exact path="/categories/cycles">
           <Navbar />
-          <Cycles />
+          <div className={classes.root}>
+            <CssBaseline />
+            <AllCyclesHeader />
+            <CssBaseline />
+            <Cycles />
+          </div>
         </Route>
         <Route exact path="/categories/cycles/:id">
           <Navbar />
@@ -141,7 +176,12 @@ function App() {
         </Route>
         <Route exact path="/categories/furniture">
           <Navbar />
-          <Furniture />
+          <div className={classes.root}>
+            <CssBaseline />
+            <AllFurnitureHeader />
+            <CssBaseline />
+            <Furniture />
+          </div>
         </Route>
         <Route exact path="/categories/furniture/:id">
           <Navbar />
@@ -157,7 +197,12 @@ function App() {
         </Route>
         <Route exact path="/categories/handicrafts">
           <Navbar />
-          <Handicrafts />
+          <div className={classes.root}>
+            <CssBaseline />
+            <AllHandicraftsHeader />
+            <CssBaseline />
+            <Handicrafts />
+          </div>
         </Route>
         <Route exact path="/categories/handicrafts/:id">
           <Navbar />
@@ -173,7 +218,12 @@ function App() {
         </Route>
         <Route exact path="/categories/others">
           <Navbar />
-          <Others />
+          <div className={classes.root}>
+            <CssBaseline />
+            <AllOthersHeader />
+            <CssBaseline />
+            <Others />
+          </div>
         </Route>
         <Route exact path="/categories/others/:id">
           <Navbar />

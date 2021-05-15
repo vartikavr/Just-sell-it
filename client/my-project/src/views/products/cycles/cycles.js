@@ -52,7 +52,7 @@ const Cycles = () => {
     }
 
     return (
-        <div className="cycles">
+        <div className="cycles" id="allCycles">
             {isPending && <div><h4>pending ...</h4></div>}
             {!isPending &&
                 <div className="dataDisplay">
@@ -72,9 +72,9 @@ const Cycles = () => {
                                     <div className="col">
                                         <div className="card-body data-display-grid">
                                             <h2 className="card-title data-display-heading">{cycle.title}</h2>
-                                            <p className="card-text data-display-subheading">Model Number- #{cycle.modelNo}</p>
+                                            <p className="card-text data-display-subheading mt-2">Model Number: #{cycle.modelNo}</p>
                                             <p className="card-text data-display-price">
-                                                ₹{cycle.price}
+                                                <b>₹{cycle.price}</b>
                                             </p>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@ const Cycles = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="mb-3"></div>
+                    <div className="mb-5"></div>
                 </div>
             }
         </div>

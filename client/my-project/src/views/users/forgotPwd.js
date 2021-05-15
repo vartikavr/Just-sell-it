@@ -35,7 +35,7 @@ const ForgotPwd = () => {
     }
     const history = useHistory();
     return (
-        <div className="login">
+        <div className="forgotPwd">
             {!moveToNext && (
                 <div className="container d-flex justify-content-center align-items-center mb-5 mt-5">
                     <div className="row">
@@ -48,10 +48,10 @@ const ForgotPwd = () => {
                                 </div>
                             )}
                             <div className="card shadow">
-                                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
+                                <img src={`${process.env.PUBLIC_URL}/forgotPwd.png`}
                                     alt="" class="card-img-top" />
                                 <div className="card-body">
-                                    <h5 className="card-title">Forgot Password</h5>
+                                    <h5 className="card-title" style={{ fontSize: 30, color: "#94618E" }}>Forgot Password</h5>
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-3">
                                             <label className="form-label" for="username">Enter Username</label>
