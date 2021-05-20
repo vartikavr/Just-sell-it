@@ -107,7 +107,6 @@ module.exports.loginUser = async (req, res) => {
             console.log("not pwd valid")
             return res.status(403).send({ error: "invalid pwd" });
         }
-        console.log("Successfully logged in!");
         currentUser = check._id;
         const role = check.role;
         return res.status(200).send({ sucess: "logged in!", role });
