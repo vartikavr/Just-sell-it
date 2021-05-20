@@ -35,7 +35,6 @@ module.exports.newBook = async (req, res) => {
 }
 
 module.exports.editBook = async (req, res) => {
-    console.log("Editing book ...", req.params);
     const bookId = req.params.id;
     const updateBook = await Book.findByIdAndUpdate(bookId,
         {

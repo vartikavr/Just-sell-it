@@ -13,7 +13,6 @@ module.exports.displayCategories = async (req, res) => {
 }
 
 module.exports.getUserBooks = async (req, res) => {
-    console.log("in user books ..");
     const user = await User.findById(currentUser);
     const books = await Book.find({ userId: user._id });
     console.log(books);
@@ -21,7 +20,6 @@ module.exports.getUserBooks = async (req, res) => {
 }
 
 module.exports.getUserCycles = async (req, res) => {
-    console.log("in user cycles ..");
     const user = await User.findById(currentUser);
     const cycles = await Cycle.find({ userId: user._id });
     console.log(cycles);
@@ -29,7 +27,6 @@ module.exports.getUserCycles = async (req, res) => {
 }
 
 module.exports.getUserFurniture = async (req, res) => {
-    console.log("in user furniture ..");
     const user = await User.findById(currentUser);
     const furniture = await Furniture.find({ userId: user._id });
     console.log(furniture);
@@ -37,7 +34,6 @@ module.exports.getUserFurniture = async (req, res) => {
 }
 
 module.exports.getUserHandicrafts = async (req, res) => {
-    console.log("in user handicrafts ..");
     const user = await User.findById(currentUser);
     const handicrafts = await Handicraft.find({ userId: user._id });
     console.log(handicrafts);
@@ -45,7 +41,6 @@ module.exports.getUserHandicrafts = async (req, res) => {
 }
 
 module.exports.getUserOthers = async (req, res) => {
-    console.log("in user others category..");
     const user = await User.findById(currentUser);
     const items = await Others.find({ userId: user._id });
     console.log(items);
