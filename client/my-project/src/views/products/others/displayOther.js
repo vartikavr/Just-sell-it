@@ -15,6 +15,7 @@ const DisplayOther = () => {
     const [currentUser, setCurrentUser] = useState('');
     const [role, setRole] = useState('');
     const [wishlistOthers, setWishlistOthers] = useState([]);
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         getProduct();
@@ -27,7 +28,7 @@ const DisplayOther = () => {
             }
         }
         axios.get(`http://localhost:5000/categories/others/${productId}`, {
-            //allBooks: books
+
         }, axiosConfig)
             .then((res) => {
                 console.log("other product data: ", res.data.other);
@@ -136,16 +137,20 @@ const DisplayOther = () => {
             })
     }
 
+    const handleTab = (event) => {
+        const idx = event.target.id;
+        setIndex(idx);
+    };
+
     return (
         <div className="displayOther">
-            {isPending && <div><h4>Seeding cycle ...</h4></div>}
+            {isPending && <div><h4>Seeding product ...</h4></div>}
             {!isPending &&
-                <div className="dataDisplay">
-                    <button type="button" className="btn btn-info backBtn ms-4 mt-3" onClick={handleBack}>
-                        All Others category products
+                <div className="main-body">
+                    <button type="button" className="btn btn-info backBtn mt-3" onClick={handleBack}>
+                        All Products
                 </button>
-                    <div className="mt-5"></div>
-                    <div className="row mainContent-item mt-5 d-flex align-items-center ms-auto me-auto">
+                    <div className="productDisplay">
                         {addToWishlist && (
                             <FlashMessage duration={5000}>
                                 <div className="flash-success">
@@ -160,48 +165,37 @@ const DisplayOther = () => {
                                 </div>
                             </FlashMessage>
                         )}
-                        <div id="othersCarousel" className="col-md-6 carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                {imageUrls.map((img, i) => (
-                                    <div className={"carousel-item " + (i == 0 ? 'active' : '')}>
-                                        <img src={img.url} className="d-block w-100" alt="..." />
-                                    </div>
-                                ))}
+                        <div className="details" key={otherProduct._id}>
+                            <div className="big-img">
+                                <img src={otherProduct.images[index].url} />
                             </div>
-                            {imageUrls.length > 1 &&
-                                <div className="group">
-                                    <a className="carousel-control-prev" href="#booksCarousel" role="button" data-bs-slide="prev">
-                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span className="visually-hidden">Previous</span>
-                                    </a>
-                                    <a className="carousel-control-next" href="#booksCarousel" role="button" data-bs-slide="next">
-                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span className="visually-hidden">Next</span>
-                                    </a>
+                            <div className="box">
+                                <div className="row">
+                                    <h3>{otherProduct.title}</h3>
                                 </div>
-                            }
-                        </div>
-                        <div className="card col-md-6 h-300">
-                            <div className="card-body">
-                                <h5 className="card-title">{otherProduct.title}</h5>
-                                <p className="card-text">{otherProduct.description}</p>
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">Submitted by: {otherProduct.userId.username}</li>
-                                <li className="list-group-item">Price: ₹{otherProduct.price}</li>
-                            </ul>
-                            <div class="card-body">
+                                <h5>Price: ₹{otherProduct.price}</h5>
+                                <p style={{ fontSize: 18 }}><b>Seller: </b>{otherProduct.userId.username}</p>
+                                <p>{otherProduct.description}</p>
+                                <div className="thumb">
+                                    {
+                                        otherProduct.images.map((img, index) => (
+                                            <img src={img.url} id={index} className="product-thumbnail-img"
+                                                onClick={handleTab}
+                                            />
+                                        ))
+                                    }
+                                </div>
                                 {currentUser != '' && otherProduct.userId._id == currentUser && (
-                                    <a className="card-link btn btn-info me-2" href={`/categories/others/${otherProduct._id}/edit`}>Edit</a>
+                                    <a className="card-link btn btn-info me-2 mt-3" href={`/categories/others/${otherProduct._id}/edit`}>Edit</a>
                                 )}
                                 {currentUser != '' && (otherProduct.userId._id == currentUser || role == "admin") && (
                                     <form className="d-inline" onSubmit={handleDelete}>
-                                        <button className="btn btn-danger me-2">Delete</button>
+                                        <button className="btn btn-danger me-2 mt-3">Delete</button>
                                     </form>
                                 )}
                                 {currentUser !== '' && otherProduct.userId._id !== currentUser && !(wishlistOthers.includes(productId)) && (
                                     <form className="d-inline" onSubmit={handleWishlist}>
-                                        <button className="btn btn-info me-2">
+                                        <button className="btn btn-info me-2 mt-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z" />
                                                 <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
@@ -211,17 +205,17 @@ const DisplayOther = () => {
                                 )}
                                 {currentUser !== '' && otherProduct.userId._id !== currentUser && (wishlistOthers.includes(productId)) && (
                                     <form className="d-inline">
-                                        <button className="btn btn-info me-2 disabled">Added in Wishlist</button>
+                                        <button className="btn btn-info me-2 mt-3 disabled">Added in Wishlist</button>
                                     </form>
                                 )}
                                 {currentUser !== '' && (otherProduct.userId._id !== currentUser) && !message && (
                                     <form className="d-inline" onSubmit={handleChat}>
-                                        <button className={"btn btn-info me-2 " + ((role == "admin") ? 'mt-2' : '')}>Contact Seller</button>
+                                        <button className="btn btn-info me-2 mt-3">Contact Seller</button>
                                     </form>
                                 )}
                                 {currentUser !== '' && (otherProduct.userId._id !== currentUser) && message && (
                                     <form className="d-inline" onSubmit={handleChat}>
-                                        <button className="btn btn-info me-2 disabled">Email sent</button>
+                                        <button className="btn btn-info me-2 mt-3 disabled">Email sent</button>
                                     </form>
                                 )}
                             </div>

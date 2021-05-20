@@ -141,10 +141,6 @@
     border-color: #C684BE;
 }
 
-.displayBook, .displayCycle, .displayFurniture, .displayHandicraft, .displayOther{
-    margin-bottom: 550px;
-}
-
 .displayThumbnail{
     width: 21em;
     height: 18em;
@@ -175,12 +171,6 @@
     margin-left: 6em;
 }
 
-.mainContent-item{
-    width:800px;
-    height: 100px;
-    padding-left: 10px;
-}
-
 .marginTopProduct{
     padding-top:5em;
 }
@@ -192,4 +182,110 @@
 .float-child{
     width:33%;
     float:left;
+}
+
+
+/* product-page */
+.displayBook .productDisplay, .displayCycle .productDisplay, .displayFurniture .productDisplay, .displayHandicraft .productDisplay, .displayOther .productDisplay {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2em auto;
+    box-shadow: 0 0 5px #ccc;
+    background-color: #D4A5CE;
+}
+
+.backBtn{
+    margin-left: 40rem;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-weight: 500;
+}
+
+.header {
+    color: #94618E;
+}
+
+.details {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 30px 0;
+}
+
+.details .big-img {
+    max-width: 500px;
+    min-width: 290px;
+    overflow: hidden;
+    margin: 25px;
+}
+
+.big-img img {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    display: block;
+    object-fit: cover;
+}
+
+.details .box {
+    max-width: 500px;
+    min-width: 290px;
+    margin: 25px;
+}
+
+.box .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.box .row span {
+    color: crimson;
+}
+
+.box .colors button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #333;
+    outline: none;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.box p {
+    line-height: 1.5;
+    margin: 15px 0;
+}
+
+.thumb {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.thumb img {
+    width: 90px;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    opacity: 0.7;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.thumb .product-thumbnail-img:hover{
+    opacity: 1;
+    border: 5px solid white;
+}
+
+@media(max-width: 500px) {
+    .thumb {
+        height: 50px;
+    }
+    .thumb img {
+        width: 50px;
+    }
 }

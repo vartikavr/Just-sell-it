@@ -92,7 +92,7 @@ const NewCycle = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="registerForm mb-3">
                             <label className="form-label"><b>Title:</b></label>
-                            <input className="form-control" type="text" id="title" name="title" required
+                            <input className="form-control" type="text" id="title" name="title" required autoFocus
                                 value={title}
                                 onChange={(event) => setTitle(event.target.value)}
                             />

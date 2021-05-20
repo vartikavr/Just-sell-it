@@ -101,7 +101,6 @@ module.exports.loginUser = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const check = await User.findOne({ username: username });
-    console.log(check);
     if (check) {
         const isMatch = await bcrypt.compare(password, check.password);
         if (!isMatch) {
@@ -110,7 +109,6 @@ module.exports.loginUser = async (req, res) => {
         }
         console.log("Successfully logged in!");
         currentUser = check._id;
-        console.log(currentUser);
         const role = check.role;
         return res.status(200).send({ sucess: "logged in!", role });
     }
@@ -198,7 +196,7 @@ module.exports.editUserInfo = async (req, res) => {
             },
             {
                 runValidators: true,
-                new:true
+                new: true
             }
         );
         if (oldUser.email != req.body.email) {

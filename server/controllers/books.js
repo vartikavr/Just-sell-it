@@ -2,25 +2,18 @@ const Book = require('../schemas/books');
 const User = require('../schemas/user');
 
 module.exports.getBooks = async (req, res) => {
-    console.log("in books ..");
     const books = await Book.find({});
-    console.log(books);
     res.send(books);
 }
 
 module.exports.specificBook = async (req, res) => {
-    console.log("inside book specific")
-    console.log(req.params);
     const bookId = req.params.id;
     const book = await Book.findById(bookId).populate('userId');
-    console.log(book);
     const user = await User.findById(currentUser);
     res.status(200).send({ success: 'book seeded!', book, currentUser, role: user.role, wishlistBooks: user.wishlist.books });
 }
 
 module.exports.newBook = async (req, res) => {
-    console.log("adding new book ...");
-    console.log(req.body);
     const userId = currentUser;
     const newBook = new Book({
         title: req.body.title,
@@ -34,7 +27,6 @@ module.exports.newBook = async (req, res) => {
     newBook.images.push({ url: req.body.image });
     try {
         await newBook.save();
-        console.log(newBook);
         return res.status(200).send({ sucess: "registered new book!", newBook });
     }
     catch (e) {

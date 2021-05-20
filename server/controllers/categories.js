@@ -8,7 +8,6 @@ const User = require('../schemas/user');
 module.exports.displayCategories = async (req, res) => {
     console.log(req.body);
     const id = req.body.id;
-    console.log("categories...", id)
     const user = await User.findById(currentUser);
     return res.status(200).send({ success: "categoires loaded", isVerified: user.isVerified });
 }

@@ -67,7 +67,7 @@ const Home = () => {
                     An online selling - buying store.<br />
                     Transactions made easy! </p>
             </div>
-            <div className="footer text-center mt-auto text-white" style={{ fontWeight: 400 }}>
+            <div className="footer text-center mt-auto text-white" style={{ fontWeight: 450 }}>
                 <p style={{ color: "black" }}>&copy; Made by and for the students of Banasthali Vidyapith</p>
             </div>
         </div>
