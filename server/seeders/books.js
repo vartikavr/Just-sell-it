@@ -1,6 +1,6 @@
 module.exports = [
     {
-        "title": "Solutions Let us C",
+        "title": "Solutions Let us C++",
         "price": "500",
         "images": [
             {
@@ -18,7 +18,7 @@ module.exports = [
         "images": [
             {
                 "url": "https://miro.medium.com/max/3264/1*cZ_TJ72aoi2SmE6wapMGKg.jpeg"
-            }, 
+            },
             {
                 "url": "https://images.unsplash.com/photo-1587547344587-3730713dd306?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
             }

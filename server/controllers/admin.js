@@ -131,6 +131,38 @@ module.exports.deleteUser = async (req, res) => {
         console.log("Successfully deleted the user's products!");
         await User.findByIdAndDelete(id);
         console.log("Successfully deleted the user's account!");
+        try {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.ADMIN_EMAIL,
+                    pass: process.env.ADMIN_PWD
+                }
+            });
+            const mailOptions = {
+                from: process.env.ADMIN_EMAIL,
+                to: userToBeDeleted.email,
+                subject: 'Just Sell It - Account Deleted',
+                html: `<h4>Hello ${userToBeDeleted.name}!</h4>
+                <h4>We regret to inform you that your account with username: <b>${userToBeDeleted.username}</b> has been permanently deleted from our website.</h4>
+                <p>This occured due to disobedience of the <b>terms and policies</b> of our website.</p>
+                <h4>Thank you.</h4> 
+                `
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log("error in sending mail..", error);
+                    return res.status(403).send({ error: "error in sending mail" });
+                }
+                else {
+                    console.log("Email sent: ", info.response);
+                    return res.status(200).send({ success: "Email sent" });
+                }
+            });
+        }
+        catch (e) {
+            console.log("error", e);
+        }
         res.status(200).send({ success: "deleted user" });
     }
     catch (e) {

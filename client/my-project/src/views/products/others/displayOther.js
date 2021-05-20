@@ -9,6 +9,7 @@ const DisplayOther = () => {
     const [isPending, setPending] = useState(true);
     const [addToWishlist, setAddToWishlist] = useState(false);
     const [message, setMessage] = useState(false);
+    const [isWait, setIsWait] = useState(false);
 
     const { id: productId } = useParams();
     const [otherProduct, setOtherProduct] = useState('');
@@ -112,6 +113,7 @@ const DisplayOther = () => {
 
     const handleChat = (e) => {
         e.preventDefault();
+        setIsWait(true);
         const axiosConfig = {
             headers: {
                 'Content-Type': 'application/json'
@@ -121,11 +123,13 @@ const DisplayOther = () => {
             category: "others"
         }, axiosConfig)
             .then(() => {
+                setIsWait(false);
                 console.log('successfully message sent!');
                 setMessage(true);
             })
             .catch((e) => {
                 setMessage(false);
+                setIsWait(true);
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
                     history.push('/login')
@@ -208,13 +212,18 @@ const DisplayOther = () => {
                                         <button className="btn btn-info me-2 mt-3 disabled">Added in Wishlist</button>
                                     </form>
                                 )}
-                                {currentUser !== '' && (otherProduct.userId._id !== currentUser) && !message && (
+                                {currentUser !== '' && (otherProduct.userId._id !== currentUser) && !message && !isWait && (
                                     <form className="d-inline" onSubmit={handleChat}>
                                         <button className="btn btn-info me-2 mt-3">Contact Seller</button>
                                     </form>
                                 )}
+                                {currentUser !== '' && (otherProduct.userId._id !== currentUser) && !message && isWait && (
+                                    <form className="d-inline">
+                                        <button className="btn btn-info me-2 mt-3 disabled">Processing..</button>
+                                    </form>
+                                )}
                                 {currentUser !== '' && (otherProduct.userId._id !== currentUser) && message && (
-                                    <form className="d-inline" onSubmit={handleChat}>
+                                    <form className="d-inline">
                                         <button className="btn btn-info me-2 mt-3 disabled">Email sent</button>
                                     </form>
                                 )}
