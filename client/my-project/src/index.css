@@ -161,9 +161,10 @@
     border-color: #C684BE;
 }
 
-.displayThumbnail{
-    width: 21em;
-    height: 18em;
+.displayThumbnail{ /*21em, 18em */
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -242,7 +243,7 @@
 .big-img img {
     width: 100%;
     height: 100%;
-    max-height: 400px;
+    max-height: 500px;
     display: block;
     object-fit: cover;
 }
@@ -295,6 +296,7 @@
     border-radius: 5px;
     margin-right: 10px;
 }
+
 
 .thumb .product-thumbnail-img:hover{
     opacity: 1;

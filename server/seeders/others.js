@@ -34,5 +34,27 @@ module.exports = [
         ],
         "description": "Each student must have a table lamp with them to ensure proper lighting during study hours. This one is not only provides perfect lighting but also is cool looking. It is flexible too and one can adjust it as per their liking."
 
+    },
+    {
+        "title": "Black Ceramic Mug",
+        "price": "200",
+        "images": [
+            {
+                "url": "https://images.unsplash.com/photo-1488381397757-59d6261610f4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=332&q=80"
+            }
+        ],
+        "description": "Easy to carry, stylish cup. Appropriate for having evening or morning tea, coffee or milk. Not easily breakable."
+
+    },
+    {
+        "title": "Wooden Pen Stand",
+        "price": "200",
+        "images": [
+            {
+                "url": "https://5.imimg.com/data5/HQ/HL/QY/ANDROID-53618281/product-jpeg-500x500.jpg"
+            }
+        ],
+        "description": "A simple wooden penstand with a lot of sections. Also contains a small clock to display time."
+
     }
 ]
