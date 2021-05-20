@@ -75,7 +75,6 @@ export default function AllBooksHeader() {
                     </Scroll>
                 </div>
             </Collapse>
-
         </div >
     );
 }
