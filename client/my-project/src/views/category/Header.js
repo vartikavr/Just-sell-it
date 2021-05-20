@@ -98,15 +98,6 @@ export default function Header() {
 
     return (
         <div className={classes.root} id="header">
-            {/* <AppBar className={classes.appbar} elevation={0}> {/*navbar 
-            <Toolbar className={classes.appbarWrapper}>
-                <h1 className={classes.appbarTitle}>Just <span className={classes.colorText}>Sell It</span></h1>
-                <IconButton>
-                    <SortIcon className={classes.icon} />
-                </IconButton>
-            </Toolbar>
-
-            </AppBar> */}
             <Collapse
                 in={checked}
                 {...(checked ? { timeout: 1000 } : {})}

@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Categories() {
     const classes = useStyles();
-    //const checked = useWindowPosition("header");
     return (
         <div className={classes.root} id="select-category">
             <ImageCard category={category[0]} id={category[0].cat} />

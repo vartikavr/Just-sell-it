@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     fontSize: '2rem',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
   },
   desc: {
     textAlign: 'center',
@@ -37,9 +38,6 @@ const useStyles = makeStyles({
     alignItems: 'center',
     color: '#fff',
   }
-  //   media:{
-  //     maxWidth: 645,
-  //   }
 });
 
 export default function ImageCard({ category, id }) {
@@ -61,8 +59,6 @@ export default function ImageCard({ category, id }) {
         console.log(res, 'successfully sent id!');
         console.log("ok", id)
         history.push(`/categories/${id}`);
-        //console.log(name, username, email);
-
       })
       .catch((e) => {
         console.log("client errror data:", e.response);
@@ -75,8 +71,6 @@ export default function ImageCard({ category, id }) {
   }
 
   return (
-    //<Collapse in={checked} {...(checked ? { timeout: 1000 } : {})}>
-
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
@@ -94,15 +88,10 @@ export default function ImageCard({ category, id }) {
       </CardContent>
 
       <CardActions>
-        <Button size="small" color="primary" className="ms-auto me-auto" onClick={handleSelect}>
+        <Button size="small" color="primary" className="ms-auto me-auto" style={{outline: "none"}} onClick={handleSelect}>
           <h5 className={classes.btntext}>Select</h5>
         </Button>
       </CardActions>
     </Card>
-
-
-    // </Collapse>
-
-
   );
 }
