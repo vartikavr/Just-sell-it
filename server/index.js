@@ -29,12 +29,6 @@ cloudinary.config({
 
 app.use(express.static('client/my-project/build'));
 
-  // Express serve up index.html file if it doesn't recognize route
-  const path = require('path');
-  app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/my-project/build/index.html'));
-  });
-
 const userRoutes = require('./routes/users');
 const wishlistRoutes = require('./routes/user-wishlist');
 const categoryRoutes = require('./routes/categories');
@@ -79,6 +73,12 @@ app.post('/upload', async (req, res) => {
         return res.status(500).json({ msg: err.message })
     }
 })
+
+// Express serve up index.html file if it doesn't recognize route
+const path = require('path');
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/my-project/build/index.html'));
+});
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/justSellIt';
 mongoose.connect(dbUrl, {
