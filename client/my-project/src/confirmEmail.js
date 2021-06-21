@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import config from './config';
 
 const ConfirmEmail = () => {
 
@@ -23,7 +22,7 @@ const ConfirmEmail = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/confirmation`, {
+        axios.get(`${process.env.REACT_APP_URI}/confirmation`, {
         }, axiosConfig)
             .then((res) => {
                 console.log(res.data);
@@ -45,7 +44,7 @@ const ConfirmEmail = () => {
                     'Content-Type': 'application/json'
                 }
             }
-            axios.get(`${config.SERVER_URI}/confirmation/${token}`, {
+            axios.get(`${process.env.REACT_APP_URI}/confirmation/${token}`, {
             }, axiosConfig)
                 .then((res) => {
                     setPending(false);

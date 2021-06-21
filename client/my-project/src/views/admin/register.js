@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
-import config from '../../config';
 
 const AdminRegister = () => {
 
@@ -29,7 +28,7 @@ const AdminRegister = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/admin/register`, {
+        axios.post(`${process.env.REACT_APP_URI}/admin/register`, {
             name: name,
             email: email,
             username: username,

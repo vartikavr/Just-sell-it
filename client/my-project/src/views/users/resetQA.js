@@ -2,7 +2,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
 import { useHistory } from 'react-router-dom';
-import config from '../../config';
 
 const ResetQA = () => {
 
@@ -18,7 +17,7 @@ const ResetQA = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/resetQA`, {
+        axios.post(`${process.env.REACT_APP_URI}/resetQA`, {
             question: question,
             answer: answer,
             newAnswer: newAnswer,

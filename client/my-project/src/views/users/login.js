@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
-import config from '../../config';
 //const loginImg = require('../../images/login.jpg')
 
 const Login = () => {
@@ -10,6 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
 
+    console.log(process.env.REACT_APP_URI);
     const handleSubmit = (e) => {
         e.preventDefault();
         //setIsPending(true);
@@ -19,7 +19,7 @@ const Login = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/login`, {
+        axios.post(`${process.env.REACT_APP_URI}/login`, {
             username: username,
             password: pwd,
         }, axiosConfig)

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
-import config from '../../config';
 
 const Register = () => {
 
@@ -29,7 +28,7 @@ const Register = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/register`, {
+        axios.post(`${process.env.REACT_APP_URI}/register`, {
             name: name,
             email: email,
             username: username,

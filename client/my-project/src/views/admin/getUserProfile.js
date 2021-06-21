@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
-import config from '../../config';
 
 const GetUserProfile = () => {
 
@@ -20,7 +19,7 @@ const GetUserProfile = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/admin/user-profile/${id}`, {
+        axios.post(`${process.env.REACT_APP_URI}/admin/user-profile/${id}`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("user data: ", res.data.user);
@@ -49,7 +48,7 @@ const GetUserProfile = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/admin/${user._id}/delete`, {
+        axios.post(`${process.env.REACT_APP_URI}/admin/${user._id}/delete`, {
 
         }, axiosConfig)
             .then((res) => {

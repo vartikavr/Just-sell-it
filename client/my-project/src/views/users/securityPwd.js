@@ -3,7 +3,6 @@ import axios from 'axios';
 import FlashMessage from 'react-flash-message';
 import { useHistory } from 'react-router-dom';
 import ResetPwd from './resetPwd';
-import config from '../../config';
 
 const SecurityPwd = (props) => {
     const question = props.question;
@@ -19,7 +18,7 @@ const SecurityPwd = (props) => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/security`, {
+        axios.post(`${process.env.REACT_APP_URI}/security`, {
             answer: securityA,
         }, axiosConfig)
             .then((res) => {

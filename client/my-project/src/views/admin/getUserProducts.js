@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import config from '../../config';
 
 const GetUserProducts = () => {
 
@@ -27,7 +26,7 @@ const GetUserProducts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/admin/${id}/products`, {
+        axios.post(`${process.env.REACT_APP_URI}/admin/${id}/products`, {
 
         }, axiosConfig)
             .then((res) => {

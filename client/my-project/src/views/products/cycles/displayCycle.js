@@ -2,7 +2,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
 import { useState, useEffect } from 'react';
-import config from '../../../config';
 
 const DisplayCycle = () => {
 
@@ -29,7 +28,7 @@ const DisplayCycle = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/categories/cycles/${productId}`, {
+        axios.get(`${process.env.REACT_APP_URI}/categories/cycles/${productId}`, {
         }, axiosConfig)
             .then((res) => {
                 console.log("cycle data: ", res.data.cycle);
@@ -59,7 +58,7 @@ const DisplayCycle = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/categories/cycles/${productId}/delete`, {
+        axios.post(`${process.env.REACT_APP_URI}/categories/cycles/${productId}/delete`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -94,7 +93,7 @@ const DisplayCycle = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/user/wishlist/cycles/${productId}/add`, {
+        axios.get(`${process.env.REACT_APP_URI}/user/wishlist/cycles/${productId}/add`, {
 
         }, axiosConfig)
             .then(() => {
@@ -122,7 +121,7 @@ const DisplayCycle = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/chat/${productId}`, {
+        axios.post(`${process.env.REACT_APP_URI}/chat/${productId}`, {
             category: "cycles"
         }, axiosConfig)
             .then(() => {

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import config from '../../../config';
 
 const Books = () => {
 
@@ -21,7 +20,7 @@ const Books = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/categories/books`, {
+        axios.get(`${process.env.REACT_APP_URI}/categories/books`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {

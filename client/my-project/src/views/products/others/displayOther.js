@@ -2,7 +2,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import FlashMessage from 'react-flash-message';
-import config from '../../../config';
 
 const DisplayOther = () => {
 
@@ -29,7 +28,7 @@ const DisplayOther = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/categories/others/${productId}`, {
+        axios.get(`${process.env.REACT_APP_URI}/categories/others/${productId}`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -60,7 +59,7 @@ const DisplayOther = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/categories/others/${productId}/delete`, {
+        axios.post(`${process.env.REACT_APP_URI}/categories/others/${productId}/delete`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -92,7 +91,7 @@ const DisplayOther = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/user/wishlist/others/${productId}/add`, {
+        axios.get(`${process.env.REACT_APP_URI}/user/wishlist/others/${productId}/add`, {
 
         }, axiosConfig)
             .then(() => {
@@ -120,7 +119,7 @@ const DisplayOther = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/chat/${productId}`, {
+        axios.post(`${process.env.REACT_APP_URI}/chat/${productId}`, {
             category: "others"
         }, axiosConfig)
             .then(() => {

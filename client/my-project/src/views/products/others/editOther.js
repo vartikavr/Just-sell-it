@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
-import config from '../../../config';
 
 const EditOther = () => {
 
@@ -28,7 +27,7 @@ const EditOther = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/categories/others/${productId}`, {
+        axios.get(`${process.env.REACT_APP_URI}/categories/others/${productId}`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("other Item data: ", res.data.other);
@@ -79,7 +78,7 @@ const EditOther = () => {
                 }
             }
 
-            await axios.post(`${config.SERVER_URI}/categories/others/${productId}/edit`, {
+            await axios.post(`${process.env.REACT_APP_URI}/categories/others/${productId}/edit`, {
                 title, description, price, image
             },
                 axiosConfig
@@ -127,7 +126,7 @@ const EditOther = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            axios.post(`${config.SERVER_URI}/upload`, formData, axiosConfig)
+            axios.post(`${process.env.REACT_APP_URI}/upload`, formData, axiosConfig)
                 .then((res) => {
                     console.log(res, res.data.url);
                     setImage(res.data.url);

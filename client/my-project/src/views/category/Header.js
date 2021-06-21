@@ -6,7 +6,6 @@ import { Link as Scroll } from 'react-scroll';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
-import config from '../../config';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +74,7 @@ export default function Header() {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/user`, {
+        axios.get(`${process.env.REACT_APP_URI}/user`, {
         },
             axiosConfig)
             .then((res) => {

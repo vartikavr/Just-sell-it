@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import config from '../../config';
 
 const AllUsers = () => {
 
@@ -21,7 +20,7 @@ const AllUsers = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/admin/users`, {
+        axios.get(`${process.env.REACT_APP_URI}/admin/users`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -61,7 +60,7 @@ const AllUsers = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`${config.SERVER_URI}/admin/${id}/delete`, {
+        axios.post(`${process.env.REACT_APP_URI}/admin/${id}/delete`, {
 
         }, axiosConfig)
             .then((res) => {

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
-import config from '../../config';
 
 const EditProfile = () => {
 
@@ -33,7 +32,7 @@ const EditProfile = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`${config.SERVER_URI}/user`, {
+        axios.get(`${process.env.REACT_APP_URI}/user`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("user data: ", res.data.user);
@@ -85,7 +84,7 @@ const EditProfile = () => {
                 }
             }
 
-            await axios.post(`${config.SERVER_URI}/user/edit`, {
+            await axios.post(`${process.env.REACT_APP_URI}/user/edit`, {
                 name, username, course, year, phone, email, address
             },
                 axiosConfig

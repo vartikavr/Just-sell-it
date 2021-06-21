@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import config from '../../config';
 
 const Logout = () => {
 
@@ -11,7 +10,7 @@ const Logout = () => {
             'Content-Type': 'application/json'
         }
     }
-    axios.get(`${config.SERVER_URI}/logout`, {
+    axios.get(`${process.env.REACT_APP_URI}/logout`, {
     }, axiosConfig)
         .then((res) => {
             localStorage.removeItem('isLoggedIn');

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import config from '../../../config';
 
 const NewOther = () => {
     const [title, setTitle] = useState('');
@@ -20,7 +19,7 @@ const NewOther = () => {
             }
         }
 
-        await axios.post(`${config.SERVER_URI}/categories/others/new`, {
+        await axios.post(`${process.env.REACT_APP_URI}/categories/others/new`, {
             title, price, description, image
         },
             axiosConfig
@@ -65,7 +64,7 @@ const NewOther = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            axios.post(`${config.SERVER_URI}/upload`, formData, axiosConfig)
+            axios.post(`${process.env.REACT_APP_URI}/upload`, formData, axiosConfig)
                 .then((res) => {
                     console.log(res, res.data.url);
                     setImage(res.data.url);
