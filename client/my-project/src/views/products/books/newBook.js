@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import config from '../../../config';
 
 const NewBook = () => {
     const [title, setTitle] = useState('');
@@ -23,7 +24,7 @@ const NewBook = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/categories/books/new', {
+        axios.post(`${config.SERVER_URI}/categories/books/new`, {
             title,
             author,
             price,
@@ -72,7 +73,7 @@ const NewBook = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            axios.post('http://localhost:5000/upload', formData, axiosConfig)
+            axios.post(`${config.SERVER_URI}/upload`, formData, axiosConfig)
                 .then((res) => {
                     console.log(res, res.data.url);
                     setImage(res.data.url);

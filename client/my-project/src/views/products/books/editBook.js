@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+import config from '../../../config';
 
 const EditBook = () => {
     const { id: productId } = useParams();
@@ -29,7 +30,7 @@ const EditBook = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/books/${productId}`, {
+        axios.get(`${config.SERVER_URI}/categories/books/${productId}`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("book data: ", res.data.book);
@@ -89,7 +90,7 @@ const EditBook = () => {
                 }
             }
 
-            await axios.post(`http://localhost:5000/categories/books/${productId}/edit`, {
+            await axios.post(`${config.SERVER_URI}/categories/books/${productId}/edit`, {
                 title, edition, pages, description, author, price, image
             },
                 axiosConfig
@@ -138,7 +139,7 @@ const EditBook = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            axios.post('http://localhost:5000/upload', formData, axiosConfig)
+            axios.post(`${config.SERVER_URI}/upload`, formData, axiosConfig)
                 .then((res) => {
                     console.log(res, res.data.url);
                     setImage(res.data.url);

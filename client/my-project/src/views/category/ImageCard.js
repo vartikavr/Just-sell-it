@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import config from '../../config';
 
 const useStyles = makeStyles({
   root: {
@@ -51,7 +52,7 @@ export default function ImageCard({ category, id }) {
         'Content-Type': 'application/json'
       }
     }
-    axios.get('http://localhost:5000/categories', {
+    axios.get(`${config.SERVER_URI}/categories`, {
 
     },
       axiosConfig)

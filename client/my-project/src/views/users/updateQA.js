@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
 import ResetQA from './resetQA';
+import config from '../../config';
 
 const UpdateQA = () => {
 
@@ -17,7 +18,7 @@ const UpdateQA = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/checkPwd', {
+        axios.post(`${config.SERVER_URI}/checkPwd`, {
             pwd: pwd,
             newPwd: newPwd,
         }, axiosConfig)

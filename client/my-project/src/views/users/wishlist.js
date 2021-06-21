@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import config from '../../config';
 
 const Wishlist = () => {
 
@@ -28,7 +29,7 @@ const Wishlist = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/user/wishlist', {
+        axios.get(`${config.SERVER_URI}/user/wishlist`, {
         }, axiosConfig)
             .then(async (res) => {
                 setIsPending(true);
@@ -128,7 +129,7 @@ const Wishlist = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/user/wishlist/books/${id}/delete`, {
+        axios.post(`${config.SERVER_URI}/user/wishlist/books/${id}/delete`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("removed from wishlist");
@@ -155,7 +156,7 @@ const Wishlist = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/user/wishlist/cycles/${id}/delete`, {
+        axios.post(`${config.SERVER_URI}/user/wishlist/cycles/${id}/delete`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("removed from wishlist");
@@ -182,7 +183,7 @@ const Wishlist = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/user/wishlist/furniture/${id}/delete`, {
+        axios.post(`${config.SERVER_URI}/user/wishlist/furniture/${id}/delete`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("removed from wishlist");
@@ -209,7 +210,7 @@ const Wishlist = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/user/wishlist/handicrafts/${id}/delete`, {
+        axios.post(`${config.SERVER_URI}/user/wishlist/handicrafts/${id}/delete`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("removed from wishlist");
@@ -236,7 +237,7 @@ const Wishlist = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/user/wishlist/others/${id}/delete`, {
+        axios.post(`${config.SERVER_URI}/user/wishlist/others/${id}/delete`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("removed from wishlist");

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
+import config from '../../config';
 //const loginImg = require('../../images/login.jpg')
 
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/login', {
+        axios.post(`${config.SERVER_URI}/login`, {
             username: username,
             password: pwd,
         }, axiosConfig)

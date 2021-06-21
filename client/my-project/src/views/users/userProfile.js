@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import config from '../../config';
 
 const UserProfile = () => {
 
@@ -17,7 +18,7 @@ const UserProfile = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/user', {
+        axios.get(`${config.SERVER_URI}/user`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("user data: ", res.data.user);
@@ -40,7 +41,7 @@ const UserProfile = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/user/delete', {
+        axios.post(`${config.SERVER_URI}/user/delete`, {
 
         }, axiosConfig)
             .then((res) => {

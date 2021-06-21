@@ -2,6 +2,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import FlashMessage from 'react-flash-message';
+import config from '../../../config';
 
 const DisplayFurniture = () => {
 
@@ -28,7 +29,7 @@ const DisplayFurniture = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/furniture/${productId}`, {
+        axios.get(`${config.SERVER_URI}/categories/furniture/${productId}`, {
         }, axiosConfig)
             .then((res) => {
                 console.log("furniture data: ", res.data.furniture);
@@ -58,7 +59,7 @@ const DisplayFurniture = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/categories/furniture/${productId}/delete`, {
+        axios.post(`${config.SERVER_URI}/categories/furniture/${productId}/delete`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -93,7 +94,7 @@ const DisplayFurniture = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/user/wishlist/furniture/${productId}/add`, {
+        axios.get(`${config.SERVER_URI}/user/wishlist/furniture/${productId}/add`, {
 
         }, axiosConfig)
             .then(() => {
@@ -121,7 +122,7 @@ const DisplayFurniture = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/chat/${productId}`, {
+        axios.post(`${config.SERVER_URI}/chat/${productId}`, {
             category: "furniture"
         }, axiosConfig)
             .then(() => {

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
 import axios from 'axios';
+import config from '../../config';
+
 const Register = () => {
 
     const [name, setName] = useState('');
@@ -27,7 +29,7 @@ const Register = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/register', {
+        axios.post(`${config.SERVER_URI}/register`, {
             name: name,
             email: email,
             username: username,

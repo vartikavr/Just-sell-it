@@ -2,6 +2,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import FlashMessage from 'react-flash-message';
+import config from '../../../config';
 
 const DisplayBook = () => {
 
@@ -28,7 +29,7 @@ const DisplayBook = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/books/${productId}`, {
+        axios.get(`${config.SERVER_URI}/categories/books/${productId}`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {
@@ -59,7 +60,7 @@ const DisplayBook = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/categories/books/${productId}/delete`, {
+        axios.post(`${config.SERVER_URI}/categories/books/${productId}/delete`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -92,7 +93,7 @@ const DisplayBook = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/user/wishlist/books/${productId}/add`, {
+        axios.get(`${config.SERVER_URI}/user/wishlist/books/${productId}/add`, {
 
         }, axiosConfig)
             .then(() => {
@@ -120,7 +121,7 @@ const DisplayBook = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/chat/${productId}`, {
+        axios.post(`${config.SERVER_URI}/chat/${productId}`, {
             category: "books"
         }, axiosConfig)
             .then(() => {

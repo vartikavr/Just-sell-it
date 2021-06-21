@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import config from '../../config';
 
 const UserProducts = () => {
 
@@ -28,7 +29,7 @@ const UserProducts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/user/books', {
+        axios.get(`${config.SERVER_URI}/categories/user/books`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {
@@ -58,7 +59,7 @@ const UserProducts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/user/cycles', {
+        axios.get(`${config.SERVER_URI}/categories/user/cycles`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -88,7 +89,7 @@ const UserProducts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/user/furniture', {
+        axios.get(`${config.SERVER_URI}/categories/user/furniture`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -118,7 +119,7 @@ const UserProducts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/user/handicrafts', {
+        axios.get(`${config.SERVER_URI}/categories/user/handicrafts`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -149,7 +150,7 @@ const UserProducts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/user/others', {
+        axios.get(`${config.SERVER_URI}/categories/user/others`, {
 
         }, axiosConfig)
             .then((res) => {

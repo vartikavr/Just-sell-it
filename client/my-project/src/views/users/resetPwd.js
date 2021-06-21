@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message';
 import { useHistory } from 'react-router-dom';
+import config from '../../config';
 
 const ResetPwd = () => {
     const [pwd, setPwd] = useState('');
@@ -15,7 +16,7 @@ const ResetPwd = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/resetPwd', {
+        axios.post(`${config.SERVER_URI}/resetPwd`, {
             pwd: pwd,
             newPwd: newPwd,
         }, axiosConfig)

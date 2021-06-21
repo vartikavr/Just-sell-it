@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import config from '../../../config';
+
 const Handicrafts = () => {
 
     const [allHandicrafts, setAllHandicrafts] = useState([]);
@@ -18,7 +20,7 @@ const Handicrafts = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get('http://localhost:5000/categories/handicrafts', {
+        axios.get(`${config.SERVER_URI}/categories/handicrafts`, {
             //allBooks: books
         }, axiosConfig)
             .then((res) => {

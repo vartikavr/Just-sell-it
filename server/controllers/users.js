@@ -42,7 +42,7 @@ module.exports.registerUser = async (req, res) => {
                 expiresIn: '1d',
             },
             (err, emailToken) => {
-                const url = `http://localhost:3000/confirmation/${emailToken}`;
+                const url = `${process.env.SERVER_URI}/confirmation/${emailToken}`;
                 console.log(emailToken);
                 emailConfirmationToken = emailToken;
                 const transporter = nodemailer.createTransport({
@@ -211,7 +211,7 @@ module.exports.editUserInfo = async (req, res) => {
                     expiresIn: '1d',
                 },
                 (err, emailToken) => {
-                    const url = `http://localhost:3000/confirmation/${emailToken}`;
+                    const url = `${process.env.SERVER_URI}/confirmation/${emailToken}`;
                     console.log(emailToken);
                     emailConfirmationToken = emailToken;
                     const transporter = nodemailer.createTransport({

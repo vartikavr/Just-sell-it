@@ -2,6 +2,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import FlashMessage from 'react-flash-message';
+import config from '../../../config';
 
 const DisplayHandicraft = () => {
 
@@ -28,7 +29,7 @@ const DisplayHandicraft = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/handicrafts/${productId}`, {
+        axios.get(`${config.SERVER_URI}/categories/handicrafts/${productId}`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -59,7 +60,7 @@ const DisplayHandicraft = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/categories/handicrafts/${productId}/delete`, {
+        axios.post(`${config.SERVER_URI}/categories/handicrafts/${productId}/delete`, {
 
         }, axiosConfig)
             .then((res) => {
@@ -91,7 +92,7 @@ const DisplayHandicraft = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/user/wishlist/handicrafts/${productId}/add`, {
+        axios.get(`${config.SERVER_URI}/user/wishlist/handicrafts/${productId}/add`, {
 
         }, axiosConfig)
             .then(() => {
@@ -119,7 +120,7 @@ const DisplayHandicraft = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post(`http://localhost:5000/chat/${productId}`, {
+        axios.post(`${config.SERVER_URI}/chat/${productId}`, {
             category: "handicrafts"
         }, axiosConfig)
             .then(() => {

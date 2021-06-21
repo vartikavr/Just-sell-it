@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+import config from '../../../config';
 
 const EditHandicraft = () => {
 
@@ -28,7 +29,7 @@ const EditHandicraft = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.get(`http://localhost:5000/categories/handicrafts/${productId}`, {
+        axios.get(`${config.SERVER_URI}/categories/handicrafts/${productId}`, {
         }, axiosConfig)
             .then(async (res) => {
                 console.log("handicraft data: ", res.data.handicraft);
@@ -82,7 +83,7 @@ const EditHandicraft = () => {
                 }
             }
 
-            await axios.post(`http://localhost:5000/categories/handicrafts/${productId}/edit`, {
+            await axios.post(`${config.SERVER_URI}/categories/handicrafts/${productId}/edit`, {
                 title, description, color, price, image
             },
                 axiosConfig
@@ -130,7 +131,7 @@ const EditHandicraft = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            axios.post('http://localhost:5000/upload', formData, axiosConfig)
+            axios.post(`${config.SERVER_URI}/upload`, formData, axiosConfig)
                 .then((res) => {
                     console.log(res, res.data.url);
                     setImage(res.data.url);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import config from '../../../config';
 
 const NewCycle = () => {
     const [title, setTitle] = useState('');
@@ -22,7 +23,7 @@ const NewCycle = () => {
             }
         }
 
-        await axios.post('http://localhost:5000/categories/cycles/new', {
+        await axios.post(`${config.SERVER_URI}/categories/cycles/new`, {
             title, price, modelNo, description, age, image, color
         },
             axiosConfig
@@ -67,7 +68,7 @@ const NewCycle = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            axios.post('http://localhost:5000/upload', formData, axiosConfig)
+            axios.post(`${config.SERVER_URI}/upload`, formData, axiosConfig)
                 .then((res) => {
                     console.log(res, res.data.url);
                     setImage(res.data.url);

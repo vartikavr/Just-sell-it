@@ -3,6 +3,8 @@ import axios from 'axios';
 import FlashMessage from 'react-flash-message';
 import { useHistory } from 'react-router-dom';
 import SecurityPwd from './securityPwd';
+import config from '../../config';
+
 const ForgotPwd = () => {
 
     const [username, setUsername] = useState('');
@@ -18,7 +20,7 @@ const ForgotPwd = () => {
                 'Content-Type': 'application/json'
             }
         }
-        axios.post('http://localhost:5000/forgotPwd', {
+        axios.post(`${config.SERVER_URI}/forgotPwd`, {
             username: username,
         }, axiosConfig)
             .then((res) => {
