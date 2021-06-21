@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageCard from './ImageCard';
 import category from '../../static/category';
-
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: '100vh',
