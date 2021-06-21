@@ -27,6 +27,14 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET
 });
 
+app.use(express.static('client/my-project/build'));
+
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client/my-project', 'build', 'index.html'));
+  });
+
 const userRoutes = require('./routes/users');
 const wishlistRoutes = require('./routes/user-wishlist');
 const categoryRoutes = require('./routes/categories');
