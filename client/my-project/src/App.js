@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/">
           <Home />
