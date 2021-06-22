@@ -9,14 +9,16 @@ const furniture = require('./furniture');
 const Furniture = require('../schemas/furniture');
 const handicrafts = require('./handicrafts');
 const Handicraft = require('../schemas/handicrafts');
+require('dotenv').config();
 
-
-const dbUrl = 'mongodb://localhost:27017/justSellIt';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/justSellIt';
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
+
 
 const db = mongoose.connection; // to shorten 
 db.on("error", console.error.bind(console, "connection error:"));
@@ -30,7 +32,7 @@ const seedDb = async () => {
     await Book.deleteMany({});
     for (let i = 0; i < books.length; i++) {
         const newBook = new Book({
-            userId: '60a6b895fffc232bd49ab850',
+            userId: '60d17cc4f3589b32545e3802',
             title: `${books[i].title}`,
             price: `${books[i].price}`,
             description: `${books[i].description}`,
@@ -46,7 +48,7 @@ const seedDb = async () => {
     await Cycle.deleteMany({});
     for (let i = 0; i < cycles.length; i++) {
         const newCycle = new Cycle({
-            userId: '60a6b895fffc232bd49ab850',
+            userId: '60d17cc4f3589b32545e3802',
             title: `${cycles[i].title}`,
             price: `${cycles[i].price}`,
             description: `${cycles[i].description}`,
@@ -62,7 +64,7 @@ const seedDb = async () => {
     await Furniture.deleteMany({});
     for (let i = 0; i < furniture.length; i++) {
         const newFurniture = new Furniture({
-            userId: '60a6b895fffc232bd49ab850',
+            userId: '60d17cc4f3589b32545e3802',
             title: `${furniture[i].title}`,
             price: `${furniture[i].price}`,
             description: `${furniture[i].description}`,
@@ -76,7 +78,7 @@ const seedDb = async () => {
     await Handicraft.deleteMany({});
     for (let i = 0; i < handicrafts.length; i++) {
         const newHandicraft = new Handicraft({
-            userId: '60a6b895fffc232bd49ab850',
+            userId: '60d17cc4f3589b32545e3802',
             title: `${handicrafts[i].title}`,
             price: `${handicrafts[i].price}`,
             description: `${handicrafts[i].description}`,
@@ -90,7 +92,7 @@ const seedDb = async () => {
     await Others.deleteMany({});
     for (let i = 0; i < others.length; i++) {
         const newOther = new Others({
-            userId: '60a6b895fffc232bd49ab850',
+            userId: '60d17cc4f3589b32545e3802',
             title: `${others[i].title}`,
             price: `${others[i].price}`,
             description: `${others[i].description}`,
