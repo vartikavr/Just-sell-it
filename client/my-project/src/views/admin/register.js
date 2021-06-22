@@ -46,7 +46,7 @@ const AdminRegister = () => {
                 localStorage.setItem('isAuthorized', true);
                 console.log(localStorage.getItem('isLoggedIn'), "login done");
                 console.log("registration done");
-                history.push('/categories');
+                history.push(`${process.env.REACT_APP_URI}/categories`);
                 setIsPending(false);
             })
             .catch((res, e) => {
@@ -81,7 +81,7 @@ const AdminRegister = () => {
                                     <FlashMessage duration={5000}>
                                         <p>
                                             Invalid entry. Please try again!
-                                </p>
+                                        </p>
                                     </FlashMessage>
                                 </div>
                             )}

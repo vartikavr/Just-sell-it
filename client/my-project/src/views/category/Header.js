@@ -90,7 +90,7 @@ export default function Header() {
             .catch((e) => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
+                    history.push(`${process.env.REACT_APP_URI}/login`)
                 }
                 console.log("error in client", e)
             })
@@ -112,7 +112,7 @@ export default function Header() {
                         </FlashMessage>
                     )}
                     <h1 className={classes.title}>Select Category
-                </h1>
+                    </h1>
                     <Scroll to="select-category" smooth={true}>
                         <IconButton>
                             <ExpandMoreIcon className={classes.goDown} />

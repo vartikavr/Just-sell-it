@@ -33,13 +33,13 @@ const AllUsers = () => {
             .catch((e) => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
+                    history.push(`${process.env.REACT_APP_URI}/login`)
                 }
                 if (e.response.data.isAdmin == false) {
-                    history.push('/categories')
+                    history.push(`${process.env.REACT_APP_URI}/categories`)
                 }
                 if (e.response.data.isVerified == false) {
-                    history.push('/categories')
+                    history.push(`${process.env.REACT_APP_URI}/categories`)
                 }
                 console.log("error in client", e)
             })
@@ -49,7 +49,7 @@ const AllUsers = () => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`/admin/user-profile/${id}`);
+        history.push(`${process.env.REACT_APP_URI}/admin/user-profile/${id}`);
     }
 
     const handleDelete = (e) => {
@@ -66,7 +66,7 @@ const AllUsers = () => {
             .then((res) => {
                 console.log('successfully deleted user!');
                 setIsDeleted(true);
-                history.push('/admin/users');
+                history.push(`${process.env.REACT_APP_URI}/admin/users`);
             })
             .catch((e) => {
                 setIsDeleted(false);

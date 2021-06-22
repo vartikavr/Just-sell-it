@@ -33,10 +33,10 @@ const Books = () => {
             .catch((e) => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
-                    history.push('/login')
+                    history.push(`${process.env.REACT_APP_URI}/login`)
                 }
                 if (e.response.data.isVerified == false) {
-                    history.push('/categories')
+                    history.push(`${process.env.REACT_APP_URI}/categories`)
                 }
                 console.log("error in client", e)
             })
@@ -47,12 +47,12 @@ const Books = () => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`/categories/books/${id}`);
+        history.push(`${process.env.REACT_APP_URI}/categories/books/${id}`);
 
     }
 
     const redirectTo = () => {
-        history.push('/categories/books/new');
+        history.push(`${process.env.REACT_APP_URI}/categories/books/new`);
     }
 
     return (
