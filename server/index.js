@@ -27,8 +27,8 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET
 });
 
-const path = require('path');
-app.use(express.static(path.resolve(__dirname, '../client/my-project/build')));
+// const path = require('path');
+// app.use(express.static(path.resolve(__dirname, '../client/my-project/build')));
 
 const userRoutes = require('./routes/users');
 const wishlistRoutes = require('./routes/user-wishlist');
@@ -76,9 +76,9 @@ app.post('/upload', async (req, res) => {
 })
 
 //Express serve up index.html file if it doesn't recognize route
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/my-project/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../client/my-project/build/index.html'));
+// });
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/justSellIt';
 mongoose.connect(dbUrl, {
