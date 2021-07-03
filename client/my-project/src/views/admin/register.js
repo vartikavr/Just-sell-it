@@ -46,7 +46,7 @@ const AdminRegister = () => {
                 localStorage.setItem('isAuthorized', true);
                 console.log(localStorage.getItem('isLoggedIn'), "login done");
                 console.log("registration done");
-                history.push(`${process.env.REACT_APP_URI}/categories`);
+                history.push('/categories');
                 setIsPending(false);
             })
             .catch((res, e) => {

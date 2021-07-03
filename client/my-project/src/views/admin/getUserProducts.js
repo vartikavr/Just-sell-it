@@ -62,13 +62,13 @@ const GetUserProducts = () => {
             .catch((e) => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
-                    history.push(`${process.env.REACT_APP_URI}/login`)
+                    history.push(`/login`)
                 }
                 if (e.response.data.isAdmin == false) {
-                    history.push(`${process.env.REACT_APP_URI}/categories`)
+                    history.push(`/categories`)
                 }
                 if (e.response.data.isVerified == false) {
-                    history.push(`${process.env.REACT_APP_URI}/categories`)
+                    history.push(`/categories`)
                 }
                 console.log("error in client", e)
             })
@@ -78,31 +78,31 @@ const GetUserProducts = () => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`${process.env.REACT_APP_URI}/categories/books/${id}`);
+        history.push(`/categories/books/${id}`);
     }
     const handleCycleSelect = (event) => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`${process.env.REACT_APP_URI}/categories/cycles/${id}`);
+        history.push(`/categories/cycles/${id}`);
     }
     const handleFurnitureSelect = (event) => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`${process.env.REACT_APP_URI}/categories/furniture/${id}`);
+        history.push(`/categories/furniture/${id}`);
     }
     const handleHandicraftSelect = (event) => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`${process.env.REACT_APP_URI}/categories/handicrafts/${id}`);
+        history.push(`/categories/handicrafts/${id}`);
     }
     const handleOtherSelect = (event) => {
         const id = event.target.id;
         console.log(id);
         console.log("event..", event.target)
-        history.push(`${process.env.REACT_APP_URI}/categories/others/${id}`);
+        history.push(`/categories/others/${id}`);
     }
     const history = useHistory();
 
@@ -111,7 +111,7 @@ const GetUserProducts = () => {
             <button className="btn btn-secondary col-md-6 rounded-0"
                 onClick={(e) => {
                     e.preventDefault();
-                    window.location.href = `${process.env.REACT_APP_URI}/admin/user-profile/${id}`;
+                    window.location.href = `/admin/user-profile/${id}`;
                 }}>
                 User's Profile
             </button>

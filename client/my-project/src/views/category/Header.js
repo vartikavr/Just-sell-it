@@ -90,7 +90,7 @@ export default function Header() {
             .catch((e) => {
                 console.log("client errror data:", e.response);
                 if (e.response.data.isLoggedIn == false) {
-                    history.push(`${process.env.REACT_APP_URI}/login`)
+                    history.push('/login')
                 }
                 console.log("error in client", e)
             })

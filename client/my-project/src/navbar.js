@@ -11,7 +11,7 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         {localStorage.getItem('isLoggedIn') && (
                             <div className="navbar-nav">
-                                <a className="nav-item active" aria-current="page" href={`${process.env.REACT_APP_URI}/categories`}>Categories</a>
+                                <a className="nav-item active" aria-current="page" href='/categories'>Categories</a>
                             </div>
                         )}
                         {localStorage.getItem('isLoggedIn') && localStorage.getItem('isAuthorized') && (

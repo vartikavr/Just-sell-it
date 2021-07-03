@@ -28,13 +28,13 @@ const GetUserProfile = () => {
             })
             .catch((e) => {
                 if (e.response.data.isLoggedIn == false) {
-                    history.push(`${process.env.REACT_APP_URI}/login`)
+                    history.push('/login')
                 }
                 if (e.response.data.isAdmin == false) {
-                    history.push(`${process.env.REACT_APP_URI}/categories`)
+                    history.push('/categories')
                 }
                 if (e.response.data.isVerified == false) {
-                    history.push(`${process.env.REACT_APP_URI}/categories`)
+                    history.push('/categories')
                 }
                 console.log("error in client", e.response)
             })
@@ -53,7 +53,7 @@ const GetUserProfile = () => {
         }, axiosConfig)
             .then((res) => {
                 console.log('successfully deleted user!');
-                history.push(`${process.env.REACT_APP_URI}/admin/users`);
+                history.push('/admin/users');
             })
             .catch((e) => {
                 console.log("error in client", e)
@@ -68,7 +68,7 @@ const GetUserProfile = () => {
             <button className="btn btn-secondary col-md-6 rounded-0"
                 onClick={(e) => {
                     e.preventDefault();
-                    window.location.href = `${process.env.REACT_APP_URI}/admin/${id}/products`;
+                    window.location.href = `/admin/${id}/products`;
                 }}>
                 User's Products
             </button>
